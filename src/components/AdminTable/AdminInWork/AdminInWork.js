@@ -1,26 +1,20 @@
 // import { useState } from 'react';
 import {
-	Paper,
-	FormControl,
-	// InputLabel,
-	NativeSelect,
-	TableContainer,
-	TableHead,
 	Table,
 	TableBody,
+	TableContainer,
+	TableHead,
 	TableRow,
+	Paper,
+	Box,
+	FormControl,
+	NativeSelect,
+	Stack,
 	Button,
-} from '@material-ui/core';
+} from '@mui/material';
+import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
 
-import {
-	BootstrapInput,
-	StyledTableCell,
-	StyledTableRow,
-	useStyles,
-} from './AdminInWorkStyle.js';
 // import { useState } from 'react';
-
-// import AdminPagination from '../AdminPagination/AdminPagination';
 
 // const orders = [
 // 	{
@@ -95,13 +89,11 @@ import {
 // const admin = 'Стас';
 
 const AdminInWork = (props) => {
+	// // const [courier, setCourier] = useState('');
 	const classes = useStyles();
-	// const [courier, setCourier] = useState('');
-
 	// const handleChange = (event) => {
 	// 	setCourier(event.target.value);
 	// };
-
 	function createData(id, address, comment, deadline, courier) {
 		return { id, address, comment, deadline, courier };
 	}
@@ -141,28 +133,21 @@ const AdminInWork = (props) => {
 			'03/03/22',
 			'Вася Пупкин'
 		),
-		createData(
-			204,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			'03/03/22',
-			'Вася Пупкин'
-		),
 	];
 	return (
 		<>
 			<div className={classes.wrapper_flex}>
 				<h1>Стас{props.admin} Администратор</h1>
-
-				<Button className={classes.root} variant='contained'>
-					У ВАС СООБЩЕНИЕ
-				</Button>
+				<Stack spacing={2} direction='row'>
+					<Button className={classes.btn} variant='contained'>
+						У ВАС СООБЩЕНИЕ
+					</Button>
+				</Stack>
 			</div>
-
 			<h2>В обработке</h2>
 
 			<TableContainer component={Paper}>
-				<Table className={classes.table} aria-label='customized table'>
+				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
 						<TableRow>
 							<StyledTableCell>ID</StyledTableCell>
@@ -183,24 +168,30 @@ const AdminInWork = (props) => {
 								<StyledTableCell align='center'>{row.comment}</StyledTableCell>
 								<StyledTableCell align='center'>{row.deadline}</StyledTableCell>
 								<StyledTableCell align='center'>
-									<FormControl className={classes.margin}>
-										<NativeSelect
+									<Box sx={{ minWidth: 120 }}>
+										<FormControl fullWidth>
+											<NativeSelect
+											// defaultValue={0}
+											// inputProps={{
+											// 	name: '',
+											// 	id: '',
+											// }}
 											// value={courier}
 											// onChange={handleChange}
-											input={<BootstrapInput />}
-										>
-											<option value={0}>Не назначено</option>
-											<option value={10}>Лера Самолетова</option>
-											{/* <option value={10} id>Лера Самолетова{courier.fullName}</option>  */}
-											<option value={20}>Саша Быстроходов</option>
-											<option value={30}>Вася Пупкин</option>
-											<option value={40}>Олег Хромой</option>
-										</NativeSelect>
-									</FormControl>
+											// input={<BootstrapInput />}
+											>
+												<option value={10}>Не назначено</option>
+												<option value={20}>Лера Самолетова</option>
+												{/* <option value={10} id>Лера Самолетова{courier.fullName}</option>  */}
+												<option value={30}>Саша Быстроходов</option>
+												<option value={40}>Вася Пупкин</option>
+												<option value={50}>Олег Хромой</option>
+											</NativeSelect>
+										</FormControl>
+									</Box>
 								</StyledTableCell>
 							</StyledTableRow>
 						))}
-						{/* <AdminPagination /> */}
 					</TableBody>
 				</Table>
 			</TableContainer>

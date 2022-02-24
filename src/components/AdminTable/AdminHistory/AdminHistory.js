@@ -4,14 +4,16 @@ import {
 	TableContainer,
 	TableHead,
 	Paper,
-} from '@material-ui/core';
+} from '@mui/material';
+
 import {
 	StyledTableCell,
 	StyledTableRow,
-	useStyles,
-} from './AdminHistoryStyle';
+	// useStyles
+} from './AdminHistoryStyle.js';
 
 const AdminHistory = (props) => {
+	// const classes = useStyles();
 	function createData(
 		ID,
 		address,
@@ -68,14 +70,14 @@ const AdminHistory = (props) => {
 			'Вася Пупкин'
 		),
 	];
-	const classes = useStyles();
+	// const classes = useStyles();
 
 	return (
 		<>
 			<h2>История</h2>
 
 			<TableContainer component={Paper}>
-				<Table className={classes.table} aria-label='customized table'>
+				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
 						<StyledTableRow>
 							<StyledTableCell>ID</StyledTableCell>

@@ -1,25 +1,22 @@
-import { withStyles, makeStyles, TableCell, TableRow } from '@material-ui/core';
-export const StyledTableCell = withStyles((theme) => ({
-	head: {
+import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
+// import { makeStyles } from '@mui/styles';
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+	[`&.${tableCellClasses.head}`]: {
 		backgroundColor: '#E4E4E4',
 		color: theme.palette.common.black,
 		fontWeight: 'bold',
 	},
-	body: {
+	[`&.${tableCellClasses.body}`]: {
 		fontSize: 14,
 	},
-}))(TableCell);
+}));
 
-export const StyledTableRow = withStyles((theme) => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: theme.palette.action.hover,
-		},
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+	'&:nth-of-type(odd)': {
+		backgroundColor: theme.palette.action.hover,
 	},
-}))(TableRow);
-
-export const useStyles = makeStyles({
-	table: {
-		minWidth: 700,
+	// hide last border
+	'&:last-child td, &:last-child th': {
+		border: 0,
 	},
-});
+}));

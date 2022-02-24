@@ -1,80 +1,32 @@
-import {
-	withStyles,
-	makeStyles,
-	TableCell,
-	TableRow,
-	InputBase,
-} from '@material-ui/core';
+import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+	[`&.${tableCellClasses.head}`]: {
+		backgroundColor: '#E4E4E4',
+		color: theme.palette.common.black,
+		fontWeight: 'bold',
+	},
+	[`&.${tableCellClasses.body}`]: {
+		fontSize: 14,
+	},
+}));
 
-export const useStyles = makeStyles((theme) => ({
-	table: {
-		minWidth: 700,
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+	'&:nth-of-type(odd)': {
+		backgroundColor: theme.palette.action.hover,
 	},
-	margin: {
-		margin: theme.spacing(1),
+	// hide last border
+	'&:last-child td, &:last-child th': {
+		border: 0,
 	},
-	root: {
-		'& > *': {
-			margin: theme.spacing(1),
-		},
+}));
+
+export const useStyles = makeStyles({
+	btn: {
 		backgroundColor: '#4EAC04',
 	},
 	wrapper_flex: {
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
-}));
-
-export const StyledTableCell = withStyles((theme) => ({
-	head: {
-		backgroundColor: '#E4E4E4',
-		color: theme.palette.common.black,
-		fontWeight: 'bold',
-	},
-	body: {
-		fontSize: 14,
-	},
-}))(TableCell);
-
-export const StyledTableRow = withStyles((theme) => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(TableRow);
-
-export const BootstrapInput = withStyles((theme) => ({
-	root: {
-		'label + &': {
-			marginTop: theme.spacing(0.5),
-		},
-	},
-	input: {
-		borderRadius: 4,
-		position: 'relative',
-		backgroundColor: theme.palette.background.paper,
-		border: '1px solid #ced4da',
-		fontSize: 13,
-		width: 120,
-		padding: '10px 25px 10px 15px',
-		transition: theme.transitions.create(['border-color', 'box-shadow']),
-		fontFamily: [
-			'-apple-system',
-			'BlinkMacSystemFont',
-			'"Segoe UI"',
-			'Roboto',
-			'"Helvetica Neue"',
-			'Arial',
-			'sans-serif',
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(','),
-		'&:focus': {
-			borderRadius: 4,
-			borderColor: '#80bdff',
-			boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-		},
-	},
-}))(InputBase);
+});
