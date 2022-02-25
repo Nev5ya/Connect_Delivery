@@ -13,6 +13,8 @@ import {
 	Button,
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
+import {couriers, orders} from "../../../utils/data";
+import {getCouriersOnline} from "../../../utils/getData";
 
 // import { useState } from 'react';
 
@@ -94,46 +96,47 @@ const AdminInWork = (props) => {
 	// const handleChange = (event) => {
 	// 	setCourier(event.target.value);
 	// };
-	function createData(id, address, comment, deadline, courier) {
-		return { id, address, comment, deadline, courier };
+	function createData(id, name, coordinates, status, description) {
+		return { id, name, coordinates, status, description };
 	}
-	const rows = [
-		createData(
-			200,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			'03/03/22',
-			'Лера Самолетова'
-		),
-		createData(
-			201,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			' 03/03/22',
-			'Олег Хромой'
-		),
-		createData(
-			202,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			'03/03/22',
-			'Саша Быстроходов'
-		),
-		createData(
-			203,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			'03/03/22',
-			'Вася Пупкин'
-		),
-		createData(
-			204,
-			'119021, Москва, ул. Льва Толстого, 16',
-			'Пирожки для бабушки',
-			'03/03/22',
-			'Вася Пупкин'
-		),
-	];
+	// const rows = [
+	// 	createData(
+	// 		200,
+	// 		'119021, Москва, ул. Льва Толстого, 16',
+	// 		'Пирожки для бабушки',
+	// 		'03/03/22',
+	// 		'Лера Самолетова'
+	// 	),
+	// 	createData(
+	// 		201,
+	// 		'119021, Москва, ул. Льва Толстого, 16',
+	// 		'Пирожки для бабушки',
+	// 		' 03/03/22',
+	// 		'Олег Хромой'
+	// 	),
+	// 	createData(
+	// 		202,
+	// 		'119021, Москва, ул. Льва Толстого, 16',
+	// 		'Пирожки для бабушки',
+	// 		'03/03/22',
+	// 		'Саша Быстроходов'
+	// 	),
+	// 	createData(
+	// 		203,
+	// 		'119021, Москва, ул. Льва Толстого, 16',
+	// 		'Пирожки для бабушки',
+	// 		'03/03/22',
+	// 		'Вася Пупкин'
+	// 	),
+	// 	createData(
+	// 		204,
+	// 		'119021, Москва, ул. Льва Толстого, 16',
+	// 		'Пирожки для бабушки',
+	// 		'03/03/22',
+	// 		'Вася Пупкин'
+	// 	),
+	// ];
+
 	return (
 		<>
 			<div className={classes.wrapper_flex}>
@@ -152,21 +155,21 @@ const AdminInWork = (props) => {
 						<TableRow>
 							<StyledTableCell>ID</StyledTableCell>
 							<StyledTableCell align='center'>АДРЕС ДОСТАВКИ</StyledTableCell>
+							<StyledTableCell align='center'>НАИМЕНОВАНИЕ</StyledTableCell>
 							<StyledTableCell align='center'>КОММЕНТАРИЙ</StyledTableCell>
-							<StyledTableCell align='center'>ДЕДЛАЙН</StyledTableCell>
 							<StyledTableCell align='center'>КУРЬЕР</StyledTableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows.map((row) => (
+						{orders.map((row) => (
 							// {props.orders.map((row) => (
 							<StyledTableRow key={row.id}>
 								<StyledTableCell component='th' scope='row'>
 									{row.id}
 								</StyledTableCell>
 								<StyledTableCell align='center'>{row.address}</StyledTableCell>
-								<StyledTableCell align='center'>{row.comment}</StyledTableCell>
-								<StyledTableCell align='center'>{row.deadline}</StyledTableCell>
+								<StyledTableCell align='center'>{row.name}</StyledTableCell>
+								<StyledTableCell align='center'>{row.description}</StyledTableCell>
 								<StyledTableCell align='center'>
 									<Box sx={{ minWidth: 120 }}>
 										<FormControl fullWidth>
@@ -181,11 +184,14 @@ const AdminInWork = (props) => {
 											// input={<BootstrapInput />}
 											>
 												<option value={10}>Не назначено</option>
-												<option value={20}>Лера Самолетова</option>
+												{/*<option value={20}>Лера Самолетова</option>*/}
 												{/* <option value={10} id>Лера Самолетова{courier.fullName}</option>  */}
-												<option value={30}>Саша Быстроходов</option>
-												<option value={40}>Вася Пупкин</option>
-												<option value={50}>Олег Хромой</option>
+												{/*<option value={30}>Саша Быстроходов</option>*/}
+												{/*<option value={40}>Вася Пупкин</option>*/}
+												{/*<option value={50}>Олег Хромой</option>*/}
+												{ getCouriersOnline.map(item => (
+													<option value={item.id}>{item.name}</option>
+												)) }
 											</NativeSelect>
 										</FormControl>
 									</Box>

@@ -17,6 +17,7 @@ import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import {ColumnHeaderItem} from "@material-ui/data-grid";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import {Button} from "@mui/material";
 
 
 export const CourierMenu = () => {
@@ -29,13 +30,10 @@ export const CourierMenu = () => {
 
 
     return (
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-            <TabList  aria-label="lab API tabs example">
-                <Tab label="Карта" value="1"  />
-                <Tab label="Чат" value="2"  />
-                <Tab label="Управление курьерами" value="3"  />
-                <Tab label="Регистрация" value="4"  />
-            </TabList>
+        <Box sx={{ width: 400, typography: 'body1' }}>
+            <Button >
+                Карта
+            </Button>
         </Box>
     );
 

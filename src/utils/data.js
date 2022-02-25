@@ -35,7 +35,7 @@ export const orders = [
         id: 1,
         name: 'Пицца',
         address: 'Москва, Мясницкая, 22',
-        status: 'expects',
+        status: 'in transit',
         description: 'Предварительно позвонить',
         deliveryDatetime: '',
         courierID: 30
@@ -45,9 +45,19 @@ export const orders = [
         id: 2,
         name: 'Канц товары',
         address: 'Москва, Варварка, 8',
+        status: 'delivered',
+        description: 'Доставить ко времени',
+        deliveryDatetime: '',
+        courierID: 20
+    },
+    {
+        typeLabel: 'order',
+        id: 3,
+        name: 'Канц товары',
+        address: 'Москва, Варварка, 8',
         status: 'expects',
         description: 'Доставить ко времени',
         deliveryDatetime: '',
-        courierID: null
+        courierID: ''
     }
 ]

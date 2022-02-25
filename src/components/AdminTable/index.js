@@ -15,10 +15,13 @@ import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import {ColumnHeaderItem} from "@material-ui/data-grid";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import {Box} from "@mui/material";
+import AdminInWork from "./AdminInWork/AdminInWork";
+import AdminHistory from "./AdminHistory/AdminHistory";
 
 
 export const AdminTable = () => {
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('0');
 
   const handleChange = (event, newValue) => {
     console.log('handleChange', newValue)
@@ -31,12 +34,18 @@ export const AdminTable = () => {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Главная" value="0"  />
               <Tab label="Карта" value="1"  />
               <Tab label="Чат" value="2"  />
               <Tab label="Управление курьерами" value="3"  />
               <Tab label="Регистрация" value="4"  />
             </TabList>
           </Box>
+          <TabPanel value="0" >
+            <AdminInWork />
+            <hr />
+            <AdminHistory />
+          </TabPanel>
           <TabPanel value="1" >
             <MyMap name={"Местонахождение курьеров"} couriers={couriers} orders={orders}/>
           </TabPanel>
