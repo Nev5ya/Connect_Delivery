@@ -13,6 +13,7 @@ import { NotFound } from "../NotFound";
 import { ChiefAnalytics } from "../ChiefAnalytics/ChiefAnalytics"; 
 import {AdminTable} from "../AdminTable";
 import "./style.css";
+import CouriersPage from "../CouriersPage/couriersPage";
 
 const routes = [
   { path: "/", name: "Home", Component: Home },

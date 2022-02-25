@@ -17,8 +17,15 @@ export const couriers = [
         id: 30,
         name: 'Курьер3',
         coordinates: [55.9, 37.9],
-        status: 'busy',
+        status: 'work',
         description: 'Осуществляю доставку'
+    },
+    {
+        id: 40,
+        name: 'Курьер4',
+        coordinates: [55.4, 37.9],
+        status: 'offline',
+        description: 'offline'
     },
 
 ]

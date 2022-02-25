@@ -13,3 +13,16 @@ export const getOrderForCourier = (courierID) => {
         return item.courierID === courierID
     })
 }
+
+export const getCouriersOnline = couriers.filter((courier) => {
+    return courier.status === 'online'
+
+})
+export const getCouriersWork = couriers.filter((courier) => {
+    return courier.status === 'work'
+
+})
+export const getCouriersOffline = couriers.filter((courier) => {
+    return courier.status === 'offline'
+
+})
