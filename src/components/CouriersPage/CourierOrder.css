@@ -1,0 +1,14 @@
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.courier-status {
+    border-radius: 50%;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+}

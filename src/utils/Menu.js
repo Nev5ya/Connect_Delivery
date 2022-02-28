@@ -7,7 +7,7 @@ import {
 } from '@mui/icons-material';
 
 // Компонент принимает в себя другой компонент в качестве пропса и выводит его в меню.
-// Оберните свой компонент BOX из MUI с нужной шириной. 
+// Оберните свой компонент BOX из MUI с нужной шириной.
 
 export default function TemporaryDrawer({ menuContent }) {
   const MenuContent = menuContent;
