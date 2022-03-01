@@ -2,7 +2,7 @@
   display: grid;
   grid-gap: 5px;
   grid-template-columns: repeat(1, minmax(100px, 1fr));
-  grid-template-rows: (100px, 100 px, 100%);
+  grid-template-rows: 100px 100px 100%;
 }
 
 .checkIn > div > img {

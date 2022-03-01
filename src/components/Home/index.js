@@ -2,7 +2,7 @@ import { Redirect, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login, signUp } from "../../services/firebase";
 import { ref, set, onValue } from "firebase/database";
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 
 import { toggleLogReg } from "../../store/home/actions";
 import { db } from "../../services/firebase";
