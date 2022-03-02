@@ -12,7 +12,7 @@ import {couriers, orders} from "../../utils/data";
 import {getCouriersOffline, getCouriersOnline, getCouriersWork} from "../../utils/getData";
 import {CouriersList} from "../CouriersList/CouriersList";
 import Stack from "@mui/material/Stack";
-import Order from "../order/order";
+import CourierOrder from "../CourierOrder/CourierOrder";
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
