@@ -19,7 +19,7 @@ import {CourierMenu} from "./CourierMenu";
 
      const currentCourier = getCurrentCourier(courierID)
      const currentOrder = getOrderForCourier(courierID)
-     console.log('courier',courierID, getCurrentCourier(courierID), getOrderForCourier(courierID), currentCourier[0].name)
+     //console.log('courier',courierID, getCurrentCourier(courierID), getOrderForCourier(courierID), currentCourier[0].name)
 
 
      const Item = styled(Paper)(({ theme }) => ({
