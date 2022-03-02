@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Nav, NavDropdown } from "react-bootstrap";
+import { Breadcrumbs } from '@mui/material';
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { signOut, auth } from "../../services/firebase";
@@ -12,7 +12,6 @@ import { Profile } from "../Profile";
 import { NotFound } from "../NotFound";
 import { ChiefAnalytics } from "../ChiefAnalytics/ChiefAnalytics"; 
 import {AdminTable} from "../AdminTable";
-import "./style.css";
 import CouriersPage from "../CouriersPage/couriersPage";
 
 const routes = [
@@ -25,7 +24,6 @@ const routes = [
 
 export const Routing = () => {
   const [authed, setAuthed] = useState(false);
-  const [dropDownOpen, setdropDownOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,11 +47,11 @@ export const Routing = () => {
   return (
     <BrowserRouter>
       <>
-        <Container className="container">
-          <NavDropdown title="Menu" id="nav-dropdown" open={dropDownOpen} onClick={() => {setdropDownOpen(true)}}>
+
+        <Breadcrumbs aria-label="breadcrumb">
 
                   {routes.map((route) => (
-                    <Nav.Link
+                    <NavLink
                       eventKey={false}
                       key={route.path}
                       as={NavLink}
@@ -63,11 +61,10 @@ export const Routing = () => {
                       exact
                     >
                       {route.name}
-                    </Nav.Link>
+                    </NavLink>
                   ))}
 
-
-          </NavDropdown> 
+          </Breadcrumbs>
 
           <Switch>
           <PublicRoute path="/" exact authed={authed}>
@@ -80,12 +77,6 @@ export const Routing = () => {
                 onLogout={handleLogout}
               />
             </PrivateRoute>
-
-            <PrivateRoute
-              path="/DataTable/"
-              component={AdminTable}
-              authed={authed}
-            />
             <PrivateRoute
                 path="/CouriersPage/:id"
                 component={CouriersPage}
@@ -112,7 +103,7 @@ export const Routing = () => {
               <NotFound />
             </Route>
           </Switch>
-        </Container>
+
       </>
     </BrowserRouter>
   );

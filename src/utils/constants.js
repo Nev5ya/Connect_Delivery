@@ -1,6 +1,4 @@
 
-//export const PUBLIC_URL = "https://fakestoreapi.com/products";
-
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import BuildCircleOutlined from "@mui/icons-material/BuildCircleOutlined";
