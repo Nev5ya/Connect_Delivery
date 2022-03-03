@@ -10,7 +10,7 @@ import {couriers} from "../../utils/data";
 import {iconCourierStatus} from "../../utils/constants";
 
 export const CouriersList = ({name, couriers, status}) => {
-    // console.log('couriers', couriers)
+    console.log('CouriersList',name, couriers)
 
     return (
         <div sx={{mt: 2, mb: 8}}>
@@ -23,7 +23,7 @@ export const CouriersList = ({name, couriers, status}) => {
                         <ListItemIcon>
                             {iconCourierStatus(status)}
                         </ListItemIcon>
-                        {courier.name} ID:{courier.id}
+                        {courier.name} ID:{courier.user_id}
                     </ListItem>)}
             </List>
 
