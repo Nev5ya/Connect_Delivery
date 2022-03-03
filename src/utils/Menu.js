@@ -1,15 +1,12 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
-import { IconButton, Drawer } from '@mui/material';
-import {
-  Menu as MenuIcon,
-  ArrowBack as ArrowBackIcon,
-} from '@mui/icons-material';
+import {Drawer, IconButton} from '@mui/material';
+import {ArrowBack as ArrowBackIcon, Menu as MenuIcon,} from '@mui/icons-material';
 
 // Компонент принимает в себя другой компонент в качестве пропса и выводит его в меню.
 // Оберните свой компонент BOX из MUI с нужной шириной.
 
-export default function TemporaryDrawer({ menuContent }) {
+export default function TemporaryDrawer({menuContent, onClick}) {
   const MenuContent = menuContent;
 
   const [state, setState] = useState(false);
@@ -26,10 +23,10 @@ export default function TemporaryDrawer({ menuContent }) {
   return (
     <>
       <IconButton onClick={toggleDrawer()}>
-        {state ? <ArrowBackIcon /> : <MenuIcon />}
+        {state ? <ArrowBackIcon/> : <MenuIcon/>}
       </IconButton>
-      <Drawer open={state} onClose={toggleDrawer()}>
-        <MenuContent />
+      <Drawer open={state} onClose={toggleDrawer}>
+        <MenuContent onClick={onClick}/>
       </Drawer>
     </>
   );

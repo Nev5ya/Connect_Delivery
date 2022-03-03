@@ -1,7 +1,6 @@
 
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
-import BuildCircleOutlined from "@mui/icons-material/BuildCircleOutlined";
+//export const PUBLIC_URL = "https://fakestoreapi.com/products";
+import Brightness1Icon from '@mui/icons-material/Brightness1';
 
 export const REQUEST_STATUS = {
   IDLE: 0,
@@ -27,12 +26,12 @@ export const colorLabel = (typeLabel, status) => {
 
 export const iconCourierStatus = (status) => {
   if (status === 'online') {
-    return <CheckCircleOutlineIcon/>
+    return <Brightness1Icon sx={{color: "green"}}/>
   }
   if (status === 'offline') {
-    return <DoDisturbOnIcon/>
+    return <Brightness1Icon sx={{color: "white"}}/>
   }
   if (status === 'work') {
-    return <BuildCircleOutlined/>
+    return <Brightness1Icon sx={{color: "red"}}/>
   }
 }
