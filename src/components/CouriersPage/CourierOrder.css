@@ -12,3 +12,7 @@
     vertical-align: middle;
     margin-left: 30px;
 }
+
+.grid-fix {
+   padding: 16px 0 0 16px;
+}

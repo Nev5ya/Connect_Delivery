@@ -1,6 +1,5 @@
-import { Typography, Paper } from '@material-ui/core'
 import { Box } from '@mui/system'
-import {Grid, Link, Menu} from '@mui/material'
+import { Typography, Paper, Grid, Link, Menu } from '@mui/material'
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 
