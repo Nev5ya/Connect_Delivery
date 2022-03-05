@@ -1,4 +1,4 @@
-import { Redirect, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login, signUp } from "../../services/firebase";
 import { ref, set, onValue } from "firebase/database";
@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { toggleLogReg } from "../../store/home/actions";
 import { db } from "../../services/firebase";
 import "./style.css";
+import {Redirect} from "react-router-dom";
 
 const onLogin = async (email, pass) => {
   try {

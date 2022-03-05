@@ -15,11 +15,11 @@ import {AdminTable} from "../AdminTable";
 import CouriersPage from "../CouriersPage/couriersPage";
 
 const routes = [
-    {path: "/", name: "Home", Component: Home},
-    {path: "/Profile", name: "Profile", Component: Profile},
-    {path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics},
-    {path: "/Admin/", name: "Admin", Component: AdminTable},
-    {path: "/CouriersPage/30", name: "CouriersPage", Component: CouriersPage},
+  { path: "/", name: "Home", Component: Home },
+  { path: "/Profile", name: "Profile", Component: Profile },
+  { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
+  { path: "/Admin/", name: "Admin", Component: AdminTable },
+  { path: "/CouriersPage/3", name: "CouriersPage", Component: CouriersPage },
 ];
 
 export const Routing = () => {
@@ -79,7 +79,7 @@ export const Routing = () => {
                     <PrivateRoute
                         path="/CouriersPage/:id"
                         component={CouriersPage}
-                        authed={true}
+                        authed={authed}
                     />
                     {routes.map(({path, Component}) => (
                         <Route key={path} exact path={path}>

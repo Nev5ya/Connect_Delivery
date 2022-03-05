@@ -5,6 +5,8 @@ import storage from "redux-persist/lib/storage";
 
 import { profileReducer } from "./profile/reducer";
 import { homeReducer } from "./home/reducer";
+import {ordersReducer} from "./orders/reducer";
+import {couriersReducer} from "./couriers/reducer";
 
 const persistConfig = {
   key: "Alex_P_01.2022",
@@ -14,6 +16,8 @@ const persistConfig = {
 export const rootReducer = combineReducers({
   profile: profileReducer,
   home: homeReducer,
+  orders: ordersReducer,
+  couriers: couriersReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
