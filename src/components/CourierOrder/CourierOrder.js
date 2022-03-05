@@ -1,7 +1,4 @@
-import Typography from '@mui/material/Typography';
-import MyMap from "../Map/map";
 import {Grid} from "@mui/material";
-import Paper from "@mui/material/Paper";
 import * as React from "react";
 
 export const CourierOrder = ({order}) => {

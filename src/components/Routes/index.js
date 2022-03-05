@@ -12,7 +12,7 @@ import {Profile} from "../Profile";
 import {NotFound} from "../NotFound";
 import {ChiefAnalytics} from "../ChiefAnalytics/ChiefAnalytics";
 import {AdminTable} from "../AdminTable";
-import CouriersPage from "../CouriersPage/couriersPage";
+import CouriersPage from "../CouriersPage/CouriersPage";
 
 const routes = [
   { path: "/", name: "Home", Component: Home },

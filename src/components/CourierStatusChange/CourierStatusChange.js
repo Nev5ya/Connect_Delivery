@@ -15,7 +15,7 @@ export const CourierStatusChange = () => {
     return (
         <div>
             <Typography>Изменить статус на:
-                <ToggleButton style={{borderColor: 'none'}} onClick={toggleStatus}>{status}</ToggleButton>
+                <ToggleButton value={status} style={{borderColor: 'none'}} onClick={toggleStatus}>{status}</ToggleButton>
             </Typography>
 
         </div>
