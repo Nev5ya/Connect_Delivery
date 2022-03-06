@@ -9,7 +9,7 @@ export const addCouriersFromDB = (payload) => ({
 
 export const fetchCouriers = () => {
   return function (dispatch) {
-    fetch('http://host1841489.hostland.pro/api/admin/user')
+    fetch('https://xn--l1aej.pw/api/admin/user')
         .then(response => {
             console.log('json1', response)
             return response.json()
