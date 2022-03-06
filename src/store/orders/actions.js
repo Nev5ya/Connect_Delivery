@@ -8,7 +8,7 @@ export const addOrdersFromDB = (payload) => ({
 
 export const fetchOrders = () => {
   return function (dispatch) {
-    fetch('http://host1841489.hostland.pro/api/admin/orders')
+    fetch('https://xn--l1aej.pw/api/admin/orders')
         .then(response => {
             console.log('json1', response)
             return response.json()
