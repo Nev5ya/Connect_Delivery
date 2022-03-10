@@ -3,13 +3,11 @@ import {useState, useRef} from "react";
 import {colorLabel} from "../../utils/constants";
 
 function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px', sizeHeight = '800px'}) {
-    console.log('map', couriers, orders)
+    //console.log('map', couriers, orders)
     const map = useRef(null);
 
-
-
     const mapData = (coord = [55.752485, 37.627795]) => {
-        console.log('mapData')
+        //console.log('mapData')
         return {
             center: coord,
             zoom: zoom
@@ -28,7 +26,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                 return [...prev, label];
             })
         })
-    }
+    };
 
     const showOrders = (ymaps) => {
         orders.forEach(label => {
@@ -40,15 +38,10 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                             return [...prev, label];
                         })
                     })
-
-
         })
-    }
+    };
 
     const addRoute = (ymaps) => {
-        // const pointA = [55.749, 37.524]; // Москва
-        // const pointB = [59.918072, 30.304908]; // Санкт-Петербург
-
         const multiRoute = new ymaps.multiRouter.MultiRoute(
             {
                 referencePoints: [couriers[0].coordinates, orders[0].address],
@@ -67,7 +60,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
     const showLabels = (ymaps) => {
         showCouriers();
         showOrders(ymaps);
-        if (couriers.length === 1 && orders.length === 1) addRoute(ymaps)
+        if (couriers.length === 1 && orders.length === 1) addRoute(ymaps);
     }
 
     return (

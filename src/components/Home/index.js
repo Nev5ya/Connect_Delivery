@@ -6,7 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 
 import { toggleLogReg } from "../../store/home/actions";
 import { db } from "../../services/firebase";
-import "./style.css";
+// import "./style.css";
 import {Redirect} from "react-router-dom";
 
 const onLogin = async (email, pass) => {

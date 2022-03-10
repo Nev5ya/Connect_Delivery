@@ -7,22 +7,8 @@ import {
 } from '@mui/material';
 
 import {StyledTableCell, StyledTableRow} from './AdminHistoryStyle.js';
-import {getCurrentCourier} from "../../../utils/getData";
 import {useSelector} from "react-redux";
 import {selectOrders} from "../../../store/orders/selector";
-
-const getCurrentCourierName = (courierID) => {
-	console.log('courierID11', courierID)
-	if (courierID === 'undefined' || courierID === '') {
-		console.log('courierID', courierID)
-		return ''
-	} if (getCurrentCourier(courierID).length === 0) {
-		return "";
-	}
-	else {
-		return getCurrentCourier(courierID)[0].name
-	}
-}
 
 const AdminHistory = () => {
 	const orders = useSelector(selectOrders);
@@ -30,7 +16,6 @@ const AdminHistory = () => {
 	return (
 		<>
 			<h2>История</h2>
-
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
@@ -46,7 +31,7 @@ const AdminHistory = () => {
 					</TableHead>
 					<TableBody>
 						{orders.map((row) => (
-							<StyledTableRow key={Math.random()}>
+							<StyledTableRow key={row.id}>
 								<StyledTableCell component='th' scope='row'>
 									{row.id}
 								</StyledTableCell>

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Button from '@mui/material/Button';
 import { ref, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
-import "./style.css";
+// import "./style.css";
 
 
 export const Profile = ({ onLogout }) => {

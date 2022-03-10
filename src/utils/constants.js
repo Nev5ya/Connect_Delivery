@@ -1,5 +1,3 @@
-
-//export const PUBLIC_URL = "https://fakestoreapi.com/products";
 import Brightness1Icon from '@mui/icons-material/Brightness1';
 
 export const REQUEST_STATUS = {
@@ -10,7 +8,7 @@ export const REQUEST_STATUS = {
 };
 
 export const colorLabel = (typeLabel, status) => {
-  console.log('colorLabel', typeLabel, status)
+  //console.log('colorLabel', typeLabel, status)
   if (typeLabel === 'courier' && status === 'online') {
     return 'green'
   }
@@ -36,7 +34,7 @@ export const iconCourierStatus = (status) => {
     return <Brightness1Icon sx={{color: "green"}}/>
   }
   if (status === 'offline') {
-    return <Brightness1Icon sx={{color: "white"}}/>
+    return <Brightness1Icon sx={{color: "grey"}}/>
   }
   if (status === 'work') {
     return <Brightness1Icon sx={{color: "red"}}/>

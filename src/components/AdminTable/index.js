@@ -11,11 +11,12 @@ import {selectOrders} from "../../store/orders/selector";
 import {fetchCouriers} from "../../store/couriers/actions";
 import {AdminMenu} from "../AdminMenu/AdminMenu";
 import {Chat} from "../Chat/Chat";
-import TemporaryDrawer from "../../utils/Menu";
 import {CouriersOperation} from "./CouriersOperation/CouriersOperation";
 import {CourierRegistration} from "./CourierRegistration/CourierRegistration";
+import Menu from "../../utils/Menu";
 
 export const AdminTable = () => {
+
   const [option, setOption] = useState('0');
 
   const onMenuItemClick = (option) => {
@@ -29,7 +30,7 @@ export const AdminTable = () => {
     dispatch(fetchCouriers());
   }, []);
 
-  console.log('token', document.cookie.split(';'))
+  //console.log('token', document.cookie.split(';'))
 
   const orders = useSelector(selectOrders)
    console.log('state', orders)
@@ -38,6 +39,7 @@ export const AdminTable = () => {
 
 
   const renderOptionalComponent = (option) => {
+    console.log('option', option)
     switch (option) {
       case '1':
         return <Chat/>;
@@ -60,7 +62,7 @@ export const AdminTable = () => {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
-      <TemporaryDrawer menuContent={AdminMenu} onClick={onMenuItemClick} />
+      <Menu menuItem={AdminMenu(onMenuItemClick)}/>
         {renderOptionalComponent(option)}
     </Box>
   );

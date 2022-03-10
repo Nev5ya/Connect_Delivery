@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import {
 	Table,
 	TableBody,
@@ -13,7 +12,7 @@ import {
 	Button,
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
-import {getCouriersByStatus, getCouriersOnline} from "../../../utils/getData";
+import {getCouriersByStatus} from "../../../utils/getData";
 import {useDispatch, useSelector} from "react-redux";
 import {selectOrders} from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
@@ -24,11 +23,10 @@ const AdminInWork = () => {
 	const orders = useSelector(selectOrders);
 
 	const  couriersOnline =  getCouriersByStatus('online');
-	console.log('adminWork', couriersOnline)
+	//console.log('adminWork', couriersOnline)
 
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
-		console.log('onChangeCourier', event.target.value, order_id)
 		dispatch(changeOrder(order_id, event.target.value))
 	};
 
@@ -43,7 +41,6 @@ const AdminInWork = () => {
 				</Stack>
 			</div>
 			<h2>В обработке</h2>
-
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
