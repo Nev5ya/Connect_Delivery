@@ -5,17 +5,18 @@ import {Box} from "@mui/material";
 import AdminInWork from "./AdminInWork/AdminInWork";
 import AdminHistory from "./AdminHistory/AdminHistory";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOrders} from "../../store/orders/actions";
+import {getOrders} from "../../store/orders/actions";
 import {selectCouriers} from "../../store/couriers/selector";
 import {selectOrders} from "../../store/orders/selector";
 import {fetchCouriers} from "../../store/couriers/actions";
 import {AdminMenu} from "../AdminMenu/AdminMenu";
 import {Chat} from "../Chat/Chat";
-import TemporaryDrawer from "../../utils/Menu";
 import {CouriersOperation} from "./CouriersOperation/CouriersOperation";
 import {CourierRegistration} from "./CourierRegistration/CourierRegistration";
+import Menu from "../../utils/Menu";
 
 export const AdminTable = () => {
+
   const [option, setOption] = useState('0');
 
   const onMenuItemClick = (option) => {
@@ -25,16 +26,20 @@ export const AdminTable = () => {
   const dispatch = useDispatch();
   useEffect((event) => {
     console.log('useEffect')
-    dispatch(fetchOrders());
+    dispatch(getOrders());
     dispatch(fetchCouriers());
   }, []);
 
+  //console.log('token', document.cookie.split(';'))
+
   const orders = useSelector(selectOrders)
-  // console.log('state', orders)
+   console.log('state', orders)
   const couriers = useSelector(selectCouriers)
-  // console.log('state couriers', couriers)
+   console.log('state couriers', couriers)
+
 
   const renderOptionalComponent = (option) => {
+    console.log('option', option)
     switch (option) {
       case '1':
         return <Chat/>;
@@ -57,7 +62,7 @@ export const AdminTable = () => {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
-      <TemporaryDrawer menuContent={AdminMenu} onClick={onMenuItemClick}/>
+      <Menu menuItem={AdminMenu(onMenuItemClick)}/>
         {renderOptionalComponent(option)}
     </Box>
   );

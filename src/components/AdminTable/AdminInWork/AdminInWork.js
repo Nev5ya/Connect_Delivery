@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import {
 	Table,
 	TableBody,
@@ -13,14 +12,23 @@ import {
 	Button,
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
-import {getCouriersOnline} from "../../../utils/getData";
-import {useSelector} from "react-redux";
+import {getCouriersByStatus} from "../../../utils/getData";
+import {useDispatch, useSelector} from "react-redux";
 import {selectOrders} from "../../../store/orders/selector";
+import {changeOrder} from "../../../store/orders/actions";
 
 const AdminInWork = () => {
 	const classes = useStyles();
 
 	const orders = useSelector(selectOrders);
+
+	const  couriersOnline =  getCouriersByStatus('online');
+	//console.log('adminWork', couriersOnline)
+
+	const dispatch = useDispatch();
+	const onChangeCourier = (order_id, event) => {
+		dispatch(changeOrder(order_id, event.target.value))
+	};
 
 	return (
 		<>
@@ -33,7 +41,6 @@ const AdminInWork = () => {
 				</Stack>
 			</div>
 			<h2>В обработке</h2>
-
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
@@ -47,7 +54,7 @@ const AdminInWork = () => {
 					</TableHead>
 					<TableBody>
 						{orders.map((row) => (
-							<StyledTableRow key={Math.random()}>
+							<StyledTableRow key={row.id}>
 								<StyledTableCell component='th' scope='row'>
 									{row.id}
 								</StyledTableCell>
@@ -57,10 +64,13 @@ const AdminInWork = () => {
 								<StyledTableCell align='center'>
 									<Box sx={{ minWidth: 120 }}>
 										<FormControl fullWidth>
-											<NativeSelect>
-												<option value={10}>Не назначено</option>
-												{ getCouriersOnline().map(item => (
-													<option value={item.id}>{item.name}</option>
+											<NativeSelect onChange={(event) => onChangeCourier(row.id, event)}>
+												<option value={-1}>Не назначено</option>
+												{ couriersOnline.map(item => (
+													<option
+														key={item.id}
+														value={item.id}
+													>{item.name}</option>
 												)) }
 											</NativeSelect>
 										</FormControl>
