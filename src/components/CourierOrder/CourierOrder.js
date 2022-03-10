@@ -19,7 +19,7 @@ export const CourierOrder = ({order}) => {
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={4} sx={{textAlign: 'right'}}>Комментарий:</Grid>
-                    <Grid item xs={8} sx={{textAlign: 'left'}}>{order.description}</Grid>
+                    <Grid item xs={8} sx={{textAlign: 'left'}}>{order.comment}</Grid>
                 </Grid>
             </Grid>
         </>

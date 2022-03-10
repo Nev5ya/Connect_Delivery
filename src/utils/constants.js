@@ -11,13 +11,13 @@ export const REQUEST_STATUS = {
 
 export const colorLabel = (typeLabel, status) => {
   console.log('colorLabel', typeLabel, status)
-  if (typeLabel === 'courier' && status === 0) {
+  if (typeLabel === 'courier' && status === 'online') {
     return 'green'
   }
-  if (typeLabel === 'courier' && status === 2) {
+  if (typeLabel === 'courier' && status === 'offline') {
     return 'grey'
   }
-  if (typeLabel === 'courier' && status === 1) {
+  if (typeLabel === 'courier' && status === 'work') {
     return 'red'
   }
   if (typeLabel === 'order' && status === 'processing') {

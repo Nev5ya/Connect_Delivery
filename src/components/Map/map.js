@@ -2,7 +2,7 @@ import { YMaps, Placemark, Map } from 'react-yandex-maps';
 import {useState, useRef} from "react";
 import {colorLabel} from "../../utils/constants";
 
-function MyMap({name, couriers, orders, zoom = 9, sizeWidth= '800px', sizeHeight = '800px'}) {
+function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px', sizeHeight = '800px'}) {
     console.log('map', couriers, orders)
     const map = useRef(null);
 
@@ -21,8 +21,10 @@ function MyMap({name, couriers, orders, zoom = 9, sizeWidth= '800px', sizeHeight
     const showCouriers = () => {
         couriers.forEach(label => {
             setCoordinates((prev) => {
-                label.typeLabel = 'courier';
+                label.typeLabel = label.role_title;
                 label.address = '';
+                label.status = label.user_status;
+                label.coordinates = label.coords.split(',')
                 return [...prev, label];
             })
         })
@@ -44,8 +46,8 @@ function MyMap({name, couriers, orders, zoom = 9, sizeWidth= '800px', sizeHeight
     }
 
     const addRoute = (ymaps) => {
-        const pointA = [55.749, 37.524]; // Москва
-        const pointB = [59.918072, 30.304908]; // Санкт-Петербург
+        // const pointA = [55.749, 37.524]; // Москва
+        // const pointB = [59.918072, 30.304908]; // Санкт-Петербург
 
         const multiRoute = new ymaps.multiRouter.MultiRoute(
             {
@@ -83,9 +85,11 @@ function MyMap({name, couriers, orders, zoom = 9, sizeWidth= '800px', sizeHeight
                     width={sizeWidth}
                     height={sizeHeight}
                     onLoad={showLabels}
+                    onClick={clickOnMap}
                 >
                     {
                         coordinates.map(label => {
+                            console.log('coordinates', coordinates)
                            return  <Placemark
                                 key={Math.random()}
                                 geometry={label.coordinates}

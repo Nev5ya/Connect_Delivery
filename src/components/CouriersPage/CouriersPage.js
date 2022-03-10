@@ -36,6 +36,7 @@ const CouriersPage = () => {
  }));
 
  const clickOnMap1 = () => {
+     console.log('clickOnMapToggle', clickOnMapToggle)
      setClickOnMapToggle(!clickOnMapToggle);
  }
 
@@ -75,7 +76,7 @@ const CouriersPage = () => {
                              <Grid item xs={6}>
                                  <div style={{marginLeft: 16}}>
                                      <MyMap name={''} orders={currentOrder} couriers={currentCourier} sizeWidth={'100%'}
-                                            sizeHeight={'250px'}/>
+                                            sizeHeight={'250px'} clickOnMap={clickOnMap1}/>
                                  </div>
                              </Grid>
                          </Grid>

@@ -48,13 +48,13 @@ const AdminHistory = () => {
 						{orders.map((row) => (
 							<StyledTableRow key={Math.random()}>
 								<StyledTableCell component='th' scope='row'>
-									{row.ID}
+									{row.id}
 								</StyledTableCell>
 								<StyledTableCell align='center'>{row.address}</StyledTableCell>
 								<StyledTableCell align='center'>{row.comment}</StyledTableCell>
 								<StyledTableCell align='center'>{row.status}</StyledTableCell>
 								<StyledTableCell align='center'>{row.name}</StyledTableCell>
-								<StyledTableCell align='center'>{getCurrentCourierName(row.user_id)}</StyledTableCell>
+								<StyledTableCell align='center'>{row.courier_name}</StyledTableCell>
 								<StyledTableCell align='center'>{'1'}</StyledTableCell>
 							</StyledTableRow>
 						))}
