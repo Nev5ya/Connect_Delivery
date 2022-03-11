@@ -28,29 +28,32 @@ export const getOrders = () => {
 }
 
 export const changeOrder = (order_id, user_id) => {
+    console.log('changeOrder')
     const newData = {
         id: order_id,
-        user_id: user_id,
-        _method: 'PUT'
-    };
-    return function (dispatch) {
-        //console.log('X-CSRF-TOKEN', document.head.querySelector('meta[name="csrf-token"]'))
-        fetch(`https://xn--l1aej.pw/api/admin/orders/${order_id}`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                //'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(newData)
-        })
-            .then(response => {
-                console.log('json1 changeOrderInDB', response)
-                return response.json()
+        user_id: user_id//null,
 
+    };
+    console.log('changeOrder newData', newData)
+    return function (dispatch) {
+            fetch(`https://xn--l1aej.pw/api/admin/orders/${order_id}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    mode:'cors'
+                },
+                body: JSON.stringify(newData)
             })
-            .then(json => {
-                console.log('json changeOrderInDB', json)
-                return dispatch(changeOrderInDB(json.data))})
-            .catch(err => console.log('err', err))
+                .then(response => {
+                    console.log('json1 changeOrderInDB', response)
+                    return response.json()
+
+                })
+                .then(json => {
+                    console.log('json changeOrderInDB', json)
+                    return dispatch(changeOrderInDB(json.updatedOrder))})
+                .catch(err => console.log('err', err))
+
+
     }
 }
