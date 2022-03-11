@@ -33,7 +33,7 @@ export const AdminTable = () => {
   //console.log('token', document.cookie.split(';'))
 
   const orders = useSelector(selectOrders)
-   console.log('state', orders)
+   console.log('state orders', orders)
   const couriers = useSelector(selectCouriers)
    console.log('state couriers', couriers)
 
@@ -63,7 +63,7 @@ export const AdminTable = () => {
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
       <Menu menuItem={AdminMenu(onMenuItemClick)}/>
-        {renderOptionalComponent(option)}
+      {renderOptionalComponent(option)}
     </Box>
   );
 

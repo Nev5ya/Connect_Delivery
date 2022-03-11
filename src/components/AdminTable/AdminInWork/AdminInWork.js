@@ -14,16 +14,21 @@ import {
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
 import {getCouriersByStatus} from "../../../utils/getData";
 import {useDispatch, useSelector} from "react-redux";
-import {selectOrders} from "../../../store/orders/selector";
+import {selectOrders, selectOrdersWithOutUserId} from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
 
 const AdminInWork = () => {
 	const classes = useStyles();
 
-	const orders = useSelector(selectOrders);
+	const orders = useSelector(selectOrdersWithOutUserId); // список заказов с неназначенными курьерами
+	//const orders = useSelector(selectOrders) // список всех заказов
+	console.log('AdminInWork', orders)
 
 	const  couriersOnline =  getCouriersByStatus('online');
-	//console.log('adminWork', couriersOnline)
+	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: null}]
+
+
+	console.log('adminWork', couriersOnline, orders, couriersOnlineAndNull)
 
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
@@ -66,7 +71,7 @@ const AdminInWork = () => {
 										<FormControl fullWidth>
 											<NativeSelect onChange={(event) => onChangeCourier(row.id, event)}>
 												<option value={-1}>Не назначено</option>
-												{ couriersOnline.map(item => (
+												{ couriersOnlineAndNull.map(item => (
 													<option
 														key={item.id}
 														value={item.id}

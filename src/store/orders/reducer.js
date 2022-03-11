@@ -12,8 +12,15 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
       return new_st
 
     case CHANGE_ORDERS_IN_DB:
-      console.log('reducer', state, payload)
-      const new_st1 = {...state, orders: payload} //{...state, orders: [...state.orders, ...payload]}
+      console.log('reducer CHANGE', state, payload)
+        if (payload === 'undefined' || payload.length === 0 ) {
+          console.log('error CHANGE_ORDERS_IN_DB');
+          return state
+        }
+        const filter = state.orders.filter((item) => {
+          return item.id !== payload.id
+        })
+      const new_st1 = {...state, orders: [...filter, payload]} //{...state, orders: [...state.orders, ...payload]}
       console.log('new_st', new_st1, state)
       return new_st1
     default:
