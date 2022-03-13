@@ -5,7 +5,7 @@ import {CSSTransition} from "react-transition-group";
 import {signOut, auth} from "../../services/firebase";
 import {onAuthStateChanged} from "firebase/auth";
 
-import {PrivateRoute} from "../PrivateRoute";
+import {PrivateRoute, PrivateRouteAdmin, PrivateRouteChief, PrivateRouteCourier} from "../PrivateRoute";
 import {PublicRoute} from "../PublicRoute";
 import {Home} from "../Home";
 import {Profile} from "../Profile";
@@ -24,10 +24,14 @@ const routes = [
 
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
+    let role;
+    //const [role, setRole] = useState('');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
+                localStorage.setItem('role', user.email);
+                //setRole(user.email);
                 setAuthed(true);
             } else {
                 setAuthed(false);
@@ -44,6 +48,7 @@ export const Routing = () => {
             console.log(e);
         }
     };
+
     return (
         <BrowserRouter>
             <Container fixed>
@@ -76,7 +81,16 @@ export const Routing = () => {
                             onLogout={handleLogout}
                         />
                     </PrivateRoute>
-                    <PrivateRoute
+
+                    <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
+                        <ChiefAnalytics authed={authed}/>
+                    </PrivateRouteChief>
+
+                    <PrivateRouteAdmin path="/Admin" exact authed={authed}>
+                        <AdminTable authed={authed}/>
+                    </PrivateRouteAdmin>
+
+                    <PrivateRouteCourier
                         path="/CouriersPage/:id"
                         component={CouriersPage}
                         authed={authed}

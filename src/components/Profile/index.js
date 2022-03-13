@@ -57,9 +57,9 @@ export const Profile = ({ onLogout }) => {
       </main>
       <footer className="footer">
         <ul>
-            <li><a href="#"><i className="fab fa-facebook-f icon"></i></a></li>
-            <li><a href="#"><i className="fab fa-twitter icon"></i></a></li>
-            <li><a href="#"><i className="fab fa-linkedin-in icon"></i></a></li>
+            <li><a href="#"><i className="fab fa-telegram icon"></i></a></li>
+            <li><a href="#"><i className="fab fa-vk icon"></i></a></li>
+            <li><a href="#"><i className="fa fa-signal icon"></i></a></li>
             <li><a href="#"><i className="fab fa-google-plus-g icon"></i></a></li>
         </ul>
       </footer>
