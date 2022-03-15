@@ -82,19 +82,9 @@ export const Routing = () => {
                         />
                     </PrivateRoute>
 
-                    <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
-                        <ChiefAnalytics authed={authed}/>
-                    </PrivateRouteChief>
 
-                    <PrivateRouteAdmin path="/Admin" exact authed={authed}>
-                        <AdminTable authed={authed}/>
-                    </PrivateRouteAdmin>
 
-                    <PrivateRouteCourier
-                        path="/CouriersPage/:id"
-                        component={CouriersPage}
-                        authed={authed}
-                    />
+
                     {routes.map(({path, Component}) => (
                         <Route key={path} exact path={path}>
                             {({match}) => (
@@ -121,3 +111,18 @@ export const Routing = () => {
         </BrowserRouter>
     );
 };
+
+/*                     <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
+                        <ChiefAnalytics authed={authed}/>
+                    </PrivateRouteChief>
+
+                    <PrivateRouteAdmin path="/Admin" exact authed={authed}>
+                        <AdminTable authed={authed}/>
+                    </PrivateRouteAdmin>
+
+                    <PrivateRouteCourier
+                        path="/CouriersPage/:id"
+                        component={CouriersPage}
+                        authed={authed}
+                    />
+                    /*
