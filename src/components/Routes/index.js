@@ -82,6 +82,12 @@ export const Routing = () => {
                         />
                     </PrivateRoute>
 
+                    <PrivateRoute
+                        path="/CouriersPage/:id"
+                        component={CouriersPage}
+                        authed={authed}
+                    />
+
 
 
 
@@ -120,9 +126,5 @@ export const Routing = () => {
                         <AdminTable authed={authed}/>
                     </PrivateRouteAdmin>
 
-                    <PrivateRouteCourier
-                        path="/CouriersPage/:id"
-                        component={CouriersPage}
-                        authed={authed}
-                    />
+
                     */
