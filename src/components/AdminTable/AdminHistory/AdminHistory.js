@@ -8,7 +8,7 @@ import {
 
 import {StyledTableCell, StyledTableRow} from './AdminHistoryStyle.js';
 import {useSelector} from "react-redux";
-import {selectOrders, selectOrdersWithUserId} from "../../../store/orders/selector";
+import {selectOrdersWithUserId} from "../../../store/orders/selector";
 
 const AdminHistory = () => {
 	const orders = useSelector(selectOrdersWithUserId);

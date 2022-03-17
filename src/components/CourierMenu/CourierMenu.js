@@ -9,4 +9,9 @@ export const CourierMenu = (onMenuItemClick) => [
     option: '1',
     func: () => onMenuItemClick('1')
   },
+  {
+    name: 'История доставок',
+    option: '2',
+    func: () => onMenuItemClick('2')
+  },
 ]

@@ -12,10 +12,11 @@ import {
 	Button,
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
-import {getCouriersByStatus} from "../../../utils/getData";
 import {useDispatch, useSelector} from "react-redux";
-import {selectOrders, selectOrdersWithOutUserId} from "../../../store/orders/selector";
+import {selectOrdersWithOutUserId} from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
+import {selectCouriersByStatus} from "../../../store/couriers/selector";
+import Typography from "@mui/material/Typography";
 
 const AdminInWork = () => {
 	const classes = useStyles();
@@ -24,28 +25,27 @@ const AdminInWork = () => {
 	//const orders = useSelector(selectOrders) // список всех заказов
 	console.log('AdminInWork', orders)
 
-	const  couriersOnline =  getCouriersByStatus('online');
+	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 'online'));
 	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: null}]
-
 
 	console.log('adminWork', couriersOnline, orders, couriersOnlineAndNull)
 
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
-		dispatch(changeOrder(order_id, event.target.value))
+		dispatch(changeOrder({id: order_id, user_id: event.target.value}))
 	};
 
 	return (
 		<>
-			<div className={classes.wrapper_flex}>
-				<h1>Стас Администратор</h1>
+			<Box className={classes.wrapper_flex}>
+				<Typography variant='h6' component='h2'>Стас Администратор</Typography>
 				<Stack spacing={2} direction='row'>
 					<Button className={classes.btn} variant='contained'>
 						У ВАС СООБЩЕНИЕ
 					</Button>
 				</Stack>
-			</div>
-			<h2>В обработке</h2>
+			</Box>
+			<Typography variant='h6' component='h2'>В обработке</Typography>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
