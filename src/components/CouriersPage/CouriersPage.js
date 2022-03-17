@@ -6,75 +6,85 @@ import {Grid} from "@mui/material";
 import {useParams} from "react-router-dom";
 import MyMap from "../Map/map";
 import CourierOrder from "../CourierOrder/CourierOrder";
-import {getCurrentCourier, getOrderForCourier} from "../../utils/getData";
-import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import {CourierStatusChange} from "../CourierStatusChange/CourierStatusChange";
 import {Box} from "@mui/material";
 import Menu from "../../utils/Menu";
 import {CourierMenu} from "../CourierMenu/CourierMenu";
+import {useSelector} from "react-redux";
+import {selectCurrentCourier} from "../../store/couriers/selector";
+import {
+    selectDeliveredOrdersForCourier,
+    selectTransitOrderForCourier
+} from "../../store/orders/selector";
+import CourierHistory from "../CourierHistory/CourierHistory";
+import {Chat} from "../Chat/Chat";
 
 
 const CouriersPage = () => {
     const courierID = +useParams().id;
-    const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
+    const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
+    const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
+    const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
+    console.log('courier', deliveredOrders)
+
+    /////отслеживаем клик по меню и выбор страницы для показа//
     const [option, setOption] = useState('0');
-
-    const currentCourier = getCurrentCourier(courierID);
-    const currentOrder = getOrderForCourier(courierID);
-    //console.log('courier', courierID, getCurrentCourier(courierID), getOrderForCourier(courierID), currentCourier[0]?.name)
-
-    const clickOnMap = () => {
-     console.log('clickOnMapToggle', clickOnMapToggle)
-     setClickOnMapToggle(!clickOnMapToggle);
-    };
-
     const onMenuItemClick = (option) => {
         setOption(option);
+        console.log('onMenuItemClick', option);
+    };
+
+    /////отслеживаем клик по карте для увеличения на всю страницу//
+    const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
+    const clickOnMap = () => {
+     console.log('clickOnMapToggle', clickOnMapToggle);
+     setClickOnMapToggle(!clickOnMapToggle);
     };
 
      return (
         <>
             <Menu menuItem={CourierMenu(onMenuItemClick)}/>
             {(option === '1')
-                ? <MyButtonContained  sx={{cursor: 'pointer'}} text={'Перейти в чат'}/>
+                ? <Chat/>
                 :(option === '0')
                      ? (clickOnMapToggle
                         ? <Box xs={{width: '100%'}}>
-                            <MyMap name={''} orders={currentOrder} couriers={currentCourier}  clickOnMap={clickOnMap}/>
+                            <MyMap name={''} orders={[currentOrder[0]]} couriers={currentCourier}  clickOnMap={clickOnMap}/>
                          </Box>
                         :
                          <>
                              <Stack sx={{mb: 5}} direction="column" spacing={2}>
-                                 <Typography sx={{mt: 2, mb: 8}} variant="h4" component="div" >
+                                 <Typography sx={{mt: 2, mb: 4}} variant="h4" component="div" >
                                     {currentCourier[0]?.name}
                                      <span className="courier-status"></span>
                                  </Typography>
                                  <CourierStatusChange />
                              </Stack>
-                             <Stack direction="row" spacing={2}>
+
+                              <Stack direction="row" spacing={2}>
                                  <Grid container>
-                                     <Grid item xs={6} sx={{border: 1, borderColor: 'grey.500', borderRadius: 2}}>
-                                         <Stack direction="column" justifyContent="space-between" style={{height: '100%'}}>
-                                             <CourierOrder order={currentOrder[0]}/>
-                                             <Stack sx={{p: 2}} direction="row" justifyContent="space-between">
-                                                 <MyButtonContained sx={{cursor: 'pointer'}} text={'Доставлено'}/>
-                                                 <MyButtonOutlined sx={{cursor: 'pointer'}} text={'Перейти в чат'}/>
-                                             </Stack>
-                                         </Stack>
-                                     </Grid>
+                                     <CourierOrder order={currentOrder[0]}/>
                                      <Grid item xs={6}>
-                                         <div style={{marginLeft: 16}}>
-                                             <MyMap name={''} orders={currentOrder} couriers={currentCourier} clickOnMap={clickOnMap} sizeWidth={'100%'}
+                                         <Box sx={{}}>
+                                             <MyMap name={''}
+                                                    orders={currentOrder}
+                                                    couriers={currentCourier}
+                                                    clickOnMap={clickOnMap}
+                                                    sizeWidth={'100%'}
                                                     sizeHeight={'250px'} />
-                                         </div>
+                                         </Box>
                                      </Grid>
                                  </Grid>
-                            </Stack>
+                              </Stack>
+
+                              <CourierHistory orders={deliveredOrders} onClick={() => setOption('2')}/>
                          </>)
-                    : <> </>
+                    :(option === '2')
+                        ? <CourierHistory orders={deliveredOrders}/>
+                        : <> </>
              }
         </>
-)
+    );
 };
 
 export default CouriersPage;

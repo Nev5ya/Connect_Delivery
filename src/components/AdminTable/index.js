@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getOrders} from "../../store/orders/actions";
 import {selectCouriers} from "../../store/couriers/selector";
 import {selectOrders} from "../../store/orders/selector";
-import {fetchCouriers} from "../../store/couriers/actions";
+import {getCouriers, registrCourier} from "../../store/couriers/actions";
 import {AdminMenu} from "../AdminMenu/AdminMenu";
 import {Chat} from "../Chat/Chat";
 import {CouriersOperation} from "./CouriersOperation/CouriersOperation";
@@ -27,7 +27,8 @@ export const AdminTable = () => {
   useEffect((event) => {
     console.log('useEffect')
     dispatch(getOrders());
-    dispatch(fetchCouriers());
+    dispatch(getCouriers());
+
   }, []);
 
   //console.log('token', document.cookie.split(';'))

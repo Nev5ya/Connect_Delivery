@@ -19,7 +19,7 @@ const routes = [
   { path: "/Profile", name: "Profile", Component: Profile },
   { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
   { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/3", name: "CouriersPage", Component: CouriersPage },
+  { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
 export const Routing = () => {

@@ -1,41 +1,63 @@
 import {CouriersList} from "../../CouriersList/CouriersList";
-import {getCouriersByStatus} from "../../../utils/getData";
 import MyMap from "../../Map/map";
 import Grid from "@mui/material/Grid";
-import {useSelector} from "react-redux";
-import {selectCouriers} from "../../../store/couriers/selector";
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCouriers, selectCouriersByStatus} from "../../../store/couriers/selector";
+import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
 import * as React from "react";
+import {MyButtonContained} from "../../Button/button";
+import {registrCourier} from "../../../store/couriers/actions";
 
 export const CouriersOperation = () => {
     const couriers = useSelector(selectCouriers);
     const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
 
     const clickOnMap = () => {
-        console.log('clickOnMapToggle', clickOnMapToggle)
+        console.log('clickOnMapToggle', clickOnMapToggle);
         setClickOnMapToggle(!clickOnMapToggle);
     };
+
+    const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 'online'));
+    const couriersWork = useSelector((state) => selectCouriersByStatus(state, 'work'));
+    const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 'offline'));
+
+    // const dispatch = useDispatch();
+    // const onRegistrClick = () => {
+    //     console.log('onRegistrClick');
+    //     dispatch(registrCourier());
+    // };
+
 
       return (
           <>
               {clickOnMapToggle
-              ? <Box xs={{width: '100%'}}>
-                    <MyMap name={''} orders={[]} couriers={couriers}  clickOnMap={clickOnMap}/>
-                </Box>
-              :
-              <Grid direction="row" container spacing={2}>
-                  <Grid item xs={6}>
-                      <CouriersList name={'Курьеры онлайн:'} couriers={getCouriersByStatus('online')} status='online'/>
-                      <CouriersList name={'Курьеры в процессе доставки:'} couriers={getCouriersByStatus('work')} status='work'/>
-                      <CouriersList name={'Курьеры оффлайн:'} couriers={getCouriersByStatus('offline')} status='offline'/>
+                  ? <Box xs={{width: '100%'}}>
+                        <MyMap name={''} orders={[]} couriers={couriers}  clickOnMap={clickOnMap}/>
+                    </Box>
+                  : <Grid direction="row" container spacing={2}>
+                      <Grid item xs={6}>
+                          <CouriersList name={'Курьеры онлайн:'} couriers={couriersOnline} status='online'/>
+                          <CouriersList name={'Курьеры в процессе доставки:'} couriers={couriersWork} status='work'/>
+                          <CouriersList name={'Курьеры оффлайн:'} couriers={couriersOffline} status='offline'/>
+                      </Grid>
+                      <Grid item xs={6}>
+                          <MyMap name={''}
+                                 orders={[]}
+                                 couriers={couriers}
+                                 clickOnMap={clickOnMap}
+                                 sizeWidth={'450px'}
+                                 sizeHeight={'450px'}
+                                 zoom={8}/>
+                      </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                      <MyMap name={''} orders={[]} couriers={couriers} clickOnMap={clickOnMap} sizeWidth={'450px'} sizeHeight={'450px'}
-                             zoom={8}/>
-                  </Grid>
-              </Grid>}
+              }
+              {/*<MyButtonContained*/}
+              {/*    disabled={false}*/}
+              {/*    sx={{cursor: 'pointer'}}*/}
+              {/*    text={'Зарегистрировать нового курьера'}*/}
+              {/*    onClick={onRegistrClick}*/}
+              {/*/>*/}
           </>
-
-      )
-}
+      );
+};

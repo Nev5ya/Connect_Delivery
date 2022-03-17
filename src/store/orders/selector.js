@@ -1,3 +1,5 @@
+import {store} from "../index";
+
 export const selectOrders = (state) => state.orders.orders
     .sort(function(a, b){
       return a.id-b.id
@@ -20,3 +22,18 @@ export const selectOrdersWithUserId = (state) => state.orders.orders
         return item.user_id !== null
     });
 
+export const selectTransitOrderForCourier = (state, courierID) => {
+    // console.log('selectTransitOrderForCourier', state, state.orders)
+    const orders = state.orders.orders;
+    return orders.filter(item => {
+        return (item.user_id === courierID && item.order_status_id === 2) //status: "transit"
+    })
+}
+
+export const selectDeliveredOrdersForCourier = (state, courierID) => {
+     console.log('selectDeliveredOrdersForCourier', state, state.orders)
+    const orders = state.orders.orders;
+    return orders.filter(item => {
+        return (item.user_id === courierID && item.order_status_id === 3) //status: "delivered"
+    })
+}

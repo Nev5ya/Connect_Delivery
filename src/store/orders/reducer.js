@@ -20,9 +20,10 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
         const filter = state.orders.filter((item) => {
           return item.id !== payload.id
         })
-      const new_st1 = {...state, orders: [...filter, payload]} //{...state, orders: [...state.orders, ...payload]}
+      const new_st1 = {...state, orders: [...filter, payload]}
       console.log('new_st', new_st1, state)
       return new_st1
+
     default:
       return state
    }
