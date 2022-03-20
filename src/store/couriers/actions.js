@@ -7,20 +7,6 @@ export const getCouriersFromDB = (payload) => ({
   payload: payload
 });
 
-export const CHANGE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
-
-export const changeCourierInDB = (payload) => ({
-    type: CHANGE_COURIERS_IN_DB,
-    payload: payload
-});
-
-export const DELETE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
-
-export const deleteCourierInDB = (payload) => ({
-    type: DELETE_COURIERS_IN_DB,
-    payload: payload
-});
-
 export const getCouriers = () => {
   return function (dispatch) {
     fetch('https://xn--l1aej.pw/api/admin/user')
@@ -35,6 +21,13 @@ export const getCouriers = () => {
             return dispatch(getCouriersFromDB(couriers))})
   }
 }
+
+export const CHANGE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
+
+export const changeCourierInDB = (payload) => ({
+    type: CHANGE_COURIERS_IN_DB,
+    payload: payload
+});
 
 export const changeCourier = (courier_id, name, email) => {
     console.log('changeCourier')
@@ -65,6 +58,13 @@ export const changeCourier = (courier_id, name, email) => {
             .catch(err => console.log('err', err))
     }
 }
+
+export const DELETE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
+
+export const deleteCourierInDB = (payload) => ({
+    type: DELETE_COURIERS_IN_DB,
+    payload: payload
+});
 
 export const deleteCourier = (courier_id) => {
     console.log('deleteCourier')
@@ -105,17 +105,17 @@ export const registrCourierInDB = (payload) => ({
 export const registrCourier = () => {
     console.log('registrCourier')
     const newData = {
-        name: 'Соколов АА',
-        email: 'sokolov@mail.ru',
+        name: 'Петров1 АА',
+        email: 'petrov1@mail.ru',
         password: '123',
-        coords: "55.6841,37.33851",
+        coords: "55.6843,37.33855",
         user_status_id: 3,
         role_id: 1
     };
     console.log('registrCourier newData', newData);
 
     return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/auth/register`,{
+        fetch(`https://xn--l1aej.pw/api/register`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -129,9 +129,6 @@ export const registrCourier = () => {
                 return response.json()
 
             })
-            // .then(json => {
-            //     console.log('json changeCourierInDB', json)
-            //     return dispatch(changeCourierInDB(json.updatedUser))})
             .catch(err => console.log('err', err))
     }
 }
