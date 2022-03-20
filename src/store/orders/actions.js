@@ -1,4 +1,6 @@
+const axios = require('axios').default;
 
+axios.defaults.withCredentials = true;
 export const GET_ORDERS_FROM_DB = "ORDERS::GET_ORDERS_FROM_DB"
 
 export const getOrdersFromDB = (payload) => ({
@@ -50,3 +52,43 @@ export const changeOrder = (obj) => {
                 .catch(err => console.log('err', err))
     };
 };
+
+export const REGISTR_ORDERS_IN_DB = "COURIERS::REGISTR_ORDERS_IN_DB"
+
+export const registrOrderInDB = (payload) => ({
+    type: REGISTR_ORDERS_IN_DB,
+    payload: payload
+});
+
+export const registrOrder = () => {
+    console.log('registrOrder')
+    const newData = {
+        name: 'Диван',
+        address: 'Москва, Мясницкая, 45',
+        delivery_date: '2022-04-11',
+        order_status_id: 1,
+        user_id: null,
+        comment: 'Позвонить'
+    };
+    console.log('registrOrder newData', newData);
+
+    return function (dispatch) {
+
+        fetch(`https://xn--l1aej.pw/api/admin/orders`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                "X-Requested-With": "XMLHttpRequest",
+                'Accept': 'application/json',
+                 'mode':'cors'
+            },
+            body: JSON.stringify(newData)
+        })
+            .then(response => {
+                console.log('json1 changeOrderInDB', response)
+                return response.json()
+
+            })
+            .catch(err => console.log('err', err))
+    }
+}
