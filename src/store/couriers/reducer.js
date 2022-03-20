@@ -1,6 +1,13 @@
 import {CHANGE_COURIERS_IN_DB, DELETE_COURIERS_IN_DB, GET_COURIERS_FROM_DB} from "./actions";
+import {REQUEST_STATUS} from "../../utils/constants";
 
-const initialState = {couriers:[]};
+const initialState = {
+  couriers:[],
+  request: {
+    error: null,
+    status: REQUEST_STATUS.IDLE,
+  },
+};
 
 export const couriersReducer = (state = initialState, { type, payload }) => {
   console.log('st111', state, type)
