@@ -26,7 +26,12 @@ export default function ChatList({couriers}) {
 
     const onChangeActiveColor = (id) => {
         console.log('onChangeActiveColor', id, courierCurrent)
-        return id === courierCurrent.id ? "red" : "black"
+        if (courierCurrent != null) {
+            return id === courierCurrent.id ? "red" : "black";
+        }
+        else {
+            return "black";
+        }
     };
 
     return (
@@ -43,7 +48,7 @@ export default function ChatList({couriers}) {
                         {couriers.map((courier) => {
                             return (
                                 <ListItem
-                                    sx={{'&:hover': {color:'green', cursor: 'pointer'}, color: onChangeActiveColor(courier.id) }}
+                                    sx={{'&:hover': {color:'green', cursor: 'pointer'}, color: (onChangeActiveColor(couriers.id)) }}
                                     key={courier.id}
                                     secondaryAction={
                                         <IconButton edge='end' aria-label='delete'>
