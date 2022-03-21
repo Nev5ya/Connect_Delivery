@@ -125,6 +125,11 @@ export const Routing = () => {
                     <PrivateRouteAdmin path="/Admin" exact authed={authed}>
                         <AdminTable authed={authed}/>
                     </PrivateRouteAdmin>
-
+                    
+                    <PrivateRouteCourier
+                        path="/CouriersPage/:id"
+                        component={CouriersPage}
+                        authed={authed}
+                    />
 
                     */

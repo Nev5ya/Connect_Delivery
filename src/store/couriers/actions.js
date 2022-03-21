@@ -102,12 +102,12 @@ export const registrCourierInDB = (payload) => ({
     payload: payload
 });
 
-export const registrCourier = () => {
+export const registrCourier = (name, surname, email, password) => {
     console.log('registrCourier')
     const newData = {
-        name: 'Петров1 АА',
-        email: 'petrov1@mail.ru',
-        password: '123',
+        name: name + " " + surname,
+        email: email,
+        password: password,
         coords: "55.6843,37.33855",
         user_status_id: 3,
         role_id: 1
@@ -126,9 +126,14 @@ export const registrCourier = () => {
         })
             .then(response => {
                 console.log('json1 changeCourierInDB', response)
+                // if (response.ok) {
+                //     throw new Error(`Request failed with status ${response.status}`);
+                // }
                 return response.json()
 
-            })
+            }) .then(json => {
+            console.log('json deleteCourierInDB', json)
+            return ''})
             .catch(err => console.log('err', err))
     }
 }
