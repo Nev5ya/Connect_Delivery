@@ -1,4 +1,3 @@
-import {changeOrderInDB} from "../orders/actions";
 
 export const GET_COURIERS_FROM_DB = "COURIERS::GET_COURIERS_FROM_DB"
 
@@ -22,14 +21,55 @@ export const getCouriers = () => {
   }
 }
 
-export const CHANGE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
+export const CHANGE_COURIERS_IN_DB_PENDING = "COURIERS::CHANGE_COURIERS_IN_DB_PENDING"
+export const CHANGE_COURIERS_IN_DB_SUCCESS = "COURIERS::CHANGE_COURIERS_IN_DB_SUCCESS"
+export const CHANGE_COURIERS_IN_DB_FAILURE = "COURIERS::CHANGE_COURIERS_IN_DB_FAILURE"
 
-export const changeCourierInDB = (payload) => ({
-    type: CHANGE_COURIERS_IN_DB,
-    payload: payload
+export const changeCourierInDBPending = () => ({
+    type: CHANGE_COURIERS_IN_DB_PENDING,
+});
+export const changeCourierInDBSuccess = (data) => ({
+    type: CHANGE_COURIERS_IN_DB_SUCCESS,
+    payload: data
+});
+export const changeCourierInDBFailure = (error) => ({
+    type: CHANGE_COURIERS_IN_DB_FAILURE,
+    payload: error
 });
 
-export const changeCourier = (courier_id, name, email) => {
+// export const changeCourier = (courier_id, name, email) => {
+//     console.log('changeCourier')
+//     const newData = {
+//         id: courier_id,
+//         name,
+//         email
+//     };
+//     console.log('changeCourier newData', newData);
+//
+//     return function (dispatch) {
+//         fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8',
+//                 mode:'cors'
+//             },
+//             body: JSON.stringify(newData)
+//         })
+//             .then(response => {
+//                 console.log('json1 changeCourierInDB', response)
+//                 return response.json()
+//
+//             })
+//             .then(json => {
+//                 console.log('json changeCourierInDB', json)
+//                 return dispatch(changeCourierInDB(json.updatedUser))})
+//             .catch(err => console.log('err', err))
+//     }
+// }
+export const changeCourier = (courier_id, name, email) => async (dispatch) => {
+
+    dispatch(changeCourierInDBPending());
+
     console.log('changeCourier')
     const newData = {
         id: courier_id,
@@ -38,28 +78,33 @@ export const changeCourier = (courier_id, name, email) => {
     };
     console.log('changeCourier newData', newData);
 
-    return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
+    try {
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 mode:'cors'
             },
             body: JSON.stringify(newData)
-        })
-            .then(response => {
-                console.log('json1 changeCourierInDB', response)
-                return response.json()
+        });
 
-            })
-            .then(json => {
-                console.log('json changeCourierInDB', json)
-                return dispatch(changeCourierInDB(json.updatedUser))})
-            .catch(err => console.log('err', err))
+        if (!response.ok) {
+            console.log('response.ok', response.ok);
+            throw new Error(`error ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        console.log('result', result);
+
+        dispatch(changeCourierInDBSuccess(result.updatedUser));
+    } catch (e) {
+        console.log('error', e);
+        dispatch(changeCourierInDBFailure(e.message));
     }
 }
 
-export const DELETE_COURIERS_IN_DB = "COURIERS::CHANGE_COURIERS_IN_DB"
+export const DELETE_COURIERS_IN_DB = "COURIERS::DELETE_COURIERS_IN_DB"
 
 export const deleteCourierInDB = (payload) => ({
     type: DELETE_COURIERS_IN_DB,

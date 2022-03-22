@@ -13,38 +13,49 @@ import {
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
 import {useDispatch, useSelector} from "react-redux";
-import {selectOrdersWithOutUserId} from "../../../store/orders/selector";
+import {selectOrdersforPaginAdmin, selectOrdersWithOutUserId} from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
 import {selectCouriersByStatus} from "../../../store/couriers/selector";
 import Typography from "@mui/material/Typography";
+import PaginationComponent from "../../Pagination/Pagination";
+import {useState} from "react";
+import ModalWindow from "../../ModalWindow/ModalWindow";
+import CourierRedact from "../../CourierRedact/CourierRedact";
+import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
 
-const AdminInWork = () => {
-	const classes = useStyles();
+const AdminInWork = ({setOption}) => {
 
-	const orders = useSelector(selectOrdersWithOutUserId); // список заказов с неназначенными курьерами
+	const ordersforPaginAdmin = useSelector(selectOrdersforPaginAdmin);
+	const ordersWithOutUserId = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
 	//const orders = useSelector(selectOrders) // список всех заказов
-	console.log('AdminInWork', orders)
+	console.log('AdminInWork', ordersWithOutUserId)
 
 	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 'online'));
 	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: null}]
 
-	console.log('adminWork', couriersOnline, orders, couriersOnlineAndNull)
-
+	console.log('adminWork', couriersOnline, ordersforPaginAdmin, couriersOnlineAndNull)
+	/////Вызов Редактировать курьера//
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
 		dispatch(changeOrder({id: order_id, user_id: event.target.value}))
 	};
 
+	/////Флаг открытия/закрытия модального окна//
+	let [openModal, setOpenModal] = useState(false);
+	const closeModal = () => {
+		setOpenModal(false);
+		console.log('CloseModal CouriersList',  openModal);
+	};
+	/////Записываем order, на котором произведен клик и открывается модальное окно//
+	let [orderCurrent, setOrderCurrent] = useState(null);
+	const onClickHandle = (order) => {
+		setOrderCurrent(order);
+		setOpenModal(true);
+		console.log('onClickHandle', order, openModal);
+	};
+
 	return (
 		<>
-			<Box className={classes.wrapper_flex}>
-				<Typography variant='h6' component='h2'>Стас Администратор</Typography>
-				<Stack spacing={2} direction='row'>
-					<Button className={classes.btn} variant='contained'>
-						У ВАС СООБЩЕНИЕ
-					</Button>
-				</Stack>
-			</Box>
 			<Typography variant='h6' component='h2'>В обработке</Typography>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
@@ -58,14 +69,23 @@ const AdminInWork = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{orders.map((row) => (
+						{ordersforPaginAdmin.map((row) => (
 							<StyledTableRow key={row.id}>
-								<StyledTableCell component='th' scope='row'>
+								<StyledTableCell component='th'
+												 scope='row'
+												 sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
+												 onClick={() => onClickHandle(row)}>
 									{row.id}
 								</StyledTableCell>
-								<StyledTableCell align='center'>{row.address}</StyledTableCell>
-								<StyledTableCell align='center'>{row.name}</StyledTableCell>
-								<StyledTableCell align='center'>{row.comment}</StyledTableCell>
+								<StyledTableCell align='center' sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
+												 onClick={() => onClickHandle(row)}>{row.address}
+								</StyledTableCell>
+								<StyledTableCell align='center'sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
+												 onClick={() => onClickHandle(row)}>{row.name}
+								</StyledTableCell>
+								<StyledTableCell align='center'sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
+												 onClick={() => onClickHandle(row)}>{row.comment}
+								</StyledTableCell>
 								<StyledTableCell align='center'>
 									<Box sx={{ minWidth: 120 }}>
 										<FormControl fullWidth>
@@ -85,7 +105,17 @@ const AdminInWork = () => {
 						))}
 					</TableBody>
 				</Table>
+				<PaginationComponent type='AdminInWork' orders = {ordersWithOutUserId} />
 			</TableContainer>
+			{openModal ? (
+				<ModalWindow
+					data={orderCurrent}
+					component={OrderDescriptionModal}
+					openModal={openModal}
+					closeModal={closeModal}
+					setOption={setOption}
+				/>
+			) : null}
 		</>
 	);
 };

@@ -23,15 +23,15 @@ export const CouriersOperation = () => {
     const couriersWork = useSelector((state) => selectCouriersByStatus(state, 'work'));
     const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 'offline'));
 
-    const dispatch = useDispatch();
-    const onRegistrCourierClick = () => {
-        console.log('onRegistrCourierClick');
-        dispatch(registrCourier());
-    };
-    const onRegistrOrderClick = () => {
-        console.log('onRegistrOrderClick');
-        dispatch(registrOrder());
-    };
+    // const dispatch = useDispatch();
+    // const onRegistrCourierClick = () => {
+    //     console.log('onRegistrCourierClick');
+    //     dispatch(registrCourier());
+    // };
+    // const onRegistrOrderClick = () => {
+    //     console.log('onRegistrOrderClick');
+    //     dispatch(registrOrder());
+    // };
 
 
       return (
@@ -57,18 +57,18 @@ export const CouriersOperation = () => {
                       </Grid>
                   </Grid>
               }
-              <MyButtonContained
-                  disabled={false}
-                  sx={{cursor: 'pointer'}}
-                  text={'Зарегистрировать нового курьера'}
-                  onClick={onRegistrCourierClick}
-              />
-              <MyButtonContained
-                  disabled={false}
-                  sx={{cursor: 'pointer'}}
-                  text={'Зарегистрировать новый заказ'}
-                  onClick={onRegistrOrderClick}
-              />
+              {/*<MyButtonContained*/}
+              {/*    disabled={false}*/}
+              {/*    sx={{cursor: 'pointer'}}*/}
+              {/*    text={'Зарегистрировать нового курьера'}*/}
+              {/*    onClick={onRegistrCourierClick}*/}
+              {/*/>*/}
+              {/*<MyButtonContained*/}
+              {/*    disabled={false}*/}
+              {/*    sx={{cursor: 'pointer'}}*/}
+              {/*    text={'Зарегистрировать новый заказ'}*/}
+              {/*    onClick={onRegistrOrderClick}*/}
+              {/*/>*/}
           </>
       );
 };

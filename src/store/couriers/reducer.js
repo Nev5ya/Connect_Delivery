@@ -1,4 +1,10 @@
-import {CHANGE_COURIERS_IN_DB, DELETE_COURIERS_IN_DB, GET_COURIERS_FROM_DB} from "./actions";
+import {
+  CHANGE_COURIERS_IN_DB_FAILURE,
+  CHANGE_COURIERS_IN_DB_PENDING,
+  CHANGE_COURIERS_IN_DB_SUCCESS,
+  DELETE_COURIERS_IN_DB,
+  GET_COURIERS_FROM_DB
+} from "./actions";
 import {REQUEST_STATUS} from "../../utils/constants";
 
 const initialState = {
@@ -18,18 +24,43 @@ export const couriersReducer = (state = initialState, { type, payload }) => {
       console.log('new_st', new_st, state)
       return new_st
 
-    case CHANGE_COURIERS_IN_DB:
-      console.log('reducer CHANGE', state, payload)
-      if (payload === 'undefined' || payload.length === 0 ) {
-        console.log('error CHANGE_COURIERS_IN_DB');
-        return state
-      }
+    case CHANGE_COURIERS_IN_DB_PENDING: {
+      return {
+        ...state,
+        request: {
+          error: null,
+          status: REQUEST_STATUS.PENDING
+        }
+      };
+    }
+
+    case CHANGE_COURIERS_IN_DB_SUCCESS: {
+      console.log('reducer CHANGE_COURIERS_IN_DB_SUCCESS', state, payload);
+
       const filterChange = state.couriers.filter((item) => {
         return item.id !== payload.id
-      })
-      const new_stateChange = {...state, couriers: [...filterChange, payload]}
-      console.log('new_st', new_stateChange, state)
-      return new_stateChange
+      });
+
+      return {
+        ...state,
+        request: {
+          error: null,
+          status: REQUEST_STATUS.SUCCESS
+        },
+        couriers: [...filterChange, payload]
+      };
+    }
+    case CHANGE_COURIERS_IN_DB_FAILURE: {
+      console.log('CHANGE_COURIERS_IN_DB_FAILURE', state, payload )
+      return {
+        ...state,
+        request: {
+          error: payload,
+          status: REQUEST_STATUS.FAILURE
+        }
+      };
+    }
+
 
     case DELETE_COURIERS_IN_DB:
       console.log('reducer DELETE', state, payload)

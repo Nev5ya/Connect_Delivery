@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import {Grid} from "@mui/material";
@@ -10,7 +10,7 @@ import {CourierStatusChange} from "../CourierStatusChange/CourierStatusChange";
 import {Box} from "@mui/material";
 import Menu from "../../utils/Menu";
 import {CourierMenu} from "../CourierMenu/CourierMenu";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentCourier} from "../../store/couriers/selector";
 import {
     selectDeliveredOrdersForCourier,
@@ -18,6 +18,8 @@ import {
 } from "../../store/orders/selector";
 import CourierHistory from "../CourierHistory/CourierHistory";
 import {Chat} from "../Chat/Chat";
+import {getOrders} from "../../store/orders/actions";
+import {getCouriers} from "../../store/couriers/actions";
 
 
 const CouriersPage = () => {
@@ -26,6 +28,13 @@ const CouriersPage = () => {
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
     console.log('courier', deliveredOrders)
+
+    const dispatch = useDispatch();
+    useEffect((event) => {
+        console.log('useEffect')
+        dispatch(getOrders());
+        dispatch(getCouriers());
+    }, []);
 
     /////отслеживаем клик по меню и выбор страницы для показа//
     const [option, setOption] = useState('0');
