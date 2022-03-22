@@ -9,14 +9,6 @@ import CourierRedact from "../CourierRedact/CourierRedact";
 
 export const CouriersList = ({name, couriers, status}) => {
 
-    /////Записываем курьера, на котором произведен клик и открывается модальное окно//
-    let [courierCurrent, setCourierCurrent] = useState(null);
-    const onClickHandle = (courier, event) => {
-        setCourierCurrent(courier);
-        setOpenModal(true);
-        console.log('onClickHandle CouriersList', courier, openModal, event);
-    };
-
     /////Флаг открытия/закрытия модального окна//
     let [openModal, setOpenModal] = useState(false);
     const closeModal = () => {
@@ -24,6 +16,13 @@ export const CouriersList = ({name, couriers, status}) => {
         console.log('CloseModal CouriersList',  openModal);
     };
 
+    /////Записываем курьера, на котором произведен клик и открывается модальное окно//
+    let [courierCurrent, setCourierCurrent] = useState(null);
+    const onClickHandle = (courier, event) => {
+        setCourierCurrent(courier);
+        setOpenModal(true);
+        console.log('onClickHandle CouriersList', courier, openModal, event);
+    };
 
     return (
         <div >

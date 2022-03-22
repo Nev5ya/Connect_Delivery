@@ -11,12 +11,18 @@ import {couriersReducer} from "./couriers/reducer";
 const persistConfig = {
   key: "Alex_P_01.2022",
   storage: storage,
+  blacklist: ['orders'],
+};
+const orderPersistConfig = {
+  key: 'orders',
+  storage: storage,
+  blacklist: ['currentPageAdmin', 'currentPageHistory'],
 };
 
 export const rootReducer = combineReducers({
   profile: profileReducer,
   home: homeReducer,
-  orders: ordersReducer,
+  orders: persistReducer(orderPersistConfig, ordersReducer),
   couriers: couriersReducer
 });
 

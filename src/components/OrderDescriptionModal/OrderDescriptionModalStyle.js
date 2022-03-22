@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
         '&:hover': { backgroundColor: '#167f06' },
     },
     wrapper_flex: {
-        paddingTop: '25px',
+        paddingTop: '5px',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end',
@@ -15,8 +15,15 @@ export const useStyles = makeStyles({
     },
     modal: {
         display: 'flex',
-        padding: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    wrapper_flex_bottom: {
+        display: 'flex',
+        boxSizing: 'inherit',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginRight: '25px',
     },
 });

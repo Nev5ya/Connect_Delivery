@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import MyMap from "../Map/map.js";
-import {Box} from "@mui/material";
+import {Box, Divider, Stack} from "@mui/material";
 import AdminInWork from "./AdminInWork/AdminInWork";
 import AdminHistory from "./AdminHistory/AdminHistory";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,6 +14,8 @@ import {Chat} from "../Chat/Chat";
 import {CouriersOperation} from "./CouriersOperation/CouriersOperation";
 import {CourierRegistration} from "./CourierRegistration/CourierRegistration";
 import Menu from "../../utils/Menu";
+import Typography from "@mui/material/Typography";
+import {MyButtonContained} from "../Button/button";
 
 export const AdminTable = () => {
 
@@ -28,10 +30,7 @@ export const AdminTable = () => {
     console.log('useEffect')
     dispatch(getOrders());
     dispatch(getCouriers());
-
   }, []);
-
-  //console.log('token', document.cookie.split(';'))
 
   const orders = useSelector(selectOrders)
    console.log('state orders', orders)
@@ -53,17 +52,23 @@ export const AdminTable = () => {
       default:
         return (
             <>
-              <AdminInWork/>
-              <hr/>
+              <AdminInWork setOption={setOption}/>
+              <Divider variant='string' sx={{ mt: 5, mb: 3 }} />
               <AdminHistory/>
             </>
         );
-    }
+    };
   };
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
-      <Menu menuItem={AdminMenu(onMenuItemClick)}/>
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between'}}>
+        <Menu menuItem={AdminMenu(onMenuItemClick)}/>
+        <Typography sx={{mt: 4}} variant='h4' component='h2'>Стас Администратор</Typography>
+        <Stack sx={{mt: 4}}spacing={2} direction='row'>
+          <MyButtonContained  text={'У ВАС СООБЩЕНИЕ'}  onClick={() => {setOption('1')}}/>
+           </Stack>
+      </Box>
       {renderOptionalComponent(option)}
     </Box>
   );

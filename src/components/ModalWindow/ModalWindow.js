@@ -3,21 +3,17 @@ import { Modal, Typography, Box, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useStyles } from './ModalWindowStyle';
 
-const ModalWindow = ({data, component, openModal, closeModal}) => {
+const ModalWindow = ({data, component, openModal, closeModal, setOption=''}) => {
     const rootRef = useRef(null);
 
     const [open, setOpen] = useState(openModal);
-    console.log('Modal', data, open);
+    console.log('Modal', data, open, setOption);
 
     const handleClose = () => {
         console.log('closed', data);
         setOpen(false);
         closeModal();
     };
-
-    // const handleClick = () => {
-    //     console.log('handleClick ModalWindow', open);
-    // };
 
     const Component = component;
 
@@ -49,7 +45,7 @@ const ModalWindow = ({data, component, openModal, closeModal}) => {
                         <CloseIcon onClick={handleClose} />
                     </Box>
                     <Box className={classes.wrapper_flex}>
-                       <Component data={data} closeModal={handleClose}/>
+                       <Component data={data} closeModal={handleClose} setOption={setOption}/>
                     </Box>
                 </Box>
             </Modal>

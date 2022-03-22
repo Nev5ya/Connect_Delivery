@@ -8,15 +8,35 @@ import {
 
 import {StyledTableCell, StyledTableRow} from './AdminHistoryStyle.js';
 import {useSelector} from "react-redux";
-import {selectOrdersWithUserId} from "../../../store/orders/selector";
+import {selectOrdersforPaginHistory,selectOrdersWithUserId} from "../../../store/orders/selector";
+import PaginationComponent from "../../Pagination/Pagination";
+import {useState} from "react";
+import ModalWindow from "../../ModalWindow/ModalWindow";
+import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
+import Typography from "@mui/material/Typography";
 
 const AdminHistory = () => {
-	const orders = useSelector(selectOrdersWithUserId);
-	console.log('AdminHistory', orders)
+	const ordersforPaginHistory = useSelector(selectOrdersforPaginHistory);
+	const ordersWithUserId = useSelector(selectOrdersWithUserId);
+	console.log('AdminHistory', ordersWithUserId)
+
+	/////Флаг открытия/закрытия модального окна//
+	let [openModal, setOpenModal] = useState(false);
+	const closeModal = () => {
+		setOpenModal(false);
+		console.log('CloseModal CouriersList',  openModal);
+	};
+	/////Записываем order, на котором произведен клик и открывается модальное окно//
+	let [orderCurrent, setOrderCurrent] = useState(null);
+	const onClickHandle = (order) => {
+		setOrderCurrent(order);
+		setOpenModal(true);
+		console.log('onClickHandle', order, openModal);
+	};
 
 	return (
 		<>
-			<h2>История</h2>
+			<Typography variant='h6' component='h2'>История</Typography>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
@@ -31,8 +51,10 @@ const AdminHistory = () => {
 						</StyledTableRow>
 					</TableHead>
 					<TableBody>
-						{orders.map((row) => (
-							<StyledTableRow key={row.id}>
+						{ordersforPaginHistory.map((row) => (
+							<StyledTableRow key={row.id}
+											sx={{'&:hover': {textColor:'green', cursor: 'pointer'}}}
+											onClick={() => onClickHandle(row)}>
 								<StyledTableCell component='th' scope='row'>
 									{row.id}
 								</StyledTableCell>
@@ -46,7 +68,11 @@ const AdminHistory = () => {
 						))}
 					</TableBody>
 				</Table>
+				<PaginationComponent type='AdminHistory' orders = {ordersWithUserId} />
 			</TableContainer>
+			{openModal ? (
+				<ModalWindow data={orderCurrent} component={OrderDescriptionModal} openModal={openModal} closeModal={closeModal}/>
+			) : null}
 		</>
 	);
 };

@@ -20,13 +20,3 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
 		border: 0,
 	},
 }));
-
-export const useStyles = makeStyles({
-	btn: {
-		backgroundColor: '#4EAC04',
-	},
-	wrapper_flex: {
-		display: 'flex',
-		justifyContent: 'space-between',
-	},
-});
