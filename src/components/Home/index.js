@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector} from "react-redux";
 import { login} from "../../services/firebase";
 import { ref, set, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
@@ -27,7 +26,6 @@ export const Home = () => {
     setPass(e.target.value);
   };
 
-  const showReg = useSelector((state) => state.home.showReg);
 
   useEffect(() => {
     const profileDbRef = ref(db, "profile/login");
