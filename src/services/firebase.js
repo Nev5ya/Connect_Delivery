@@ -15,7 +15,7 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
   authDomain: "connect-delivery-f2a10.firebaseapp.com",
-  databaseURL: "https://test-exore-default-rtdb.asia-southeast1.firebasedatabase.app",
+  databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId: "connect-delivery-f2a10",
   storageBucket: "connect-delivery-f2a10.appspot.com",
   messagingSenderId: "952020985037",
