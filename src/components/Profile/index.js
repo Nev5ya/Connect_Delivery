@@ -4,11 +4,13 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { ref, set, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
+import { auth } from "../../services/firebase";
 // import "./style.css";
 
-
+console.log(auth);
 export const Profile = ({ onLogout }) => {
   const [role, setRole] = useState("");
+
   const handleClick = () => {
     onLogout();
   };
@@ -17,6 +19,7 @@ export const Profile = ({ onLogout }) => {
     const profileDbRef = ref(db, "profile/login");
     const unsubscribe = onValue(profileDbRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data);
       const showlogin = document.querySelector(".left_box");
       const div = document.createElement("div");
       div.innerHTML = "Login:" + data.login;
@@ -26,8 +29,8 @@ export const Profile = ({ onLogout }) => {
     });
     return unsubscribe;
   }, []);
-  
-    useEffect(() => {
+
+  useEffect(() => {
     const profileDbRef = ref(db, "profile/login/role");
     const unsubscribe2 = onValue(profileDbRef, (snapshot) => {
       const data = snapshot.val();
@@ -36,8 +39,9 @@ export const Profile = ({ onLogout }) => {
     });
     return unsubscribe2;
   }, []);
-  
-  set(ref(db, "profile/login/role"), {
+console.log(role);
+
+set(ref(db, "profile/login/role"), {
   role: role,
 });
 
@@ -47,7 +51,7 @@ export const Profile = ({ onLogout }) => {
       <aside>
             <div className="left_box"> 
             <img className="photo_profile" src="../images/profile.png" alt="logo"></img>
-                &nbsp; &nbsp;  filled 34%
+                &nbsp; &nbsp;  filled 34% &nbsp;
             <progress value="34" max="100">
               <div id="progress" className="graph"></div>
               <div id="bar" ></div>
@@ -55,8 +59,8 @@ export const Profile = ({ onLogout }) => {
              <br/>
              <br/>
             <Button variant="contained" disabled>change password</Button>
-             <br/>
-             <br/>
+            <br/>
+            <br/>
             <Button variant="contained" onClick={handleClick}>Logout</Button>
             <br/>
             <br/>
@@ -70,10 +74,13 @@ export const Profile = ({ onLogout }) => {
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>street:</label>    Minina str. 1</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>house number:</label>    1</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>app.:</label>    1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>date of birth:</label>    1980.01.01 &#9773;</li>
+        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>date of birth:</label>    1988.01.01 &#9773;</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>hobby:</label>    travel &#9786;</li>
         <br/>
         <Button variant="contained" disabled>edit</Button>
+        <br/>
+        <br/>
+        <Button variant="contained" color="warning">Create new *ROLE*</Button>
       </main>
       <footer className="footer">
       <br/>
