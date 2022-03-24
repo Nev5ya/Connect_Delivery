@@ -8,6 +8,7 @@ import { db } from "../../services/firebase";
 
 
 export const Profile = ({ onLogout }) => {
+  const [role, setRole] = useState("");
   const handleClick = () => {
     onLogout();
   };
