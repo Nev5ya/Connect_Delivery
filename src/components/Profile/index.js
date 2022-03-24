@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-import { ref, onValue } from "firebase/database";
+import Stack from '@mui/material/Stack';
+import { ref, set, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
 // import "./style.css";
 
@@ -24,6 +25,20 @@ export const Profile = ({ onLogout }) => {
     });
     return unsubscribe;
   }, []);
+  
+    useEffect(() => {
+    const profileDbRef = ref(db, "profile/login/role");
+    const unsubscribe2 = onValue(profileDbRef, (snapshot) => {
+      const data = snapshot.val();
+      setRole("admin");
+      console.log(data);
+    });
+    return unsubscribe2;
+  }, []);
+  
+  set(ref(db, "profile/login/role"), {
+  role: role,
+});
 
   return (
   <div className="profile">
@@ -31,15 +46,19 @@ export const Profile = ({ onLogout }) => {
       <aside>
             <div className="left_box"> 
             <img className="photo_profile" src="../images/profile.png" alt="logo"></img>
-                filled 34%
+                &nbsp; &nbsp;  filled 34%
             <progress value="34" max="100">
               <div id="progress" className="graph"></div>
               <div id="bar" ></div>
              </progress>
              <br/>
+             <br/>
             <Button variant="contained" disabled>change password</Button>
-            <br/>
+             <br/>
+             <br/>
             <Button variant="contained" onClick={handleClick}>Logout</Button>
+            <br/>
+            <br/>
             </div>
       </aside>
       <main>
@@ -56,12 +75,13 @@ export const Profile = ({ onLogout }) => {
         <Button variant="contained" disabled>edit</Button>
       </main>
       <footer className="footer">
-        <ul>
-            <li><a href="#"><i className="fab fa-telegram icon"></i></a></li>
-            <li><a href="#"><i className="fab fa-vk icon"></i></a></li>
-            <li><a href="#"><i className="fa fa-signal icon"></i></a></li>
-            <li><a href="#"><i className="fab fa-google-plus-g icon"></i></a></li>
-        </ul>
+      <br/>
+        <Stack direction="row" spacing={4}>
+          <a href="#"><i className="fab fa-telegram icon"></i></a>
+          <a href="#"><i className="fab fa-vk icon"></i></a>
+          <a href="#"><i className="fa fa-signal icon"></i></a>
+          <a href="#"><i className="fab fa-google-plus-g icon"></i></a>
+        </Stack>
       </footer>
   </div>
 
