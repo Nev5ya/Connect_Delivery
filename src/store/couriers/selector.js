@@ -29,3 +29,8 @@ export const selectRequestCouriers = (state) => {
     // console.log('selectRequestCouriers', state)
     return state.couriers.request
 };
+
+export const selectUpdateStatus = (state) => {
+    return state.couriers.courierStatusUpdate;
+};
+
