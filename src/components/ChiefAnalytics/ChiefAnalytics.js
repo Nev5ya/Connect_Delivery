@@ -1,12 +1,10 @@
-import {useState} from 'react';
-
+import {useState } from 'react';
 import {Box, Grid, Typography, Paper} from '@mui/material'
-
 import Menu from "../../utils/Menu"
 import {Statistic} from "./Statistic";
 import {Dashboard} from "./Dashboard";
 
-export const ChiefAnalytics = () => {
+export const ChiefAnalytics = ({page}) => {
 
     const [pageName, setPageName] = useState('Dashboard');
 
@@ -17,14 +15,21 @@ export const ChiefAnalytics = () => {
         date: '12.06.2002',
     }
 
-    const togglePage = () => (pageName === 'Dashboard') ? setPageName('Statistic') : setPageName('Dashboard')
+    const togglePageDashboard = () => {
+        if(pageName === 'Statistic') setPageName('Dashboard');
+    }
+
+    const togglePageStatistic = () => {
+        if(pageName === 'Dashboard') setPageName('Statistic');
+    }
 
     const menuItem = [
-        {name: 'Dashboard', func: togglePage},
-        {name: 'Statistic', func: togglePage},
+        {name: 'Dashboard', func: togglePageDashboard},
+        {name: 'Statistic', func: togglePageStatistic},
     ];
 
-
+    page = pageName;
+    console.log(page);
     return (
         <>
             <Grid container spacing={2} alignItems="center">
@@ -56,3 +61,6 @@ export const ChiefAnalytics = () => {
         </>
     )
 }
+
+// <Menu menuItem={menuItem}/>
+// <Link to={`ChiefAnalytics/${menuItem}`}/>

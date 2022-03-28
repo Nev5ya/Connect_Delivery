@@ -176,42 +176,9 @@ export const registrCourier = (name, surname, email, password) => {
                 // }
                 return response.json()
 
-            }) .then(json => {
+            }).then(json => {
             console.log('json deleteCourierInDB', json)
             return ''})
-            .catch(err => console.log('err', err))
-    }
-}
-
-export const CHANGE_COURIERS_STATUS_IN_DB = "COURIERS::CHANGE_COURIERS_STATUS_IN_DB"
-
-export const changeCouriersStatusInDB = (payload) => ({
-    type: CHANGE_COURIERS_STATUS_IN_DB,
-    payload: payload
-});
-
-export const changeCourierStatus = (courier_id, status_id) => {
-    const newData = {
-        id: courier_id,
-        user_status_id: status_id,
-    };
-
-    return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                "X-Requested-With": "XMLHttpRequest",
-                mode:'cors'
-            },
-            body: JSON.stringify(newData)
-        })
-            .then(response => {
-                return response.json()
-            })
-            .then(result => {
-               dispatch(changeCouriersStatusInDB(result.updatedUser));
-            })
             .catch(err => console.log('err', err))
     }
 }
