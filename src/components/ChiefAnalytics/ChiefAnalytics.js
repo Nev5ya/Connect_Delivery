@@ -1,10 +1,12 @@
-import {useState } from 'react';
+import {useState} from 'react';
+
 import {Box, Grid, Typography, Paper} from '@mui/material'
+
 import Menu from "../../utils/Menu"
 import {Statistic} from "./Statistic";
 import {Dashboard} from "./Dashboard";
 
-export const ChiefAnalytics = ({page}) => {
+export const ChiefAnalytics = () => {
 
     const [pageName, setPageName] = useState('Dashboard');
 
@@ -16,11 +18,18 @@ export const ChiefAnalytics = ({page}) => {
     }
 
     const togglePageDashboard = () => {
-        if(pageName === 'Statistic') setPageName('Dashboard');
+        if(pageName === 'Statistic') {
+            setPageName('Dashboard');
+            const stateObj = { page: 'Dashboard' };
+            window.history.pushState(stateObj, '', 'Dashboard');}
     }
 
     const togglePageStatistic = () => {
-        if(pageName === 'Dashboard') setPageName('Statistic');
+        if(pageName === 'Dashboard') {
+            setPageName('Statistic');
+            const stateObj = { page: 'Statistic' };
+            window.history.pushState(stateObj, '', 'Statistic')
+        }
     }
 
     const menuItem = [
@@ -28,8 +37,7 @@ export const ChiefAnalytics = ({page}) => {
         {name: 'Statistic', func: togglePageStatistic},
     ];
 
-    page = pageName;
-    console.log(page);
+
     return (
         <>
             <Grid container spacing={2} alignItems="center">
@@ -41,26 +49,8 @@ export const ChiefAnalytics = ({page}) => {
                         {dataFromDB.name}
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={0}>
-                        <Grid container alignItems="center" gap={2}>
-                            <Grid item xs={12}>
-                                <Box sx={{p: 2}}>
-                                    <Typography align="left" variant="h4">
-                                        {pageName}
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6}>
-                                {(pageName === 'Dashboard') ? <Dashboard/> : <Statistic/> }
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Grid>
+                {(pageName === 'Dashboard') ? <Dashboard/> : <Statistic/> }
             </Grid>
         </>
     )
 }
-
-// <Menu menuItem={menuItem}/>
-// <Link to={`ChiefAnalytics/${menuItem}`}/>
