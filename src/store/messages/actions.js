@@ -34,9 +34,9 @@ export const initMessages = () => (dispatch) => {
 
 export const addMessageFb = (chatId, text, author) => (dispatch) => {
   const newId = `message-${Date.now()}`;
-  // console.log('handleAddMessage', newId);
+   console.log('addMessageFb', newId);
   const messageDbRef = ref(db, `messages/${chatId}/${newId}`);
-  // console.log('handleAddMessage',  newId, messageDbRef);
+   console.log('addMessageFb2',  newId, messageDbRef);
   set(messageDbRef, {
     id: newId,
     text,

@@ -1,7 +1,7 @@
 import { onValue, ref, remove, set } from "@firebase/database";
 import { db } from "../../services/firebase";
 
-  
+
 export const ADD_CHAT = "CHATS::ADD_CHAT";
 export const DELETE_CHAT = "CHATS::DELETE_CHAT";
 export const SET_CHATS = "CHATS::SET_CHATS";
@@ -24,16 +24,28 @@ const setChats = (chats) => ({
 
 export const initChats = () => (dispatch) => {
   const chatDbRef = ref(db, "chats");
+    console.log('initChats', chatDbRef, db)
   onValue(chatDbRef, (snapshot) => {
     const data = snapshot.val();
+      console.log('initChats data', data)
     dispatch(setChats(Object.values(data || {})));
   });
 };
 
-export const addChatFb = (name) => () => {
-  const newId = `chat-${Date.now()}`;
-  // console.log('handleAddChat2', newId);
-  const chatDbRef = ref(db, `chats/${newId}`);
+export const initChat = (id) => (dispatch) => {
+    const chatDbRef = ref(db, `chats/${id}`);
+    console.log('initChat', chatDbRef, db)
+    onValue(chatDbRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log('initChat data', data)
+        dispatch(setChats([data]));
+    });
+};
+
+export const addChatFb = (id, name) => () => {
+  const newId = `chat-${id}`;
+   //console.log('addChatFb', newId);
+  const chatDbRef = ref(db, `chats/${id}`);
    console.log('addChatFb',  newId, chatDbRef);
   set(chatDbRef, {
     id: newId,

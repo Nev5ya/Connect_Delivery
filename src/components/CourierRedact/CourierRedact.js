@@ -17,7 +17,7 @@ const CourierRedact = ({data, closeModal}) => {
         closeModal();
     };
 
-    const onClickHandle1 = () => {
+    const onClickHandle = () => {
         setOpenEdit(true);
         console.log('onClickHandle CourierRedact');
     };
@@ -37,7 +37,7 @@ const CourierRedact = ({data, closeModal}) => {
                 <Typography sx={{ pt: 1 }}>ID: {data.id}</Typography>
                 <Typography sx={{ pt: 1 }}>email: {data.email}</Typography>
                 <Box sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <MyButtonContained text={'Редактировать'} onClick={onClickHandle1}/>
+                    <MyButtonContained text={'Редактировать'} onClick={onClickHandle}/>
                     <MyButtonContained text={'Удалить'} color = 'error' onClick={onDeleteCourier}/>
                 </Box>
                 {openEdit ? (

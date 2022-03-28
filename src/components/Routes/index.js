@@ -22,6 +22,10 @@ const routes = [
   { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
+function Chats() {
+    return null;
+}
+
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
     let role;
@@ -87,6 +91,9 @@ export const Routing = () => {
                         component={CouriersPage}
                         authed={authed}
                     />
+                    {/*<PrivateRoute path="/Admin/chats/:chatId?" authed={authed}>*/}
+                    {/*    <Chats />*/}
+                    {/*</PrivateRoute>*/}
 
 
 

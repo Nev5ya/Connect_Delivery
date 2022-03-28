@@ -18,11 +18,12 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
 
     const showCouriers = () => {
         couriers.forEach(label => {
+            console.log('showCouriers', label.coords)
             setCoordinates((prev) => {
                 label.typeLabel = label.role_title;
                 label.address = '';
                 label.status = label.user_status;
-                label.coordinates = label.coords.split(',')
+                label.coordinates = (label.coords) ? label.coords.split(',') : null;
                 return [...prev, label];
             })
         })

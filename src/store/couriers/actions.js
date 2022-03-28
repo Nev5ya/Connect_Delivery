@@ -154,7 +154,7 @@ export const registrCourier = (name, surname, email, password) => {
         email: email,
         password: password,
         coords: "55.6843,37.33855",
-        user_status_id: 3,
+        user_status_id: 1,
         role_id: 1
     };
     console.log('registrCourier newData', newData);

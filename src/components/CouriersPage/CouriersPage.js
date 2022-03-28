@@ -27,7 +27,7 @@ const CouriersPage = () => {
     const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
-    console.log('courier', deliveredOrders)
+    console.log('courier', currentCourier[0])
 
     const dispatch = useDispatch();
     useEffect((event) => {
@@ -54,7 +54,7 @@ const CouriersPage = () => {
         <>
             <Menu menuItem={CourierMenu(onMenuItemClick)}/>
             {(option === '1')
-                ? <Chat/>
+                ? <Chat mode="Courier" currentCourier={currentCourier[0]}/>
                 :(option === '0')
                      ? (clickOnMapToggle
                         ? <Box xs={{width: '100%'}}>
