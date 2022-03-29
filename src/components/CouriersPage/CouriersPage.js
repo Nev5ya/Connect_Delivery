@@ -27,16 +27,14 @@ const CouriersPage = () => {
     const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
-    console.log('courier', currentCourier);
-
-   const courierBusy = currentOrder?.length > 0;
+    console.log('courier', deliveredOrders)
 
     const dispatch = useDispatch();
     useEffect((event) => {
-        // console.log('useEffect')
+        console.log('useEffect')
         dispatch(getOrders());
         dispatch(getCouriers());
-    }, []);
+    }, [dispatch]);
 
     /////отслеживаем клик по меню и выбор страницы для показа//
     const [option, setOption] = useState('0');
@@ -64,13 +62,12 @@ const CouriersPage = () => {
                          </Box>
                         :
                          <>
-                             <Stack sx={{mb: 3}} direction="column" spacing={2}>
-                                 <Typography sx={{mt: 2, display: 'flex', alignItems: 'center'}} variant="h4" component="div" >
+                             <Stack sx={{mb: 5}} direction="column" spacing={2}>
+                                 <Typography sx={{mt: 2, mb: 4}} variant="h4" component="div" >
                                     {currentCourier[0]?.name}
-
-                                     <CourierStatusChange courier={currentCourier} courierBusy={courierBusy} />
+                                     <span className="courier-status"></span>
                                  </Typography>
-
+                                 <CourierStatusChange />
                              </Stack>
 
                               <Stack direction="row" spacing={2}>

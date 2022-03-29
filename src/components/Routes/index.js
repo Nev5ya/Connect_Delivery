@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Breadcrumbs, Container} from '@mui/material';
-import {BrowserRouter, Switch, Route, NavLink} from "react-router-dom";
+import {BrowserRouter, Switch, Route, NavLink, useParams} from "react-router-dom";
+import { createBrowserHistory } from "history";
 import {CSSTransition} from "react-transition-group";
 import {signOut, auth} from "../../services/firebase";
 import {onAuthStateChanged} from "firebase/auth";
@@ -11,8 +12,15 @@ import {Home} from "../Home";
 import {Profile} from "../Profile";
 import {NotFound} from "../NotFound";
 import {ChiefAnalytics} from "../ChiefAnalytics/ChiefAnalytics";
+import {Dashboard} from "../ChiefAnalytics/Dashboard";
+import {Statistic} from "../ChiefAnalytics/Statistic";
 import {AdminTable} from "../AdminTable";
+import {Chat} from "../Chat/Chat";
+import MyMap from "../Map/map.js";
+import {CouriersOperation} from "../AdminTable/CouriersOperation/CouriersOperation";
+import {CourierRegistration} from "../AdminTable/CourierRegistration/CourierRegistration";
 import CouriersPage from "../CouriersPage/CouriersPage";
+import CourierHistory from "../CourierHistory/CourierHistory";
 
 const routes = [
   { path: "/", name: "Home", Component: Home },
@@ -24,14 +32,15 @@ const routes = [
 
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
-    let role;
+    //let role;
     //const [role, setRole] = useState('');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                localStorage.setItem('role', user.email);
+                //localStorage.setItem('role', user.email);
                 //setRole(user.email);
+
                 setAuthed(true);
             } else {
                 setAuthed(false);
@@ -50,7 +59,7 @@ export const Routing = () => {
     };
 
     return (
-        <BrowserRouter>
+        <BrowserRouter history={createBrowserHistory()}>
             <Container fixed>
 
                 <Breadcrumbs aria-label="breadcrumb">
@@ -74,25 +83,20 @@ export const Routing = () => {
                     <PublicRoute path="/" exact authed={authed}>
                         <Home/>
                     </PublicRoute>
-                    <PrivateRoute path="/Profile" exact authed={authed}>
-                        <Profile
-                            authed={authed}
-
-                            onLogout={handleLogout}
-                        />
-                    </PrivateRoute>
 
                     <PrivateRoute
+                        exact
                         path="/CouriersPage/:id"
                         component={CouriersPage}
                         authed={authed}
                     />
 
-
-
-
                     {routes.map(({path, Component}) => (
-                        <Route key={path} exact path={path}>
+                        <PrivateRoute 
+                            key={path} 
+                            exact 
+                            authed={authed}
+                            path={path}>
                             {({match}) => (
                                 <CSSTransition
                                     in={match != null}
@@ -101,12 +105,13 @@ export const Routing = () => {
                                     unmountOnExit
                                 >
                                     <div className="page">
-                                        <Component/>
+                                        <Component onLogout={handleLogout}/>
                                     </div>
                                 </CSSTransition>
                             )}
-                        </Route>
+                        </PrivateRoute>
                     ))}
+
 
                     <Route>
                         <NotFound/>
@@ -118,18 +123,3 @@ export const Routing = () => {
     );
 };
 
-/*                     <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
-                        <ChiefAnalytics authed={authed}/>
-                    </PrivateRouteChief>
-
-                    <PrivateRouteAdmin path="/Admin" exact authed={authed}>
-                        <AdminTable authed={authed}/>
-                    </PrivateRouteAdmin>
-                    
-                    <PrivateRouteCourier
-                        path="/CouriersPage/:id"
-                        component={CouriersPage}
-                        authed={authed}
-                    />
-
-                    */

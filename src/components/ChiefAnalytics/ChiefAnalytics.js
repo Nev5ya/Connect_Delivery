@@ -17,11 +17,24 @@ export const ChiefAnalytics = () => {
         date: '12.06.2002',
     }
 
-    const togglePage = () => (pageName === 'Dashboard') ? setPageName('Statistic') : setPageName('Dashboard')
+    const togglePageDashboard = () => {
+        if(pageName === 'Statistic') {
+            setPageName('Dashboard');
+            const stateObj = { page: 'Dashboard' };
+            window.history.pushState(stateObj, '', 'Dashboard');}
+    }
+
+    const togglePageStatistic = () => {
+        if(pageName === 'Dashboard') {
+            setPageName('Statistic');
+            const stateObj = { page: 'Statistic' };
+            window.history.pushState(stateObj, '', 'Statistic')
+        }
+    }
 
     const menuItem = [
-        {name: 'Dashboard', func: togglePage},
-        {name: 'Statistic', func: togglePage},
+        {name: 'Dashboard', func: togglePageDashboard},
+        {name: 'Statistic', func: togglePageStatistic},
     ];
 
 
@@ -36,22 +49,7 @@ export const ChiefAnalytics = () => {
                         {dataFromDB.name}
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={0}>
-                        <Grid container alignItems="center" gap={2}>
-                            <Grid item xs={12}>
-                                <Box sx={{p: 2}}>
-                                    <Typography align="left" variant="h4">
-                                        {pageName}
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6}>
-                                {(pageName === 'Dashboard') ? <Dashboard/> : <Statistic/> }
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Grid>
+                {(pageName === 'Dashboard') ? <Dashboard/> : <Statistic/> }
             </Grid>
         </>
     )
