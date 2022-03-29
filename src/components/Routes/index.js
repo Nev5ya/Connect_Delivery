@@ -12,6 +12,7 @@ import {Home} from "../Home";
 import {Profile} from "../Profile";
 import {NotFound} from "../NotFound";
 import {ChiefAnalytics} from "../ChiefAnalytics/ChiefAnalytics";
+import {Dashboard} from "../ChiefAnalytics/Dashboard";
 import {Statistic} from "../ChiefAnalytics/Statistic";
 import {AdminTable} from "../AdminTable";
 import {Chat} from "../Chat/Chat";
@@ -26,7 +27,7 @@ const routes = [
   { path: "/Profile", name: "Profile", Component: Profile },
   { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
   { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+  { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
 export const Routing = () => {
@@ -57,8 +58,6 @@ export const Routing = () => {
         }
     };
 
-    //console.log(page);
-
     return (
         <BrowserRouter history={createBrowserHistory()}>
             <Container fixed>
@@ -85,101 +84,14 @@ export const Routing = () => {
                         <Home/>
                     </PublicRoute>
 
-                    <PrivateRoute 
-                        path="/Profile" 
-                        exact 
-                        authed={authed}>
-                        <Profile
-                            authed={authed}
-                            onLogout={handleLogout}
-                        />
-                    </PrivateRoute>
-
-                    <Route
-                        exact
-                        path="/ChiefAnalytics/"
-                        component={ChiefAnalytics}
-                        authed={authed}
-                    />
-
-                    <Route
-                        exact
-                        path="/ChiefAnalytics/Statistic"
-                        component={Statistic}
-                        authed={authed}
-                    />
-
                     <PrivateRoute
                         exact
-                        path="/Admin/"
-                        component={AdminTable}
-                        authed={authed}
-                    />
-
-                    <Route
-                        exact
-                        path="/Admin/Chat"
-                        component={Chat}
-                        authed={authed}
-                    />
-
-                    <Route
-                        exact
-                        path="/Admin/MyMap"
-                        component={MyMap}
-                        authed={authed}
-                    />
-
-                    <Route
-                        exact
-                        path="/Admin/CouriersOperation"
-                        component={CouriersOperation}
-                        authed={authed}
-                    />
-
-                    <Route
-                        exact
-                        path="/Admin/CourierRegistration"
-                        component={CourierRegistration}
-                        authed={authed}
-                    />
-
-                    <PrivateRoute
-                        exact
-                        path="/CouriersPage/"
+                        path="/CouriersPage/:id"
                         component={CouriersPage}
                         authed={authed}
-                    /> 
-
-                    <Route
-                        exact
-                        path="/CouriersPage/Chat"
-                        component={Chat}
-                        authed={authed}
                     />
 
-                    <Route
-                        exact
-                        path="/CouriersPage/CourierHistory"
-                        component={CourierHistory}
-                        authed={authed}
-                    />
-
-
-                    <Route>
-                        <NotFound/>
-                    </Route>
-                </Switch>
-
-            </Container>
-        </BrowserRouter>
-    );
-};
-
-/*
-                    
-                    
-                                        {routes.map(({path, Component}) => (
+                    {routes.map(({path, Component}) => (
                         <PrivateRoute 
                             key={path} 
                             exact 
@@ -199,5 +111,15 @@ export const Routing = () => {
                             )}
                         </PrivateRoute>
                     ))}
-                    
-                    */
+
+
+                    <Route>
+                        <NotFound/>
+                    </Route>
+                </Switch>
+
+            </Container>
+        </BrowserRouter>
+    );
+};
+
