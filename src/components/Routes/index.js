@@ -12,7 +12,6 @@ import {Home} from "../Home";
 import {Profile} from "../Profile";
 import {NotFound} from "../NotFound";
 import {ChiefAnalytics} from "../ChiefAnalytics/ChiefAnalytics";
-import {Dashboard} from "../ChiefAnalytics/Dashboard";
 import {Statistic} from "../ChiefAnalytics/Statistic";
 import {AdminTable} from "../AdminTable";
 import {Chat} from "../Chat/Chat";

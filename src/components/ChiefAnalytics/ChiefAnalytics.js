@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {Box, Grid, Typography, Paper} from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import Menu from "../../utils/Menu"
 import {Statistic} from "./Statistic";
@@ -20,15 +20,16 @@ export const ChiefAnalytics = () => {
     const togglePageDashboard = () => {
         if(pageName === 'Statistic') {
             setPageName('Dashboard');
-            const stateObj = { page: 'Dashboard' };
-            window.history.pushState(stateObj, '', 'Dashboard');}
+            // const stateObj = { page: 'Dashboard' };
+            // window.history.pushState(stateObj, '', 'Dashboard');
+        }
     }
 
     const togglePageStatistic = () => {
         if(pageName === 'Dashboard') {
             setPageName('Statistic');
-            const stateObj = { page: 'Statistic' };
-            window.history.pushState(stateObj, '', 'Statistic')
+            // const stateObj = { page: 'Statistic' };
+            // window.history.pushState(stateObj, '', 'Statistic')
         }
     }
 
@@ -40,7 +41,7 @@ export const ChiefAnalytics = () => {
 
     return (
         <>
-            <Grid container spacing={2} alignItems="center">
+            <Grid container spacing={2} alignItems="center" sx={{pt: 1}}>
                 <Grid item xs={1}>
                     <Menu menuItem={menuItem}/>
                 </Grid>
