@@ -15,11 +15,11 @@ import {AdminTable} from "../AdminTable";
 import CouriersPage from "../CouriersPage/CouriersPage";
 
 const routes = [
-  { path: "/", name: "Home", Component: Home },
-  { path: "/Profile", name: "Profile", Component: Profile },
-  { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
-  { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
+    { path: "/", name: "Home", Component: Home },
+    { path: "/Profile", name: "Profile", Component: Profile },
+    { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
+    { path: "/Admin/", name: "Admin", Component: AdminTable },
+    { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
 function Chats() {
@@ -128,15 +128,13 @@ export const Routing = () => {
 /*                     <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
                         <ChiefAnalytics authed={authed}/>
                     </PrivateRouteChief>
-
                     <PrivateRouteAdmin path="/Admin" exact authed={authed}>
                         <AdminTable authed={authed}/>
                     </PrivateRouteAdmin>
-                    
+
                     <PrivateRouteCourier
                         path="/CouriersPage/:id"
                         component={CouriersPage}
                         authed={authed}
                     />
-
                     */

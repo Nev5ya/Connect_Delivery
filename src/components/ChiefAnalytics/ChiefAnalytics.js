@@ -1,35 +1,19 @@
-import {useState} from 'react';
-
 import {Box, Grid, Typography, Paper} from '@mui/material'
 
-import Menu from "../../utils/Menu"
-import {Statistic} from "./Statistic";
-import {Dashboard} from "./Dashboard";
+import {MenuChiefSettings} from "./MenuChiefSettings"
 
 export const ChiefAnalytics = () => {
-
-    const [pageName, setPageName] = useState('Dashboard');
 
     // Заглушки
     const dataFromDB = {
         name: 'Олег Руководитель',
-        menuIsOpened: false,
-        date: '12.06.2002',
     }
-
-    const togglePage = () => (pageName === 'Dashboard') ? setPageName('Statistic') : setPageName('Dashboard')
-
-    const menuItem = [
-        {name: 'Dashboard', func: togglePage},
-        {name: 'Statistic', func: togglePage},
-    ];
-
 
     return (
         <>
-            <Grid container spacing={2} alignItems="center">
+            <Grid container spacing={2} alignItems="center" sx={{mt: 1}}>
                 <Grid item xs={1}>
-                    <Menu menuItem={menuItem}/>
+                    <MenuChiefSettings/>
                 </Grid>
                 <Grid item xs={11}>
                     <Typography align="left" variant="h3">
@@ -42,12 +26,23 @@ export const ChiefAnalytics = () => {
                             <Grid item xs={12}>
                                 <Box sx={{p: 2}}>
                                     <Typography align="left" variant="h4">
-                                        {pageName}
+                                        Dashboard
                                     </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={6}>
-                                {(pageName === 'Dashboard') ? <Dashboard/> : <Statistic/> }
+                                <Paper elevation={2}>
+                                    <Box sx={{p: 3}}>
+                                        <Typography variant="h6">В обработке 20 заказов</Typography>
+                                        <Typography variant="h6">На линии 42 курьера</Typography>
+                                        <Typography variant="h6">
+                                            За сегодня доставленно 54 заказа
+                                        </Typography>
+                                        <Typography variant="h6">
+                                            Среднее время доставки 42 минуты
+                                        </Typography>
+                                    </Box>
+                                </Paper>
                             </Grid>
                         </Grid>
                     </Paper>

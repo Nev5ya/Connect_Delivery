@@ -20,9 +20,13 @@ import {MyButtonContained} from "../Button/button";
 export const AdminTable = () => {
 
   const [option, setOption] = useState('0');
+  const [hrefMenu, setHrefMenu] = useState('');
 
   const onMenuItemClick = (option) => {
     setOption(option);
+  };
+  const onMenuHref = (href) => {
+    setHrefMenu(href);
   };
 
   const dispatch = useDispatch();
@@ -63,7 +67,7 @@ export const AdminTable = () => {
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between'}}>
-        <Menu menuItem={AdminMenu(onMenuItemClick)}/>
+        <Menu menuItem={AdminMenu(onMenuItemClick, onMenuHref)}/>
         <Typography sx={{mt: 4}} variant='h4' component='h2'>Стас Администратор</Typography>
         <Stack sx={{mt: 4}}spacing={2} direction='row'>
           <MyButtonContained  text={'У ВАС СООБЩЕНИЕ'}  onClick={() => {setOption('1')}}/>

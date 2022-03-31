@@ -42,15 +42,17 @@ export const initChat = (id) => (dispatch) => {
     });
 };
 
-export const addChatFb = (id, name) => () => {
+export const addChatFb = (id, name) => (dispatch) => {
   const newId = `chat-${id}`;
-   //console.log('addChatFb', newId);
-  const chatDbRef = ref(db, `chats/${id}`);
-   console.log('addChatFb',  newId, chatDbRef);
+  console.log('addChatFb', newId);
+//  const chatDbRef = ref(db, `chats/123`);
+  const chatDbRef = ref(db, `chats/${newId}`);
+  console.log('addChatFb',  newId, chatDbRef);
   set(chatDbRef, {
     id: newId,
     name: name,
   });
+    //dispatch(addChat({id: newId, name}));
 };
 
 export const deleteChatFb = (id) => () => {

@@ -15,7 +15,7 @@ export const chatsReducer = (state = initialState, { type, payload }) => {
       console.log('ADD_CHAT reducer', state.chats)
       return {
         ...state,
-        chats: [...state.chats, { id: state.chats[state.chats.length - 1]?.id + 1, name: payload }],
+        chats: [...state.chats, { id: payload.id, name: payload.name }],
       };
     }
     case DELETE_CHAT: {

@@ -17,7 +17,7 @@ const initialState = {
 };
 
 export const couriersReducer = (state = initialState, {type, payload}) => {
-    console.log('st111', state, type)
+    console.log('couriersReducer', state, type)
     switch (type) {
         case GET_COURIERS_FROM_DB:
             console.log('reducer', state, payload)
@@ -77,18 +77,18 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
             return new_stDel
 
 
-        // Courier Status Change
-        case CHANGE_COURIERS_STATUS_IN_DB: {
-            const filterChange = state.couriers.filter((item) => {
-                return item.id !== payload.id
-            });
-
-            return {
-                ...state,
-                courierStatusUpdate: REQUEST_STATUS.SUCCESS,
-                couriers: [...filterChange, payload]
-            };
-        }
+        // // Courier Status Change
+        // case CHANGE_COURIERS_STATUS_IN_DB: {
+        //     const filterChange = state.couriers.filter((item) => {
+        //         return item.id !== payload.id
+        //     });
+        //
+        //     return {
+        //         ...state,
+        //         courierStatusUpdate: REQUEST_STATUS.SUCCESS,
+        //         couriers: [...filterChange, payload]
+        //     };
+        // }
 
         default:
             return state

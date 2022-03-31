@@ -7,7 +7,7 @@ import {useState} from "react";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CourierRedact from "../CourierRedact/CourierRedact";
 
-export const CouriersList = ({name, couriers, status}) => {
+export const CouriersList = ({name, couriers, status_id}) => {
 
     /////Флаг открытия/закрытия модального окна//
     let [openModal, setOpenModal] = useState(false);
@@ -37,7 +37,7 @@ export const CouriersList = ({name, couriers, status}) => {
                           onClick={(event) => onClickHandle(courier, event)}
                     >
                         <ListItemIcon>
-                            {iconCourierStatus(status)}
+                            {iconCourierStatus(status_id)}
                         </ListItemIcon>
                         {courier.name} ID:{courier.id}
                     </ListItem>)}

@@ -69,9 +69,9 @@ export default function ChatListForAdmin({onSelectChat}) {
                 <Demo sx={{ mt: 1, mb: 2 }}>
                     <List sx={{ display: 'flex', flexDirection: 'column' }}>
                         {usersList.map((courier) => {
-                            console.log('usersList', chatList, `chat-${courier.id}`, courier.name,
-                                chatList.filter((ch) =>
-                                `chat-${courier.id}` === ch.id && ch.name === courier.name).length === 0)
+                            console.log('usersList', chatList, `chat-${courier.id}`, courier.name)
+                                // chatList.filter((ch) =>
+                                // `chat-${courier.id}` === ch.id ).length === 0)//&& ch.name === courier.name
                             return (
                                 <ListItem
                                     sx={{'&:hover': {color:'green', cursor: 'pointer'},
@@ -83,7 +83,7 @@ export default function ChatListForAdmin({onSelectChat}) {
                                         {/*    <DeleteIcon />*/}
                                         {/*</IconButton>*/}
                                         { chatList.filter((ch) =>
-                                            `chat-${courier.id}` === ch.id && ch.name === courier.name).length === 0
+                                            `chat-${courier.id}` === ch.id && ch.name === courier.name).length === 0//
                                            ?<Tooltip title="Создать чат">
                                                 <IconButton
                                                     edge='end'

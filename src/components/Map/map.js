@@ -14,7 +14,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
         }
     };
 
-    const  [coordinates, setCoordinates] = useState([{typeLabel:'', name:'', status:'', description:'', address:'', coordinates: [0, 0]}]);
+    const  [coordinates, setCoordinates] = useState([{typeLabel:'', name:'', status_id:'', description:'', address:'', coordinates: [0, 0]}]);
 
     const showCouriers = () => {
         couriers.forEach(label => {
@@ -22,7 +22,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
             setCoordinates((prev) => {
                 label.typeLabel = label.role_title;
                 label.address = '';
-                label.status = label.user_status;
+                label.status_id = label.user_status_id;
                 label.coordinates = (label.coords) ? label.coords.split(',') : null;
                 return [...prev, label];
             })
@@ -35,6 +35,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                     .then(result => {
                         setCoordinates((prev) => {
                             label.typeLabel = 'order';
+                            label.status_id = label.order_status_id;
                             label.coordinates = result.geoObjects.get(0).geometry.getCoordinates()
                             return [...prev, label];
                         })
@@ -93,7 +94,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                                     iconContent: label.name,
                                 }}
                                 options={{
-                                    preset: `islands#${colorLabel(label.typeLabel, label.status)}StretchyIcon`
+                                    preset: `islands#${colorLabel(label.typeLabel, label.status_id)}StretchyIcon`
                                 }}
                             />
                         })

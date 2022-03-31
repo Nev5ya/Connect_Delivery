@@ -3,8 +3,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCourierStatus} from "../../store/couriers/actions";
-import {selectUpdateStatus} from "../../store/couriers/selector";
+import {changeCourier, changeCourierStatus} from "../../store/couriers/actions";
+import {selectRequestCouriers, selectUpdateStatus} from "../../store/couriers/selector";
 
 export const CourierStatusChange = (props) => {
     const courier = props?.courier[0];
@@ -12,20 +12,21 @@ export const CourierStatusChange = (props) => {
     const [checked, setChecked] = useState(!!statusId);
     const dispatch = useDispatch();
 
-    let label;
+    let label; /////нужно правильно заполнить справочник на сервере и выводить поле user_status
     if (statusId === 1) label = 'Online';
     else if (statusId === 2) label = 'Busy';
     else label = 'Offline';
 
-    const courierStatusUpdate = useSelector(selectUpdateStatus);
+    const requestCouriers = useSelector(selectRequestCouriers);
 
     const onChangeStatus = (courier_id, event) => {
-        dispatch(changeCourierStatus(courier_id, event));
+        console.log('onChangeStatus', event)
+        dispatch(changeCourier({id: courier_id, user_status_id: event}));
     };
 
     const handleChange = (event) => {
         onChangeStatus(courier?.id, event.target.checked + 1);
-        if (courierStatusUpdate === 2) setChecked(event.target.checked);
+        if (requestCouriers.error === null) setChecked(event.target.checked);
     };
 
     return (

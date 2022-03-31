@@ -16,21 +16,22 @@ export const selectCurrentCourier = (state, courierID) => {
     }
 };
 
-export const selectCouriersByStatus = (state, status) => {
+export const selectCouriersByStatus = (state, status_id) => {
     const couriers = state.couriers.couriers;
     const filterCouriers =  couriers.filter((courier) => {
-        return (courier.user_status === status && courier.is_deleted !== 1);
+        return (courier.user_status_id === status_id && courier.is_deleted !== 1);
     })
-    // console.log('selectCouriersByStatus', status, filterCouriers)
+     console.log('selectCouriersByStatus', status_id, filterCouriers)
     return filterCouriers
 };
 
 export const selectRequestCouriers = (state) => {
-    // console.log('selectRequestCouriers', state)
+     console.log('selectRequestCouriers', state)
     return state.couriers.request
 };
 
-export const selectUpdateStatus = (state) => {
-    return state.couriers.courierStatusUpdate;
-};
+// export const selectUpdateStatus = (state) => {
+//     console.log('selectUpdateStatus', state.couriers)
+//     return state.couriers.courierStatusUpdate;
+// };
 

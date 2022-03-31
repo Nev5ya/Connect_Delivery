@@ -19,19 +19,19 @@ export const CouriersOperation = () => {
         setClickOnMapToggle(!clickOnMapToggle);
     };
 
-    const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 'online'));
-    const couriersWork = useSelector((state) => selectCouriersByStatus(state, 'work'));
-    const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 'offline'));
+    const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
+    const couriersWork = useSelector((state) => selectCouriersByStatus(state, 3));
+    const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 1));
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const onRegistrCourierClick = () => {
     //     console.log('onRegistrCourierClick');
     //     dispatch(registrCourier());
     // };
-    // const onRegistrOrderClick = () => {
-    //     console.log('onRegistrOrderClick');
-    //     dispatch(registrOrder());
-    // };
+    const onRegistrOrderClick = () => {
+        console.log('onRegistrOrderClick');
+        dispatch(registrOrder());
+    };
 
 
       return (
@@ -42,9 +42,9 @@ export const CouriersOperation = () => {
                     </Box>
                   : <Grid direction="row" container spacing={2}>
                       <Grid item xs={6}>
-                          <CouriersList name={'Курьеры онлайн:'} couriers={couriersOnline} status='online'/>
-                          <CouriersList name={'Курьеры в процессе доставки:'} couriers={couriersWork} status='work'/>
-                          <CouriersList name={'Курьеры оффлайн:'} couriers={couriersOffline} status='offline'/>
+                          <CouriersList name={'Курьеры онлайн:'} couriers={couriersOnline} status_id={2}/>
+                          <CouriersList name={'Курьеры в процессе доставки:'} couriers={couriersWork} status_id={3}/>
+                          <CouriersList name={'Курьеры оффлайн:'} couriers={couriersOffline} status_id={1}/>
                       </Grid>
                       <Grid item xs={6}>
                           <MyMap name={''}
@@ -63,12 +63,12 @@ export const CouriersOperation = () => {
               {/*    text={'Зарегистрировать нового курьера'}*/}
               {/*    onClick={onRegistrCourierClick}*/}
               {/*/>*/}
-              {/*<MyButtonContained*/}
-              {/*    disabled={false}*/}
-              {/*    sx={{cursor: 'pointer'}}*/}
-              {/*    text={'Зарегистрировать новый заказ'}*/}
-              {/*    onClick={onRegistrOrderClick}*/}
-              {/*/>*/}
+              <MyButtonContained
+                  disabled={false}
+                  sx={{cursor: 'pointer'}}
+                  text={'Зарегистрировать новый заказ'}
+                  onClick={onRegistrOrderClick}
+              />
           </>
       );
 };

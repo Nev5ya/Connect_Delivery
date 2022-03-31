@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import {useDispatch} from "react-redux";
 import {changeOrder} from "../../store/orders/actions";
 import Typography from "@mui/material/Typography";
+import {changeCourier} from "../../store/couriers/actions";
 
 export const CourierOrder = ({order}) => {
     console.log('CourierOrder', order)
@@ -12,7 +13,9 @@ export const CourierOrder = ({order}) => {
     /////изменение статуса заказа на Доставлено//
     const dispatch = useDispatch();
     const onChangeDelivered = () => {
-        dispatch(changeOrder({id: order.id, order_status_id: 3}))
+        //dispatch(changeCourier({id: order.user_id, user_status_id: 2}));
+        dispatch(changeOrder({id: order.id, order_status_id: 3 }));
+
     };
 
     return (

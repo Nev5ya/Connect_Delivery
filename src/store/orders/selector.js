@@ -23,11 +23,14 @@ export const selectOrdersWithUserId = (state) => state.orders.orders
     });
 
 export const selectTransitOrderForCourier = (state, courierID) => {
-    // console.log('selectTransitOrderForCourier', state, state.orders)
+     console.log('selectTransitOrderForCourier', state, state.orders)
     const orders = state.orders.orders;
-    return orders.filter(item => {
-        return (item.user_id === courierID && item.order_status_id === 2) //status: "transit"
+     const a = orders.filter(item => {
+         console.log('selectTransitOrderForCourier2', item.user_id , courierID ,  item.order_status_id)
+        return (item.user_id === courierID && item.order_status_id !== 3) //status: "transit"
     })
+    console.log('selectTransitOrderForCourier1', a)
+    return a
 };
 
 export const selectDeliveredOrdersForCourier = (state, courierID) => {
