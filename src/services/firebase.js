@@ -42,7 +42,28 @@ export const signUp = async (email, pass) => {
 }
 
 export const login = async (email, pass) => {
-  await signInWithEmailAndPassword(auth, email, pass);
+  
+  const response =  await fetch(`https://xn--l1aej.pw/api/login`,{
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        mode:'cors'
+    },
+    body: JSON.stringify({
+       email: email,
+       password: pass
+    })
+});
+if (!response.ok) {
+  console.log('response.ok', response.ok);
+  //throw new Error(error ${response.status});
+}
+
+const result = await response.json();
+
+console.log('result', result);
+email=result.currentUser.email;
+await signInWithEmailAndPassword(auth, email, pass);
 };
 
 export const signOut = async () => {

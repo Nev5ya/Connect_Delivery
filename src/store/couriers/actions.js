@@ -176,7 +176,7 @@ export const registrCourier = (name, surname, email, password) => {
                 // }
                 return response.json()
 
-            }) .then(json => {
+            }).then(json => {
             console.log('json deleteCourierInDB', json)
             return ''})
             .catch(err => console.log('err', err))
