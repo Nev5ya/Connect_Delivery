@@ -93,17 +93,6 @@ export const Home = () => {
             </form>
           </Paper>
         </Box>
-      {/*  Blah-Blah-Blah!!!*/}
-      {/*<div className="checkIn">*/}
-
-      {/*  <div>*/}
-      {/*    <form className="checkInForm" onSubmit={handleSubmit}>*/}
-      {/*      <input type="text" value={login} onChange={handleLoginChange} />*/}
-      {/*      <input type="password" value={pass} onChange={handlePassChange} />*/}
-      {/*      <input type="submit" />*/}
-      {/*      </form>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
       </>
   );
 };
