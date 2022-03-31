@@ -91,9 +91,9 @@ export const Routing = () => {
                     />
 
                     {routes.map(({path, Component}) => (
-                        <PrivateRoute 
-                            key={path} 
-                            exact 
+                        <PrivateRoute
+                            key={path}
+                            exact
                             authed={authed}
                             path={path}>
                             {({match}) => (
@@ -122,3 +122,18 @@ export const Routing = () => {
     );
 };
 
+/*                     <PrivateRouteChief path="/ChiefAnalytics" exact authed={authed}>
+                        <ChiefAnalytics authed={authed}/>
+                    </PrivateRouteChief>
+
+                    <PrivateRouteAdmin path="/Admin" exact authed={authed}>
+                        <AdminTable authed={authed}/>
+                    </PrivateRouteAdmin>
+                    
+                    <PrivateRouteCourier
+                        path="/CouriersPage/:id"
+                        component={CouriersPage}
+                        authed={authed}
+                    />
+
+                    */

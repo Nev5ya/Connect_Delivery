@@ -7,36 +7,37 @@ export const REQUEST_STATUS = {
   FAILURE: 3,
 };
 
-export const colorLabel = (typeLabel, status) => {
+export const colorLabel = (typeLabel, status_id) => {
   //console.log('colorLabel', typeLabel, status)
-  if (typeLabel === 'courier' && status === 'online') {
+  if (typeLabel === 'courier' && status_id === 2) {//'online'
     return 'green'
   }
-  if (typeLabel === 'courier' && status === 'offline') {
+  if (typeLabel === 'courier' && status_id === 1) {//'offline'
     return 'grey'
   }
-  if (typeLabel === 'courier' && status === 'work') {
+  if (typeLabel === 'courier' && status_id === 3) {//'work'
     return 'red'
   }
-  if (typeLabel === 'order' && status === 'processing') {
+  if (typeLabel === 'order' && status_id === 1 ) {//'processing'
     return 'blue'
   }
-  if (typeLabel === 'order' && status === 'delivered') {
+  if (typeLabel === 'order' && status_id === 3) {//'delivered'
     return 'yellow'
   }
-  if (typeLabel === 'order' && status === 'transit') {
+  if (typeLabel === 'order' && status_id === 2) {//'transit'
     return 'orange'
   }
 };
 
-export const iconCourierStatus = (status) => {
-  if (status === 'online') {
+export const iconCourierStatus = (status_id) => {
+  console.log('iconCourierStatus', status_id)
+  if (status_id === 2) {//'online'
     return <Brightness1Icon sx={{color: "green"}}/>
   }
-  if (status === 'offline') {
+  if (status_id === 1) {//'offline'
     return <Brightness1Icon sx={{color: "grey"}}/>
   }
-  if (status === 'work') {
+  if (status_id === 3) {//'work'
     return <Brightness1Icon sx={{color: "red"}}/>
   }
 }

@@ -3,7 +3,8 @@ import {
   CHANGE_COURIERS_IN_DB_PENDING,
   CHANGE_COURIERS_IN_DB_SUCCESS,
   DELETE_COURIERS_IN_DB,
-  GET_COURIERS_FROM_DB
+  GET_COURIERS_FROM_DB,
+
 } from "./actions";
 import {REQUEST_STATUS} from "../../utils/constants";
 
@@ -15,14 +16,14 @@ const initialState = {
   },
 };
 
-export const couriersReducer = (state = initialState, { type, payload }) => {
-  console.log('st111', state, type)
-  switch (type) {
-    case GET_COURIERS_FROM_DB:
-      console.log('reducer', state, payload)
-      const new_st = {...state, couriers: payload} //{...state, couriers: [...state.couriers, ...payload]}
-      console.log('new_st', new_st, state)
-      return new_st
+export const couriersReducer = (state = initialState, {type, payload}) => {
+    console.log('couriersReducer', state, type)
+    switch (type) {
+        case GET_COURIERS_FROM_DB:
+            console.log('reducer', state, payload)
+            const new_st = {...state, couriers: payload} //{...state, couriers: [...state.couriers, ...payload]}
+            console.log('new_st', new_st, state)
+            return new_st
 
     case CHANGE_COURIERS_IN_DB_PENDING: {
       return {
@@ -75,7 +76,21 @@ export const couriersReducer = (state = initialState, { type, payload }) => {
       console.log('new_st', new_stDel, state)
       return new_stDel
 
-    default:
-      return state
-   }
+
+        // // Courier Status Change
+        // case CHANGE_COURIERS_STATUS_IN_DB: {
+        //     const filterChange = state.couriers.filter((item) => {
+        //         return item.id !== payload.id
+        //     });
+        //
+        //     return {
+        //         ...state,
+        //         courierStatusUpdate: REQUEST_STATUS.SUCCESS,
+        //         couriers: [...filterChange, payload]
+        //     };
+        // }
+
+        default:
+            return state
+    }
 };

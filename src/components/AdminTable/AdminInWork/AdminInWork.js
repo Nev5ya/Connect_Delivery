@@ -22,6 +22,7 @@ import {useState} from "react";
 import ModalWindow from "../../ModalWindow/ModalWindow";
 import CourierRedact from "../../CourierRedact/CourierRedact";
 import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
+import {changeCourier} from "../../../store/couriers/actions";
 
 const AdminInWork = ({setOption}) => {
 
@@ -30,14 +31,15 @@ const AdminInWork = ({setOption}) => {
 	//const orders = useSelector(selectOrders) // список всех заказов
 	console.log('AdminInWork', ordersWithOutUserId)
 
-	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 'online'));
+	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
 	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: null}]
 
 	console.log('adminWork', couriersOnline, ordersforPaginAdmin, couriersOnlineAndNull)
 	/////Вызов Редактировать курьера//
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
-		dispatch(changeOrder({id: order_id, user_id: event.target.value}))
+		dispatch(changeOrder({id: order_id, order_status_id: 2, user_id: event.target.value}));
+		//dispatch(changeCourier({id: event.target.value, user_status_id: 3}));
 	};
 
 	/////Флаг открытия/закрытия модального окна//

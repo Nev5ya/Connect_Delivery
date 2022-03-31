@@ -15,7 +15,7 @@ const CourierRedactEdit = ({data, closeModal}) => {
 
     const dispatch = useDispatch();
     const onChangeCourier = (courier_id, name, email) => {
-        dispatch(changeCourier(courier_id, name, email))
+        dispatch(changeCourier({id: courier_id, name: name, email: email}))
     };
 
     const couriersRequest = useSelector(selectRequestCouriers);

@@ -20,9 +20,13 @@ import {MyButtonContained} from "../Button/button";
 export const AdminTable = () => {
 
   const [option, setOption] = useState('0');
+  const [hrefMenu, setHrefMenu] = useState('');
 
   const onMenuItemClick = (option) => {
     setOption(option);
+  };
+  const onMenuHref = (href) => {
+    setHrefMenu(href);
   };
 
   const dispatch = useDispatch();
@@ -42,9 +46,9 @@ export const AdminTable = () => {
     console.log('option', option)
     switch (option) {
       case '1':
-        return <Chat/>;
+        return <Chat  mode="Admin" />;
       case '2':
-        return <MyMap  name={"Местонахождение курьеров"} couriers={couriers} orders={orders} />;
+        return <MyMap  name={"Местонахождение курьеров и заказов"} couriers={couriers} orders={orders} />;
       case '3':
         return <CouriersOperation/>;
       case '4':
@@ -63,12 +67,13 @@ export const AdminTable = () => {
   return (
     <Box sx={{width: '100%', typography: 'body1'}}>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between'}}>
-        <Menu menuItem={AdminMenu(onMenuItemClick)}/>
+        <Menu menuItem={AdminMenu(onMenuItemClick, onMenuHref)}/>
         <Typography sx={{mt: 4}} variant='h4' component='h2'>Стас Администратор</Typography>
         <Stack sx={{mt: 4}}spacing={2} direction='row'>
           <MyButtonContained  text={'У ВАС СООБЩЕНИЕ'}  onClick={() => {setOption('1')}}/>
-           </Stack>
+        </Stack>
       </Box>
+        <Divider variant='string' sx={{ mt: 3, mb: 3 }} />
       {renderOptionalComponent(option)}
     </Box>
   );

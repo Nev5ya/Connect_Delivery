@@ -54,7 +54,7 @@ const CouriersPage = () => {
         <>
             <Menu menuItem={CourierMenu(onMenuItemClick)}/>
             {(option === '1')
-                ? <Chat/>
+                ? <Chat mode="Courier" currentCourier={currentCourier[0]}/>
                 :(option === '0')
                      ? (clickOnMapToggle
                         ? <Box xs={{width: '100%'}}>

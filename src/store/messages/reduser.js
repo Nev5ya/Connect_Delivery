@@ -1,4 +1,5 @@
 import {ADD_MESSAGE, SET_MESSAGES} from "./actions";
+import {DELETE_CHAT} from "../chats/actions";
 
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
 export const messagesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_MESSAGE: {
+        console.log('messagesReducer', type, payload)
       return {
         ...state,
         messageList: [...state.messageList, 

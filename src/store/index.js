@@ -7,6 +7,8 @@ import { profileReducer } from "./profile/reducer";
 import { homeReducer } from "./home/reducer";
 import {ordersReducer} from "./orders/reducer";
 import {couriersReducer} from "./couriers/reducer";
+import {chatsReducer} from "./chats/reduser";
+import {messagesReducer} from "./messages/reduser";
 
 const persistConfig = {
   key: "Alex_P_01.2022",
@@ -23,7 +25,9 @@ export const rootReducer = combineReducers({
   profile: profileReducer,
   home: homeReducer,
   orders: persistReducer(orderPersistConfig, ordersReducer),
-  couriers: couriersReducer
+  couriers: couriersReducer,
+  chats: chatsReducer,
+  messages: messagesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

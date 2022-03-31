@@ -66,26 +66,26 @@ export const changeCourierInDBFailure = (error) => ({
 //             .catch(err => console.log('err', err))
 //     }
 // }
-export const changeCourier = (courier_id, name, email) => async (dispatch) => {
+export const changeCourier = (obj) => async (dispatch) => {
 
     dispatch(changeCourierInDBPending());
 
-    console.log('changeCourier')
-    const newData = {
-        id: courier_id,
-        name,
-        email
-    };
-    console.log('changeCourier newData', newData);
+    console.log('changeCourier', obj)
+    // const newData = {
+    //     id: courier_id,
+    //     name,
+    //     email
+    // };
+    // console.log('changeCourier newData', newData);
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${obj.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 mode:'cors'
             },
-            body: JSON.stringify(newData)
+            body: JSON.stringify(obj)
         });
 
         if (!response.ok) {
@@ -154,7 +154,7 @@ export const registrCourier = (name, surname, email, password) => {
         email: email,
         password: password,
         coords: "55.6843,37.33855",
-        user_status_id: 3,
+        user_status_id: 1,
         role_id: 1
     };
     console.log('registrCourier newData', newData);
@@ -182,3 +182,36 @@ export const registrCourier = (name, surname, email, password) => {
             .catch(err => console.log('err', err))
     }
 }
+
+// export const CHANGE_COURIERS_STATUS_IN_DB = "COURIERS::CHANGE_COURIERS_STATUS_IN_DB"
+//
+// export const changeCouriersStatusInDB = (payload) => ({
+//     type: CHANGE_COURIERS_STATUS_IN_DB,
+//     payload: payload
+// });
+//
+// export const changeCourierStatus = (courier_id, status_id) => {
+//     const newData = {
+//         id: courier_id,
+//         user_status_id: status_id,
+//     };
+//
+//     return function (dispatch) {
+//         fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8',
+//                 "X-Requested-With": "XMLHttpRequest",
+//                 mode:'cors'
+//             },
+//             body: JSON.stringify(newData)
+//         })
+//             .then(response => {
+//                 return response.json()
+//             })
+//             .then(result => {
+//                dispatch(changeCouriersStatusInDB(result.updatedUser));
+//             })
+//             .catch(err => console.log('err', err))
+//     }
+// }

@@ -1,16 +1,8 @@
-
 import React, { useState, useRef, useEffect } from 'react';
+import {Box, Button, Icon, TextField} from "@mui/material";
+import {MyButtonContained} from "../Button/button";
 
-
-import {Button, Icon, TextField} from "@mui/material";
-import {makeStyles} from "@mui/styles";
-
-const useStyles = makeStyles((theme) => ({
-  }));
-
-const MessageAddForm = (props) => {
-
-    const classes = useStyles();
+const AddForm = (props) => {
 
     const [value, setValue] = useState({text:''});
 
@@ -23,8 +15,8 @@ const MessageAddForm = (props) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        props.onAdd(value.text, 'Human')
         console.log('form', value)
+        props.onAdd(value.text, 'Human');
         setValue({
             text: ''
         });
@@ -38,35 +30,36 @@ const MessageAddForm = (props) => {
             }
         })
     };
-
+    console.log('AddForm', props.chatId)
     
     return (
-        <form 
-        className="add_form"
-        onSubmit={onSubmit}>
-        <TextField
+        <Box sx={{ mt:2, display: 'flex', flexDirection: 'row', width: '100%'}}>
+
+        <TextField  sx={{ width: '100%' }}
             id="outlined-multiline-static"
             label={props.label}
             multiline
             rows={props.rows}
             variant="outlined"
-            className={props.className}
             onChange={onValueChange}
             value={value.text}
             inputRef={inputRef}
         />
-        <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            className="button"
-            endIcon={<Icon>send</Icon>}
-            >{props.textButton}
-        </Button>
+        {/*<Button*/}
+        {/*    type="submit"*/}
+        {/*    variant="contained"*/}
+        {/*    color="primary"*/}
+        {/*    size="large"*/}
+        {/*    className="button"*/}
+        {/*    endIcon={<Icon>send</Icon>}*/}
+        {/*    >{props.textButton}*/}
+        {/*</Button>*/}
+            <Box >
+                <MyButtonContained text={props.textButton} onClick={onSubmit}/>
+            </Box>
 
-    </form>
+        </Box>
     );
 };
 
-export default MessageAddForm;
+export default AddForm;
