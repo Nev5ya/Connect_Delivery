@@ -54,6 +54,8 @@ const result = await response.json();
 localStorage.setItem('role', result.currentUser.role_title);
 localStorage.setItem('role_id', result.currentUser.role_id);
 email=result.currentUser.email;
+localStorage.setItem('role_email', email);
+
 
 console.log('result', result);
 console.log(localStorage.getItem('role'));
