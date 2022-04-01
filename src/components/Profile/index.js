@@ -10,34 +10,20 @@ console.log(auth);
 export const Profile = ({ onLogout }) => {
   const [role, setRole] = useState("");
   const [roleId, setRoleId] = useState("");
+  const [roleEmail, setRoleEmail] = useState("");
 
   const handleClick = () => {
     onLogout();
   };
 
   useEffect(() => {
-    const profileDbRef = ref(db, "profile/login");
-    const unsubscribe = onValue(profileDbRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      const showlogin = document.querySelector(".left_box");
-      const div = document.createElement("div");
-      div.innerHTML = "Login:" + data.login;
-      document.body.append(div);
-      div.classList.add("userlogin");
-      showlogin.before(div);
-    });
-    return unsubscribe();
-  }, []);
-
-  useEffect(() => {
     const profileDbRef = ref(db, "profile/login/role");
-    const unsubscribe2 = onValue(profileDbRef, (snapshot) => {
-      const data = snapshot.val();
+    const unsubscribe2 = onValue(profileDbRef, () => {
       setRole(localStorage.getItem('role'));
       setRoleId(localStorage.getItem('role_id'));
+      setRoleEmail(localStorage.getItem('role_email'));
     });
-    return unsubscribe2();
+    return unsubscribe2;
   }, []);
 
 
@@ -45,8 +31,10 @@ set(ref(db, "profile/login/role"), {
   role: role,
 });
 
+const email = localStorage.getItem('role_email');
 console.log("role = ",role);
 console.log("role_id = ", roleId);
+console.log("role_email = ", roleEmail);
   return (
   <div className="profile">
       <header className="showlogin">Personal Account</header>
@@ -69,7 +57,7 @@ console.log("role_id = ", roleId);
             </div>
       </aside>
       <main>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label>  Alex@mail.ru &#10031;</li>
+        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label>  {email} &#10031;</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  phone:</label> +7 920 520 52 52 &#10031;</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>sex:</label>  man</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  city:</label> Nizhniy Novgorod &#10031;</li>
@@ -80,6 +68,7 @@ console.log("role_id = ", roleId);
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>hobby:</label>    travel &#9786;</li>
         <br/>
         <Button variant="contained" disabled>edit</Button>
+
       </main>
       <footer className="footer">
       <br/>
