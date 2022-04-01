@@ -12,23 +12,14 @@ import { getDatabase } from "firebase/database";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
-//   authDomain: "connect-delivery-f2a10.firebaseapp.com",
-//   databaseURL: "https://test-exore-default-rtdb.asia-southeast1.firebasedatabase.app",
-//   projectId: "connect-delivery-f2a10",
-//   storageBucket: "connect-delivery-f2a10.appspot.com",
-//   messagingSenderId: "952020985037",
-//   appId: "1:952020985037:web:d250772cdcc7e0d020b584"
-// };
 const firebaseConfig = {
-  apiKey: "AIzaSyCiqSsBQYuYPqaniBgVJmHHpsWGTbs8WR0",
-  authDomain: "socialnetwork-de904.firebaseapp.com",
-  databaseURL: "https://socialnetwork-de904-default-rtdb.firebaseio.com",
-  projectId: "socialnetwork-de904",
-  storageBucket: "socialnetwork-de904.appspot.com",
-  messagingSenderId: "419015389004",
-  appId: "1:419015389004:web:50afa79994c27f8daaa9e9"
+  apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
+  authDomain: "connect-delivery-f2a10.firebaseapp.com",
+  databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "connect-delivery-f2a10",
+  storageBucket: "connect-delivery-f2a10.appspot.com",
+  messagingSenderId: "952020985037",
+  appId: "1:952020985037:web:d250772cdcc7e0d020b584"
 };
 
 // Initialize Firebase
@@ -60,9 +51,13 @@ if (!response.ok) {
 }
 
 const result = await response.json();
+localStorage.setItem('role', result.currentUser.role_title);
+localStorage.setItem('role_id', result.currentUser.role_id);
+email=result.currentUser.email;
 
 console.log('result', result);
-email=result.currentUser.email;
+console.log(localStorage.getItem('role'));
+console.log(localStorage.getItem('role_id'));
 await signInWithEmailAndPassword(auth, email, pass);
 };
 
