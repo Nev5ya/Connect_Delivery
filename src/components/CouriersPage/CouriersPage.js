@@ -29,6 +29,8 @@ const CouriersPage = () => {
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
     console.log('courier', deliveredOrders)
 
+    const courierBusy = currentOrder?.length > 0;
+
     const dispatch = useDispatch();
     useEffect((event) => {
         console.log('useEffect')
@@ -67,7 +69,7 @@ const CouriersPage = () => {
                                     {currentCourier[0]?.name}
                                      <span className="courier-status"></span>
                                  </Typography>
-                                 <CourierStatusChange />
+                                 <CourierStatusChange  courier={currentCourier} courierBusy={courierBusy}/>
                              </Stack>
 
                               <Stack direction="row" spacing={2}>

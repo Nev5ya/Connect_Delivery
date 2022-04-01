@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { Routing } from "./components/Routes";
+import { Routing } from "./components/Routes/index_";
 import "./App.css";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";

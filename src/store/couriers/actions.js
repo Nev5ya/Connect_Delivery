@@ -17,7 +17,8 @@ export const getCouriers = () => {
         .then(json => {
             const couriers = json.data.filter(item => item.role_id === 1)
             console.log('json', json, couriers)
-            return dispatch(getCouriersFromDB(couriers))})
+            // return dispatch(getCouriersFromDB(couriers))})
+            return dispatch(getCouriersFromDB(json.data))})
   }
 }
 

@@ -1,8 +1,14 @@
-import {Paper, Grid, Typography} from "@mui/material";
-import {Box} from "@mui/system";
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 
+
+import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {MenuChiefSettings} from "./MenuChiefSettings"
+
+import {Box, Paper, Grid, Typography} from "@mui/material";
 export const Statistic = () => {
+    // Заглушки
+    const dataFromDB = {
+        name: 'Олег Руководитель',
+    }
 
     const data = [
         { name: 'ID 1', uv: 400, pv: 2400, amt: 2400 },
@@ -17,6 +23,15 @@ export const Statistic = () => {
 
     return (
         <>
+        <Grid container spacing={2} alignItems="center" sx={{mt: 1}}>
+            <Grid item xs={1}>
+                <MenuChiefSettings/>
+            </Grid>
+            <Grid item xs={11}>
+                <Typography align="left" variant="h3">
+                    {dataFromDB.name}
+                </Typography>
+            </Grid>
             <Grid item xs={12}>
                 <Paper elevation={0}>
                     <Grid container alignItems="center" gap={2}>
@@ -25,29 +40,32 @@ export const Statistic = () => {
                                 <Typography align="left" variant="h4">
                                     Statistic
                                 </Typography>
-                            </Box>
+                                </Box>
                         </Grid>
                         <Grid item xs={6}>
                             <Paper elevation={2}>
-                                <Box sx={{ py: 2 }}>
+                                <Box sx={{py: 2}}>
                                     <LineChart
                                         width={540}
                                         height={300}
                                         data={data}
-                                        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+                                        margin={{top: 5, right: 20, bottom: 5, left: 0}}
                                     >
-                                        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                                        <XAxis dataKey="name" />
-                                        <YAxis />
-                                        <Tooltip />
+                                        <Line type="monotone" dataKey="uv" stroke="#8884d8"/>
+                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
+                                        <XAxis dataKey="name"/>
+                                        <YAxis/>
+                                        <Tooltip/>
                                     </LineChart>
                                 </Box>
                             </Paper>
                         </Grid>
-                    </Grid>
+                        </Grid>
                 </Paper>
             </Grid>
+                    </Grid>
+
+
 
         </>
     )

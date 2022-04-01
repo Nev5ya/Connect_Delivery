@@ -28,7 +28,7 @@ const routes = [
   { path: "/Profile", name: "Profile", Component: Profile },
   { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
   { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+  { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
 function Chats() {
@@ -155,7 +155,7 @@ export const Routing = () => {
 
                     <PrivateRoute
                         exact
-                        path="/CouriersPage/"
+                        path="/CouriersPage/2"
                         component={CouriersPage}
                         authed={authed}
                     />
