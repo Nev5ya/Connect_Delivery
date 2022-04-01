@@ -51,6 +51,7 @@ if (!response.ok) {
 }
 
 const result = await response.json();
+localStorage.setItem('id', result.currentUser.id);
 localStorage.setItem('role', result.currentUser.role_title);
 localStorage.setItem('role_id', result.currentUser.role_id);
 email=result.currentUser.email;
@@ -58,8 +59,9 @@ localStorage.setItem('role_email', email);
 
 
 console.log('result', result);
-console.log(localStorage.getItem('role'));
-console.log(localStorage.getItem('role_id'));
+console.log('role =',localStorage.getItem('role'));
+console.log('role_id =',localStorage.getItem('role_id'));
+console.log('id =',localStorage.getItem('id'));
 await signInWithEmailAndPassword(auth, email, pass);
 };
 
