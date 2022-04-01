@@ -80,9 +80,6 @@ console.log("role_id = ", roleId);
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>hobby:</label>    travel &#9786;</li>
         <br/>
         <Button variant="contained" disabled>edit</Button>
-        <br/>
-        <br/>
-        <Button variant="contained" color="warning">Create new Courier</Button>
       </main>
       <footer className="footer">
       <br/>
