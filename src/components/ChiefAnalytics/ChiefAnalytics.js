@@ -20,16 +20,16 @@ export const ChiefAnalytics = () => {
     const togglePageDashboard = () => {
         if(pageName === 'Statistic') {
             setPageName('Dashboard');
-            // const stateObj = { page: 'Dashboard' };
-            // window.history.pushState(stateObj, '', 'Dashboard');
+            const stateObj = { page: 'Dashboard' };
+            window.history.pushState(stateObj, '', 'Dashboard');
         }
     }
 
     const togglePageStatistic = () => {
         if(pageName === 'Dashboard') {
             setPageName('Statistic');
-            // const stateObj = { page: 'Statistic' };
-            // window.history.pushState(stateObj, '', 'Statistic')
+            const stateObj = { page: 'Statistic' };
+            window.history.pushState(stateObj, '', 'Statistic')
         }
     }
 
