@@ -5,11 +5,11 @@ import Stack from '@mui/material/Stack';
 import { ref, set, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
 import { auth } from "../../services/firebase";
-// import "./style.css";
 
 console.log(auth);
 export const Profile = ({ onLogout }) => {
   const [role, setRole] = useState("");
+  const [roleId, setRoleId] = useState("");
 
   const handleClick = () => {
     onLogout();
@@ -27,24 +27,26 @@ export const Profile = ({ onLogout }) => {
       div.classList.add("userlogin");
       showlogin.before(div);
     });
-    return unsubscribe;
+    return unsubscribe();
   }, []);
 
   useEffect(() => {
     const profileDbRef = ref(db, "profile/login/role");
     const unsubscribe2 = onValue(profileDbRef, (snapshot) => {
       const data = snapshot.val();
-      setRole("admin");
-      console.log(data);
+      setRole(localStorage.getItem('role'));
+      setRoleId(localStorage.getItem('role_id'));
     });
-    return unsubscribe2;
+    return unsubscribe2();
   }, []);
-console.log(role);
+
 
 set(ref(db, "profile/login/role"), {
   role: role,
 });
 
+console.log("role = ",role);
+console.log("role_id = ", roleId);
   return (
   <div className="profile">
       <header className="showlogin">Personal Account</header>
@@ -80,7 +82,7 @@ set(ref(db, "profile/login/role"), {
         <Button variant="contained" disabled>edit</Button>
         <br/>
         <br/>
-        <Button variant="contained" color="warning">Create new *ROLE*</Button>
+        <Button variant="contained" color="warning">Create new Courier</Button>
       </main>
       <footer className="footer">
       <br/>
