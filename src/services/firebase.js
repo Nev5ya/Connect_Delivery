@@ -1,10 +1,10 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut as firebaseSignOut,
-  getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut as firebaseSignOut,
+    getAuth,
 } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 // Import the functions you need from the SDKs you need
@@ -13,13 +13,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
-  authDomain: "connect-delivery-f2a10.firebaseapp.com",
-  databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  projectId: "connect-delivery-f2a10",
-  storageBucket: "connect-delivery-f2a10.appspot.com",
-  messagingSenderId: "952020985037",
-  appId: "1:952020985037:web:d250772cdcc7e0d020b584"
+    apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
+    authDomain: "connect-delivery-f2a10.firebaseapp.com",
+    databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "connect-delivery-f2a10",
+    storageBucket: "connect-delivery-f2a10.appspot.com",
+    messagingSenderId: "952020985037",
+    appId: "1:952020985037:web:d250772cdcc7e0d020b584"
 };
 
 // Initialize Firebase
@@ -28,44 +28,50 @@ firebase.initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getDatabase();
 
-export const signUp = async (email, pass) => {
-  await createUserWithEmailAndPassword(auth, email, pass);
-}
+export const login = async(email, pass) => {
+    const response = await fetch(`https://xn--l1aej.pw/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: pass
+            })
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            localStorage.setItem('auth-token', json['auth-token']);
+        })
+        .catch(err => console.log('err', err))
 
-export const login = async (email, pass) => {
-  
-  const response =  await fetch(`https://xn--l1aej.pw/api/login`,{
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        mode:'cors'
-    },
-    body: JSON.stringify({
-       email: email,
-       password: pass
-    })
-});
-if (!response.ok) {
-  console.log('response.ok', response.ok);
-  //throw new Error(error ${response.status});
-}
-
-const result = await response.json();
-localStorage.setItem('id', result.currentUser.id);
-localStorage.setItem('role', result.currentUser.role_title);
-localStorage.setItem('role_id', result.currentUser.role_id);
-email=result.currentUser.email;
-localStorage.setItem('role_email', email);
-
-
-console.log('result', result);
-console.log('role =',localStorage.getItem('role'));
-console.log('role_id =',localStorage.getItem('role_id'));
-console.log('id =',localStorage.getItem('id'));
-await signInWithEmailAndPassword(auth, email, pass);
+    await signInWithEmailAndPassword(auth, email, pass);
 };
 
-export const signOut = async () => {
-  await firebaseSignOut(auth);
-};
+export const signOut = async() => {
+    const response = await fetch('https://xn--l1aej.pw/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "X-Requested-With": "XMLHttpRequest",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                'auth-token': localStorage.getItem('auth-token')
+            })
 
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            console.log(json);
+            localStorage.removeItem('auth-token');
+        })
+        .catch(err => console.log('err', err))
+
+    await firebaseSignOut(auth);
+
+};
