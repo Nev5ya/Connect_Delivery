@@ -38,68 +38,71 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
           };
         };
 
-    case CHANGE_COURIERS_IN_DB_SUCCESS: {
-      console.log('reducer CHANGE_COURIERS_IN_DB_SUCCESS', state, payload);
+        case CHANGE_COURIERS_IN_DB_SUCCESS: {
+          console.log('reducer CHANGE_COURIERS_IN_DB_SUCCESS', state, payload);
 
-      const filterChange = state.couriers.filter((item) => {
-        return item.id !== payload.id
-      });
+          const filterChange = state.couriers.filter((item) => {
+            return item.id !== payload.id
+          });
 
-      return {
-        ...state,
-        request: {
-          error: null,
-          status: REQUEST_STATUS.SUCCESS
-        },
-        couriers: [...filterChange, payload]
-      };
-    }
-    case CHANGE_COURIERS_IN_DB_FAILURE: {
-      console.log('CHANGE_COURIERS_IN_DB_FAILURE', state, payload)
-      return {
-        ...state,
-        request: {
-          error: payload,
-          status: REQUEST_STATUS.FAILURE
-        }
-      };
-    }
-    case REGISTER_COURIERS_IN_DB_PENDING: {
-      return {
-        ...state,
-        request: {
-          error: null,
-          status: REQUEST_STATUS.PENDING
-        }
-      };
-    }
+          return {
+            ...state,
+            request: {
+              error: null,
+              status: REQUEST_STATUS.SUCCESS
+            },
+            couriers: [...filterChange, payload]
+          };
+        };
 
-    case REGISTER_COURIERS_IN_DB_SUCCESS: {
-      console.log('reducer REGISTER_COURIERS_IN_DB_SUCCESS', state, payload);
+        case CHANGE_COURIERS_IN_DB_FAILURE: {
+          console.log('CHANGE_COURIERS_IN_DB_FAILURE', state, payload)
+          return {
+            ...state,
+            request: {
+              error: payload,
+              status: REQUEST_STATUS.FAILURE
+            }
+          };
+        };
 
-      const filterChange = state.couriers.filter((item) => {
-        return item.id !== payload.id
-      });
+        case REGISTER_COURIERS_IN_DB_PENDING: {
+          return {
+            ...state,
+            request: {
+              error: null,
+              status: REQUEST_STATUS.PENDING
+            }
+          };
+        };
 
-      return {
-        ...state,
-        request: {
-          error: null,
-          status: REQUEST_STATUS.SUCCESS
-        },
-        couriers: [...filterChange, payload]
-      };
-    }
+        case REGISTER_COURIERS_IN_DB_SUCCESS: {
+          console.log('reducer REGISTER_COURIERS_IN_DB_SUCCESS', state, payload);
 
-    case REGISTER_COURIERS_IN_DB_FAILURE: {
-      console.log('REGISTER_COURIERS_IN_DB_FAILURE', state, payload)
-      return {
-        ...state,
-        request: {
-          error: payload,
-          status: REQUEST_STATUS.FAILURE
-        }
-      };
+          const filterChange = state.couriers.filter((item) => {
+            return item.id !== payload.id
+          });
+
+          return {
+            ...state,
+            request: {
+              error: null,
+              status: REQUEST_STATUS.SUCCESS
+            },
+            couriers: [...filterChange, payload]
+          };
+        };
+
+        case REGISTER_COURIERS_IN_DB_FAILURE: {
+            console.log('REGISTER_COURIERS_IN_DB_FAILURE', state, payload)
+            return {
+                ...state,
+                request: {
+                    error: payload,
+                    status: REQUEST_STATUS.FAILURE
+                }
+            };
+        };
 
         case DELETE_COURIERS_IN_DB: {
           console.log('reducer DELETE', state, payload)
@@ -113,7 +116,7 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
           const new_stDel = {...state, couriers: [...filterDel]}
           console.log('new_st', new_stDel, state)
           return new_stDel
-        }
+        };
 
             // // Courier Status Change
             // case CHANGE_COURIERS_STATUS_IN_DB: {

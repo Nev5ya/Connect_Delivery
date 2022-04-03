@@ -70,29 +70,29 @@ export const login = async(email, pass)  => {
 };
 
 export const signOut = async() => {
-  const response = await fetch('https://xn--l1aej.pw/api/logout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      "X-Requested-With": "XMLHttpRequest",
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      'auth-token': localStorage.getItem('auth-token')
+    const response = await fetch('https://xn--l1aej.pw/api/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-Requested-With": "XMLHttpRequest",
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            'auth-token': localStorage.getItem('auth-token')
+        })
+
     })
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            console.log(json);
+            localStorage.removeItem('auth-token');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('id_user');
+            localStorage.removeItem('id_role')
+        })
+        .catch(err => console.log('err', err))
 
-  })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(json);
-        localStorage.removeItem('auth-token');
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('id_user');
-        localStorage.removeItem('id_role')
-      })
-      .catch(err => console.log('err', err))
-
-  await firebaseSignOut(auth);
-
+    await firebaseSignOut(auth);
+};

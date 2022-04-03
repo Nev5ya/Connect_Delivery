@@ -20,7 +20,7 @@ export const getCouriers = () => {
             // return dispatch(getCouriersFromDB(couriers))})
             return dispatch(getCouriersFromDB(json.data))})
   }
-}
+};
 
 export const CHANGE_COURIERS_IN_DB_PENDING = "COURIERS::CHANGE_COURIERS_IN_DB_PENDING"
 export const CHANGE_COURIERS_IN_DB_SUCCESS = "COURIERS::CHANGE_COURIERS_IN_DB_SUCCESS"
@@ -103,7 +103,7 @@ export const changeCourier = (data) => async (dispatch) => {
         console.log('error', e);
         dispatch(changeCourierInDBFailure(e.message));
     }
-}
+};
 
 export const DELETE_COURIERS_IN_DB = "COURIERS::DELETE_COURIERS_IN_DB"
 
@@ -139,15 +139,23 @@ export const deleteCourier = (courier_id) => {
                 return dispatch(deleteCourierInDB(data))})
             .catch(err => console.log('err', err))
     }
-}
+};
 
-export const REGISTR_COURIERS_IN_DB = "COURIERS::REGISTR_COURIERS_IN_DB"
+export const REGISTER_COURIERS_IN_DB_PENDING = "COURIERS::REGISTER_COURIERS_IN_DB_PENDING"
+export const REGISTER_COURIERS_IN_DB_SUCCESS = "COURIERS::REGISTER_COURIERS_IN_DB_SUCCESS"
+export const REGISTER_COURIERS_IN_DB_FAILURE = "COURIERS::REGISTER_COURIERS_IN_DB_FAILURE"
 
-export const registrCourierInDB = (payload) => ({
-    type: REGISTR_COURIERS_IN_DB,
-    payload: payload
+export const registerCourierInDBPending = () => ({
+    type: REGISTER_COURIERS_IN_DB_PENDING,
 });
-
+export const registerCourierInDBSuccess = (data) => ({
+    type: REGISTER_COURIERS_IN_DB_SUCCESS,
+    payload: data
+});
+export const registerCourierInDBFailure = (error) => ({
+    type: REGISTER_COURIERS_IN_DB_FAILURE,
+    payload: error
+});
 export const registerCourier = (name, surname, email, password)  => async (dispatch) => {
 
     dispatch(registerCourierInDBPending());
@@ -169,7 +177,7 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
                 "X-Requested-With": "XMLHttpRequest",
                 mode:'cors'
             },
-            body: body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
+            body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
 
     });
 
