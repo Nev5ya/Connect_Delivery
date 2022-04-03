@@ -37,7 +37,7 @@ const routes = [
     }, []);
 
      const currentUserID = +localStorage.getItem('id_user');
-     const currentUserRoleID = localStorage.getItem('id_role');
+     const currentUserRoleID = localStorage.getItem('role_id');
      console.log('currentUser', currentUserID, currentUserRoleID)
 
     const handleLogout = async () => {
