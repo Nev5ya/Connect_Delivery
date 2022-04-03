@@ -35,7 +35,7 @@ function Chats() {
     return null;
 }
 
-export const Routing = () => {
+export const Routing = (props) => {
     const [authed, setAuthed] = useState(false);
     let role;
     //const [role, setRole] = useState('');

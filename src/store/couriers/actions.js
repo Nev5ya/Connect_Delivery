@@ -8,7 +8,7 @@ export const getCouriersFromDB = (payload) => ({
 
 export const getCouriers = () => {
   return function (dispatch) {
-    fetch('https://xn--l1aej.pw/api/admin/user')
+    fetch(`https://xn--l1aej.pw/api/admin/user?auth-token=${localStorage.getItem("auth-token")}`)
         .then(response => {
             console.log('json1', response)
             return response.json()
@@ -67,11 +67,11 @@ export const changeCourierInDBFailure = (error) => ({
 //             .catch(err => console.log('err', err))
 //     }
 // }
-export const changeCourier = (obj) => async (dispatch) => {
+export const changeCourier = (data) => async (dispatch) => {
 
     dispatch(changeCourierInDBPending());
 
-    console.log('changeCourier', obj)
+    console.log('changeCourier', data)
     // const newData = {
     //     id: courier_id,
     //     name,
@@ -80,13 +80,13 @@ export const changeCourier = (obj) => async (dispatch) => {
     // console.log('changeCourier newData', newData);
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${obj.id}`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${data.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 mode:'cors'
             },
-            body: JSON.stringify(obj)
+            body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
         });
 
         if (!response.ok) {
@@ -114,10 +114,10 @@ export const deleteCourierInDB = (payload) => ({
 
 export const deleteCourier = (courier_id) => {
     console.log('deleteCourier')
-    const newData = {
+    const data = {
         id: courier_id
     };
-    console.log('deleteCourier newData', newData);
+    console.log('deleteCourier newData', data);
 
     return function (dispatch) {
         fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
@@ -127,7 +127,7 @@ export const deleteCourier = (courier_id) => {
                 "X-Requested-With": "XMLHttpRequest",
                 mode:'cors'
             },
-            body: JSON.stringify(newData)
+            body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
         })
             .then(response => {
                 console.log('json1 deleteCourierInDB', response)
@@ -136,7 +136,7 @@ export const deleteCourier = (courier_id) => {
             })
             .then(json => {
                 console.log('json deleteCourierInDB', json)
-                return dispatch(deleteCourierInDB(newData))})
+                return dispatch(deleteCourierInDB(data))})
             .catch(err => console.log('err', err))
     }
 }
@@ -168,7 +168,7 @@ export const registrCourier = (name, surname, email, password) => {
                 "X-Requested-With": "XMLHttpRequest",
                 mode:'cors'
             },
-            body: JSON.stringify(newData)
+            body: JSON.stringify(Object.assign(newData, {'auth-token': localStorage.getItem('auth-token')}))
         })
             .then(response => {
                 console.log('json1 changeCourierInDB', response)

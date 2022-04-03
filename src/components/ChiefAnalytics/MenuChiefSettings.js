@@ -1,15 +1,16 @@
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import Menu from "../../utils/Menu";
 
 export const MenuChiefSettings = () => {
-    const history = useHistory()
+    // const history = useHistory()
+    const navigate = useNavigate();
     const togglePageDashboard = () => {
-        history.push('/ChiefAnalytics')
+        navigate('/ChiefAnalytics')
     }
 
     const togglePageStatistic = () => {
-        history.push('/ChiefAnalytics/Statistic')
+        navigate('/ChiefAnalytics/Statistic')
     }
 
     const menuItem = [

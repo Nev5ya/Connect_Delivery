@@ -29,7 +29,7 @@ const routes = [
   { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
-export const Routing = () => {
+export const Routing1 = () => {
     const [authed, setAuthed] = useState(false);
     //let role;
     //const [role, setRole] = useState('');
