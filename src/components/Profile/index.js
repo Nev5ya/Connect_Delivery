@@ -29,12 +29,10 @@ export const Profile = ({ onLogout }) => {
 
 set(ref(db, "profile/login/role"), {
   role: role,
-});
+});*/
 
-const email = localStorage.getItem('role_email');
-console.log("role = ",role);
-console.log("role_id = ", roleId);
-console.log("role_email = ", roleEmail);*/
+const email = localStorage.getItem('email');
+
   return (
   <div className="profile">
       <header className="showlogin">Personal Account</header>
@@ -57,7 +55,7 @@ console.log("role_email = ", roleEmail);*/
             </div>
       </aside>
       <main>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label>  email &#10031;</li>
+        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label> {email} &#10031;</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  phone:</label> +7 920 520 52 52 &#10031;</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>sex:</label>  man</li>
         <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  city:</label> Nizhniy Novgorod &#10031;</li>
