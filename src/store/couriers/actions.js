@@ -140,15 +140,25 @@ export const deleteCourier = (courier_id) => {
     }
 }
 
-export const REGISTR_COURIERS_IN_DB = "COURIERS::REGISTR_COURIERS_IN_DB"
+export const REGISTER_COURIERS_IN_DB_PENDING = "COURIERS::REGISTER_COURIERS_IN_DB_PENDING"
+export const REGISTER_COURIERS_IN_DB_SUCCESS = "COURIERS::REGISTER_COURIERS_IN_DB_SUCCESS"
+export const REGISTER_COURIERS_IN_DB_FAILURE = "COURIERS::REGISTER_COURIERS_IN_DB_FAILURE"
 
-export const registrCourierInDB = (payload) => ({
-    type: REGISTR_COURIERS_IN_DB,
-    payload: payload
+export const registerCourierInDBPending = () => ({
+    type: REGISTER_COURIERS_IN_DB_PENDING,
 });
+export const registerCourierInDBSuccess = (data) => ({
+    type: REGISTER_COURIERS_IN_DB_SUCCESS,
+    payload: data
+});
+export const registerCourierInDBFailure = (error) => ({
+    type: REGISTER_COURIERS_IN_DB_FAILURE,
+    payload: error
+});
+export const registerCourier = (name, surname, email, password)  => async (dispatch) => {
 
-export const registrCourier = (name, surname, email, password) => {
-    console.log('registrCourier')
+    dispatch(registerCourierInDBPending());
+
     const newData = {
         name: name + " " + surname,
         email: email,
@@ -157,10 +167,9 @@ export const registrCourier = (name, surname, email, password) => {
         user_status_id: 1,
         role_id: 1
     };
-    console.log('registrCourier newData', newData);
 
-    return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/register`,{
+    try {
+        const response = await fetch(`https://xn--l1aej.pw/api/register`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -168,37 +177,45 @@ export const registrCourier = (name, surname, email, password) => {
                 mode:'cors'
             },
             body: JSON.stringify(newData)
-        })
-            .then(response => {
-                console.log('json1 changeCourierInDB', response)
-                // if (response.ok) {
-                //     throw new Error(`Request failed with status ${response.status}`);
-                // }
-                return response.json()
+        });
 
-            }).then(json => {
-            console.log('json deleteCourierInDB', json)
-            return ''})
-            .catch(err => console.log('err', err))
+        if (!response.ok) {
+            console.log('response.ok', response.ok);
+            throw new Error(`error ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        console.log('result', result);
+
+        dispatch(registerCourierInDBSuccess(result.newUser));
+    } catch (e) {
+        console.log('error', e);
+        dispatch(registerCourierInDBFailure(e.message));
     }
 }
-
-// export const CHANGE_COURIERS_STATUS_IN_DB = "COURIERS::CHANGE_COURIERS_STATUS_IN_DB"
+// export const REGISTR_COURIERS_IN_DB = "COURIERS::REGISTR_COURIERS_IN_DB"
 //
-// export const changeCouriersStatusInDB = (payload) => ({
-//     type: CHANGE_COURIERS_STATUS_IN_DB,
+// export const registrCourierInDB = (payload) => ({
+//     type: REGISTR_COURIERS_IN_DB,
 //     payload: payload
 // });
 //
-// export const changeCourierStatus = (courier_id, status_id) => {
+// export const registrCourier = (name, surname, email, password) => {
+//     console.log('registrCourier')
 //     const newData = {
-//         id: courier_id,
-//         user_status_id: status_id,
+//         name: name + " " + surname,
+//         email: email,
+//         password: password,
+//         coords: "55.6843,37.33855",
+//         user_status_id: 3,
+//         role_id: 1
 //     };
+//     console.log('registrCourier newData', newData);
 //
 //     return function (dispatch) {
-//         fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
-//             method: 'PUT',
+//         fetch(`https://xn--l1aej.pw/api/register`,{
+//             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json;charset=utf-8',
 //                 "X-Requested-With": "XMLHttpRequest",
@@ -207,11 +224,15 @@ export const registrCourier = (name, surname, email, password) => {
 //             body: JSON.stringify(newData)
 //         })
 //             .then(response => {
+//                 console.log('json1 changeCourierInDB', response)
+//                 // if (response.ok) {
+//                 //     throw new Error(`Request failed with status ${response.status}`);
+//                 // }
 //                 return response.json()
-//             })
-//             .then(result => {
-//                dispatch(changeCouriersStatusInDB(result.updatedUser));
-//             })
+//
+//             }) .then(json => {
+//             console.log('json deleteCourierInDB', json)
+//             return ''})
 //             .catch(err => console.log('err', err))
 //     }
 // }
