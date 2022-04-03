@@ -22,6 +22,11 @@ const routes = [
 
  export const Routing = () => {
     const [authed, setAuthed] = useState(false);
+    let activeStyle = {
+        color: "red",
+        fontWeight: "bold",
+      };
+    
 
     useEffect(() => {
 
@@ -56,10 +61,10 @@ const routes = [
                     {routes.map((route) => (
                         <NavLink
                             key={route.path}
-                            as={NavLink}
                             to={route.path}
-                            // activeClassName="active"
-                            // activeStyle={{color: "#1865BC", fontWeight: "bold"}}
+                            style={({ isActive }) =>
+                            isActive ? activeStyle : undefined
+                          }
                         >
                             {route.name}
                         </NavLink>
