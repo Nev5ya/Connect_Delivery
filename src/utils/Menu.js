@@ -1,12 +1,12 @@
 import {useState} from 'react';
 
-import {Drawer, IconButton, Box, List, ListItem, ListItemText, Link} from '@mui/material';
+import {Drawer, IconButton, Box, List, ListItem, ListItemText} from '@mui/material';
 import {ArrowBack as ArrowBackIcon, Menu as MenuIcon,} from '@mui/icons-material';
-import {useRouteMatch} from "react-router-dom";
+ import {Link} from "react-router-dom";
 
 
 export default function Menu({menuItem}) {
-    const { path, url } = useRouteMatch();
+    // const { path, url } = useRoutes();
     const [state, setState] = useState(false);
 
     const toggleDrawer = (foo) => (event) => {
@@ -32,7 +32,7 @@ export default function Menu({menuItem}) {
 
                             <ListItem button={true} sx={{mx: 2}}
                                       onClick={toggleDrawer(anchor.func)} key={index}
-                                      // component={Link} href={`${path}${anchor.href}`}
+                                       component={Link} to={`${anchor.href}`}
                             >
                                 <ListItemText primary={anchor.name}/>
                             </ListItem>

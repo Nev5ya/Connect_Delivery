@@ -28,14 +28,14 @@ const routes = [
   { path: "/Profile", name: "Profile", Component: Profile },
   { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
   { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+  { path: "/CouriersPage/2", name: "CouriersPage", Component: CouriersPage },
 ];
 
 function Chats() {
     return null;
 }
 
-export const Routing = () => {
+export const Routing = (props) => {
     const [authed, setAuthed] = useState(false);
     let role;
     //const [role, setRole] = useState('');
@@ -155,7 +155,7 @@ export const Routing = () => {
 
                     <PrivateRoute
                         exact
-                        path="/CouriersPage/"
+                        path="/CouriersPage/2"
                         component={CouriersPage}
                         authed={authed}
                     />

@@ -26,7 +26,7 @@ export const Chat = ({mode, currentCourier}) => {
             dispatch(initChat(currentCourier.id));
             setCurrentChatId(`chat-${currentCourier.id}`);
             console.log('currentChatId2',mode, currentCourier, currentChatId)}
-    }, []);
+    }, [dispatch]);
 
     const handleSelectChat = (id) => {
         console.log('handleSelectChat', id)

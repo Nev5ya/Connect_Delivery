@@ -22,7 +22,7 @@ export const getOrdersFromDB = (payload) => ({
 
 export const getOrders = () => {
   return function (dispatch) {
-    fetch('https://xn--l1aej.pw/api/admin/orders')
+    fetch(`https://xn--l1aej.pw/api/admin/orders?auth-token=${localStorage.getItem("auth-token")}`)
         .then(response => {
             console.log('json1', response)
             return response.json()
@@ -41,16 +41,16 @@ export const changeOrderInDB = (payload) => ({
     payload: payload
 });
 
-export const changeOrder = (obj) => {
-    console.log('changeOrder', obj);
+export const changeOrder = (data) => {
+    console.log('changeOrder', data);
     return function (dispatch) {
-            fetch(`https://xn--l1aej.pw/api/admin/orders/${obj.id}`,{
+            fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`,{
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
                     mode:'cors'
                 },
-                body: JSON.stringify(obj)
+                body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
             })
                 .then(response => {
                     // console.log('json1 changeOrderInDB', response)
@@ -72,7 +72,7 @@ export const registrOrderInDB = (payload) => ({
 
 export const registrOrder = () => {
     console.log('registrOrder')
-    const newData = {
+    const data = {
         name: 'Диван',
         address: 'Москва, Мясницкая, 45',
         delivery_date: '2022-04-11',
@@ -80,9 +80,8 @@ export const registrOrder = () => {
         user_id: null,
         comment: 'Позвонить'
     };
-    console.log('registrOrder newData', newData);
 
-    return function (dispatch) {
+return function (dispatch) {
 
         fetch(`https://xn--l1aej.pw/api/admin/orders`,{
             method: 'POST',
@@ -90,9 +89,9 @@ export const registrOrder = () => {
                 'Content-Type': 'application/json;charset=utf-8',
                 "X-Requested-With": "XMLHttpRequest",
                 'Accept': 'application/json',
-                 'mode':'cors'
+                 // 'mode':'cors'
             },
-            body: JSON.stringify(newData)
+            body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
         })
             .then(response => {
                 console.log('json1 changeOrderInDB', response)

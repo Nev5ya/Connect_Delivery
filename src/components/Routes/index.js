@@ -30,7 +30,7 @@ const routes = [
   { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
 ];
 
-export const Routing = () => {
+export const Routing1 = () => {
     const [authed, setAuthed] = useState(false);
 
     useEffect(() => {

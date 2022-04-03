@@ -26,7 +26,7 @@ export const selectTransitOrderForCourier = (state, courierID) => {
      console.log('selectTransitOrderForCourier', state, state.orders)
     const orders = state.orders.orders;
      const a = orders.filter(item => {
-         console.log('selectTransitOrderForCourier2', item.user_id , courierID ,  item.order_status_id)
+         // console.log('selectTransitOrderForCourier2', item.user_id , courierID ,  item.order_status_id)
         return (item.user_id === courierID && item.order_status_id !== 3) //status: "transit"
     })
     console.log('selectTransitOrderForCourier1', a)

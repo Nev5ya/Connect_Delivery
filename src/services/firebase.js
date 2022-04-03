@@ -11,15 +11,27 @@ import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCiqSsBQYuYPqaniBgVJmHHpsWGTbs8WR0",
+//   authDomain: "socialnetwork-de904.firebaseapp.com",
+//   databaseURL: "https://socialnetwork-de904-default-rtdb.firebaseio.com",
+//   projectId: "socialnetwork-de904",
+//   storageBucket: "socialnetwork-de904.appspot.com",
+//   messagingSenderId: "419015389004",
+//   appId: "1:419015389004:web:50afa79994c27f8daaa9e9"
+// };
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
-    authDomain: "connect-delivery-f2a10.firebaseapp.com",
-    databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "connect-delivery-f2a10",
-    storageBucket: "connect-delivery-f2a10.appspot.com",
-    messagingSenderId: "952020985037",
-    appId: "1:952020985037:web:d250772cdcc7e0d020b584"
+  apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
+  authDomain: "connect-delivery-f2a10.firebaseapp.com",
+  databaseURL: "https://connect-delivery-f2a10-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "connect-delivery-f2a10",
+  storageBucket: "connect-delivery-f2a10.appspot.com",
+  messagingSenderId: "952020985037",
+  appId: "1:952020985037:web:d250772cdcc7e0d020b584"
 };
 
 // Initialize Firebase
@@ -44,14 +56,14 @@ export const login = async(email, pass) => {
         })
         .then(json => {
             localStorage.setItem('auth-token', json['auth-token']);
-            localStorage.setItem('id',json.currentUser.id);
+            localStorage.setItem('id_user',json.currentUser.id);
             localStorage.setItem('role_id',json.currentUser.role_id);
             localStorage.setItem('email',json.currentUser.email);
             console.log(json)
             console.log(json.currentUser)
             console.log('role_id = ',json.currentUser.role_id)
             console.log('email = ',json.currentUser.email)
-            console.log('id = ',json.currentUser.id)
+            console.log('id_user = ',json.currentUser.id)
         })
         .catch(err => console.log('err', err))
 
@@ -77,6 +89,9 @@ export const signOut = async() => {
         .then(json => {
             console.log(json);
             localStorage.removeItem('auth-token');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('id_user');
+            localStorage.removeItem('role_id')
         })
         .catch(err => console.log('err', err))
 

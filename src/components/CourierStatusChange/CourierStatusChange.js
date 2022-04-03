@@ -3,8 +3,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCourier, changeCourierStatus} from "../../store/couriers/actions";
-import {selectRequestCouriers, selectUpdateStatus} from "../../store/couriers/selector";
+import {changeCourier} from "../../store/couriers/actions";
+import {selectRequestCouriers} from "../../store/couriers/selector";
+//import {selectRequestCouriers, selectUpdateStatus} from "../../store/couriers/selector;
 
 export const CourierStatusChange = (props) => {
     const courier = props?.courier[0];
