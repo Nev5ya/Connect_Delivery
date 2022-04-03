@@ -1,6 +1,12 @@
+import {REQUEST_STATUS} from "../../utils/constants";
+
+
+
 export const selectCouriers = (state) => state.couriers.couriers.filter((courier) => {
     return courier.is_deleted !== 1;
 });
+
+export const selectRegisterLoading = (state) => state.couriers.request.status === REQUEST_STATUS.PENDING;
 
 export const selectCurrentCourier = (state, courierID) => {
     // console.log('selectCurrentCourier', courierID, state)

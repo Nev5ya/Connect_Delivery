@@ -1,10 +1,10 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut as firebaseSignOut,
-  getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut as firebaseSignOut,
+    getAuth,
 } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
@@ -96,4 +96,3 @@ export const signOut = async() => {
 
   await firebaseSignOut(auth);
 
-};
