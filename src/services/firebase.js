@@ -44,6 +44,14 @@ export const login = async(email, pass) => {
         })
         .then(json => {
             localStorage.setItem('auth-token', json['auth-token']);
+            localStorage.setItem('id',json.currentUser.id);
+            localStorage.setItem('role_id',json.currentUser.role_id);
+            localStorage.setItem('email',json.currentUser.email);
+            console.log(json)
+            console.log(json.currentUser)
+            console.log('role_id = ',json.currentUser.role_id)
+            console.log('email = ',json.currentUser.email)
+            console.log('id = ',json.currentUser.id)
         })
         .catch(err => console.log('err', err))
 
