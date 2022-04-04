@@ -60,12 +60,14 @@ const CouriersPage = () => {
      return (
         <>
             <Menu menuItem={CourierMenu(onMenuItemClick)}/>
-            <Stack sx={{mb: 5}} direction="column" spacing={2}>
-                <Typography sx={{mt: 2, mb: 4}} variant="h4" component="div" >
+            <Stack sx={{mb: 5}} direction="row" spacing={2}>
+                <Typography sx={{mt: 2}} variant="h4" component="div" >
                     {currentCourier[0]?.name}
                     <span className="courier-status"></span>
                 </Typography>
-                <CourierStatusChange  courier={currentCourier} courierBusy={courierBusy}/>
+                <Box sx={{pt: 2}}>
+                    <CourierStatusChange  courier={currentCourier} courierBusy={courierBusy}/>
+                </Box>
             </Stack>
 
             <Routes>

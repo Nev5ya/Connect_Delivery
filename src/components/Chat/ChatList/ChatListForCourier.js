@@ -18,7 +18,8 @@ import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 
 export default function ChatListForCourier({currentCourier}) {
-
+    const courierID = +localStorage.getItem('id_user');
+    const courierName = +localStorage.getItem('name_user');
     const dispatch = useDispatch();
 
     const chatList = useSelector(selectChats);
@@ -48,16 +49,16 @@ export default function ChatListForCourier({currentCourier}) {
                 <Demo sx={{ mt: 1, mb: 2 }}>
                     <List sx={{ display: 'flex', flexDirection: 'column' }}>
                         <ListItem
-                            key={currentCourier.id}
+                            key={courierID}
                             secondaryAction={
                             <>
                                 { chatList.filter((ch) =>
-                                    `chat-${currentCourier.id}` === ch.id && ch.name === currentCourier.name).length === 0
+                                    `chat-${courierID}` === ch.id).length === 0 //&& ch.name === courierName
                                    ?<Tooltip title="Создать чат">
                                         <IconButton
                                             edge='end'
                                             aria-label='AddChat'
-                                            onClick={()=>handleAddChat(currentCourier.id, currentCourier.name)}>
+                                            onClick={()=>handleAddChat(courierID, courierName)}>
                                             <AddCommentSharpIcon />
                                         </IconButton>
                                     </Tooltip>

@@ -86,24 +86,7 @@ export const CourierRegistration = () => {
         />
       }
     }
-    // return couriersRequest.status !== null
-    //   ? (
-    //
-    //     <ModalWindow
-    //       openModal
-    //       data={couriersRequest}
-    //       component={ErrorWindow}
-    //       closeModal={closeModal}
-    //     />
-    //   ) : (
-    //     <ModalWindow
-    //       openModal
-    //       data={`${name} ${surname}`}
-    //       component={SuccessModal}
-    //       closeModal={closeModal}
-    //     />
-    //   );
-  };
+   };
 
   return (
     <>
