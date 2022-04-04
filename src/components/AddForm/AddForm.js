@@ -3,6 +3,8 @@ import {Box, Button, Icon, TextField} from "@mui/material";
 import {MyButtonContained} from "../Button/button";
 
 const AddForm = (props) => {
+    const userID = +localStorage.getItem('id_user');
+    const userName = +localStorage.getItem('id_name');
 
     const [value, setValue] = useState({text:''});
 
@@ -16,7 +18,7 @@ const AddForm = (props) => {
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('form', value)
-        props.onAdd(value.text, 'Human');
+        props.onAdd(value.text, userName);
         setValue({
             text: ''
         });

@@ -38,46 +38,9 @@ export const changeCourierInDBFailure = (error) => ({
     payload: error
 });
 
-// export const changeCourier = (courier_id, name, email) => {
-//     console.log('changeCourier')
-//     const newData = {
-//         id: courier_id,
-//         name,
-//         email
-//     };
-//     console.log('changeCourier newData', newData);
-//
-//     return function (dispatch) {
-//         fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=utf-8',
-//                 mode:'cors'
-//             },
-//             body: JSON.stringify(newData)
-//         })
-//             .then(response => {
-//                 console.log('json1 changeCourierInDB', response)
-//                 return response.json()
-//
-//             })
-//             .then(json => {
-//                 console.log('json changeCourierInDB', json)
-//                 return dispatch(changeCourierInDB(json.updatedUser))})
-//             .catch(err => console.log('err', err))
-//     }
-// }
 export const changeCourier = (data) => async (dispatch) => {
-
     dispatch(changeCourierInDBPending());
-
     console.log('changeCourier', data)
-    // const newData = {
-    //     id: courier_id,
-    //     name,
-    //     email
-    // };
-    // console.log('changeCourier newData', newData);
 
     try {
         const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${data.id}`,{
@@ -105,22 +68,39 @@ export const changeCourier = (data) => async (dispatch) => {
     }
 };
 
-export const DELETE_COURIERS_IN_DB = "COURIERS::DELETE_COURIERS_IN_DB"
+// export const DELETE_COURIERS_IN_DB = "COURIERS::DELETE_COURIERS_IN_DB"
+//
+// export const deleteCourierInDB = (payload) => ({
+//     type: DELETE_COURIERS_IN_DB,
+//     payload: payload
+// });
 
-export const deleteCourierInDB = (payload) => ({
-    type: DELETE_COURIERS_IN_DB,
-    payload: payload
+export const DELETE_COURIERS_IN_DB_PENDING = "DELETE::DELETE_COURIERS_IN_DB_PENDING"
+export const DELETE_COURIERS_IN_DB_SUCCESS = "DELETE::DELETE_COURIERS_IN_DB_SUCCESS"
+export const DELETE_COURIERS_IN_DB_FAILURE = "DELETE::DELETE_COURIERS_IN_DB_FAILURE"
+
+export const deleteCourierInDBPending = () => ({
+    type: DELETE_COURIERS_IN_DB_PENDING,
+});
+export const deleteCourierInDBSuccess = (data) => ({
+    type: DELETE_COURIERS_IN_DB_SUCCESS,
+    payload: data
+});
+export const deleteCourierInDBFailure = (error) => ({
+    type: DELETE_COURIERS_IN_DB_FAILURE,
+    payload: error
 });
 
-export const deleteCourier = (courier_id) => {
-    console.log('deleteCourier')
+
+export const deleteCourier = (courier_id) => async (dispatch) => {
+    dispatch(deleteCourierInDBPending());
+    console.log('deleteCourier', courier_id)
     const data = {
         id: courier_id
     };
-    console.log('deleteCourier newData', data);
 
-    return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/admin/user/${courier_id}`,{
+    try {
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/user1/${data.id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -128,18 +108,24 @@ export const deleteCourier = (courier_id) => {
                 mode:'cors'
             },
             body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
-        })
-            .then(response => {
-                console.log('json1 deleteCourierInDB', response)
-                return response.json()
+        });
 
-            })
-            .then(json => {
-                console.log('json deleteCourierInDB', json)
-                return dispatch(deleteCourierInDB(data))})
-            .catch(err => console.log('err', err))
+        if (!response.ok) {
+            console.log('response.ok', response.ok);
+            throw new Error(`error ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        console.log('result', result);
+
+        dispatch(deleteCourierInDBSuccess(data));
+    } catch (e) {
+        console.log('error', e);
+        dispatch(deleteCourierInDBFailure(e.message));
     }
 };
+
 
 export const REGISTER_COURIERS_IN_DB_PENDING = "COURIERS::REGISTER_COURIERS_IN_DB_PENDING"
 export const REGISTER_COURIERS_IN_DB_SUCCESS = "COURIERS::REGISTER_COURIERS_IN_DB_SUCCESS"
@@ -170,7 +156,7 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
     };
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/register`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/register1`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -196,45 +182,3 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
         dispatch(registerCourierInDBFailure(e.message));
     }
 }
-// export const REGISTR_COURIERS_IN_DB = "COURIERS::REGISTR_COURIERS_IN_DB"
-//
-// export const registrCourierInDB = (payload) => ({
-//     type: REGISTR_COURIERS_IN_DB,
-//     payload: payload
-// });
-//
-// export const registrCourier = (name, surname, email, password) => {
-//     console.log('registrCourier')
-//     const newData = {
-//         name: name + " " + surname,
-//         email: email,
-//         password: password,
-//         coords: "55.6843,37.33855",
-//         user_status_id: 3,
-//         role_id: 1
-//     };
-//     console.log('registrCourier newData', newData);
-//
-//     return function (dispatch) {
-//         fetch(`https://xn--l1aej.pw/api/register`,{
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=utf-8',
-//                 "X-Requested-With": "XMLHttpRequest",
-//                 mode:'cors'
-//             },
-//             body: JSON.stringify(newData)
-//         })
-//             .then(response => {
-//                 console.log('json1 changeCourierInDB', response)
-//                 // if (response.ok) {
-//                 //     throw new Error(`Request failed with status ${response.status}`);
-//                 // }
-//                 return response.json()
-//
-//             }) .then(json => {
-//             console.log('json deleteCourierInDB', json)
-//             return ''})
-//             .catch(err => console.log('err', err))
-//     }
-// }

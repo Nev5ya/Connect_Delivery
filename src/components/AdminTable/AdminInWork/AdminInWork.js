@@ -32,7 +32,7 @@ const AdminInWork = ({setOption}) => {
 	console.log('AdminInWork', ordersWithOutUserId)
 
 	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
-	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: null}]
+	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
 
 	console.log('adminWork', couriersOnline, ordersforPaginAdmin, couriersOnlineAndNull)
 	/////Вызов Редактировать курьера//
@@ -91,8 +91,9 @@ const AdminInWork = ({setOption}) => {
 								<StyledTableCell align='center'>
 									<Box sx={{ minWidth: 120 }}>
 										<FormControl fullWidth>
-											<NativeSelect onChange={(event) => onChangeCourier(row.id, event)}>
-												<option value={-1}>Не назначено</option>
+											<NativeSelect onChange={(event) => onChangeCourier(row.id, event)}
+											value={'Не назначено'}>
+												{/*<option value={-1}>Не назначено</option>*/}
 												{ couriersOnlineAndNull.map(item => (
 													<option
 														key={item.id}

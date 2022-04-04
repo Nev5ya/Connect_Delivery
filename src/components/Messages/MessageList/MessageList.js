@@ -1,34 +1,13 @@
-
-import Typography from "@mui/material/Typography";
 import {Box, Paper, Table, TableContainer} from "@mui/material";
-
 import {List, ListItem} from "@mui/material";
 import Message from "../Message/Message";
-import {makeStyles} from "@mui/styles";
 import React, {useCallback, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectMessages} from "../../../store/messages/selector";
 import {addMessageFb, initMessages} from "../../../store/messages/actions";
 import AddForm from "../../AddForm/AddForm";
-import {useParams} from "react-router-dom";
-
-// const useStyles = makeStyles((theme) => ({
-//     list: {
-//
-//         width: '100%',
-//         // maxWidth: 360,
-//         backgroundColor: theme.palette.background.paper,
-//         position: 'relative',
-//         overflow: 'auto',
-//         maxHeight: 500,
-//         minHeight: 500
-//     },
-//
-// }));
 
 export const MessageList = ({chatId}) => {
-    // const classes = useStyles();
-    // const { chatId } = useParams();
     const scrollRef = useRef(null);
     const dispatch = useDispatch();
     const messageList = useSelector(selectMessages);
@@ -80,7 +59,6 @@ export const MessageList = ({chatId}) => {
                     sx={{
                         tableLayout: "auto",
                         width: 550,
-
                         //height: "max-content"
                     }}
                 >

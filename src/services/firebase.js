@@ -57,6 +57,7 @@ export const login = async(email, pass) => {
         .then(json => {
             localStorage.setItem('auth-token', json['auth-token']);
             localStorage.setItem('id_user',json.currentUser.id);
+            localStorage.setItem('name_user',json.currentUser.name);
             localStorage.setItem('role_id',json.currentUser.role_id);
             localStorage.setItem('email',json.currentUser.email);
             console.log(json)
@@ -91,7 +92,8 @@ export const signOut = async() => {
             localStorage.removeItem('auth-token');
             localStorage.removeItem('email');
             localStorage.removeItem('id_user');
-            localStorage.removeItem('role_id')
+            localStorage.removeItem('role_id');
+            localStorage.removeItem('name_user');
         })
         .catch(err => console.log('err', err))
 
