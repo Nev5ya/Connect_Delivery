@@ -90,7 +90,7 @@ export const signOut = async() => {
         .then(json => {
             console.log(json);
             localStorage.removeItem('auth-token');
-            localStorage.removeItem('currentUser');
+            localStorage.removeItem('email');
             localStorage.removeItem('id_user');
             localStorage.removeItem('role_id');
             localStorage.removeItem('name_user');
