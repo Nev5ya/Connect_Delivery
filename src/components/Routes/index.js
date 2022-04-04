@@ -12,16 +12,21 @@ import {NotFound} from "../NotFound";
 
 
 const routes = [
-  { path: "/", name: "Home", Component: Home },
-  { path: "/Profile", name: "Profile", Component: Profile },
-  { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
-  { path: "/Admin/", name: "Admin", Component: AdminTable },
-  { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+    { path: "/", name: "Home", Component: Home },
+    { path: "/Profile", name: "Profile", Component: Profile },
+    { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
+    { path: "/Admin/", name: "Admin", Component: AdminTable },
+    { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
 ];
 
 
- export const Routing = () => {
+export const Routing = () => {
     const [authed, setAuthed] = useState(false);
+    let activeStyle = {
+        color: "red",
+        fontWeight: "bold",
+    };
+
 
     useEffect(() => {
 
@@ -36,9 +41,9 @@ const routes = [
         return unsubscribe;
     }, []);
 
-     const currentUserID = +localStorage.getItem('id_user');
-     const currentUserRoleID = localStorage.getItem('role_id');
-     console.log('currentUser', currentUserID, currentUserRoleID)
+    const currentUserID = +localStorage.getItem('id_user');
+    const currentUserRoleID = localStorage.getItem('role_id');
+    console.log('currentUser', currentUserID, currentUserRoleID)
 
     const handleLogout = async () => {
         try {
@@ -56,10 +61,10 @@ const routes = [
                     {routes.map((route) => (
                         <NavLink
                             key={route.path}
-                            as={NavLink}
                             to={route.path}
-                            // activeClassName="active"
-                            // activeStyle={{color: "#1865BC", fontWeight: "bold"}}
+                            style={({ isActive }) =>
+                                isActive ? activeStyle : undefined
+                            }
                         >
                             {route.name}
                         </NavLink>
@@ -105,4 +110,3 @@ const routes = [
         </BrowserRouter>
     );
 };
-
