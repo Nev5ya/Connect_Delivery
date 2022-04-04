@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import {Typography, Box, Button, TextField} from '@mui/material';
+import { Box,  TextField} from '@mui/material';
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {useDispatch, useSelector} from "react-redux";
-import {changeOrder} from "../../store/orders/actions";
-import {changeCourier, deleteCourier} from "../../store/couriers/actions";
-import {selectCouriersByStatus, selectRequestCouriers} from "../../store/couriers/selector";
+import {changeCourier} from "../../store/couriers/actions";
+import {selectRequestCouriers} from "../../store/couriers/selector";
 import ErrorWindow from "../ErrorWindow/ErrorWindow";
 
 const CourierRedactEdit = ({data, closeModal}) => {

@@ -3,8 +3,6 @@ import { Typography, Box, Button } from '@mui/material';
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CourierRedactEdit from "./CourierRedactEdit";
-import {deleteCourier} from "../../store/couriers/actions";
-import {useDispatch} from "react-redux";
 import CourierRedactDelete from "./CourierRedactDelete";
 
 const CourierRedact = ({data, closeModal}) => {

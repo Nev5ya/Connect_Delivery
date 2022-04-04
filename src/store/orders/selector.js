@@ -1,4 +1,3 @@
-import {store} from "../index";
 
 export const selectOrders = (state) => state.orders.orders
     .sort(function(a, b){

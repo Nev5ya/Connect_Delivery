@@ -5,25 +5,19 @@ import {selectDeliveredOrdersForCourier, selectTransitOrderForCourier} from "../
 import {useEffect, useState} from "react";
 import {getOrders} from "../../store/orders/actions";
 import {getCouriers} from "../../store/couriers/actions";
-import Menu from "../../utils/Menu";
-import {CourierMenu} from "../CourierMenu/CourierMenu";
-import {Chat} from "../Chat/Chat";
 import {Box, Grid} from "@mui/material";
 import MyMap from "../Map/map";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import {CourierStatusChange} from "../CourierStatusChange/CourierStatusChange";
 import CourierOrder from "../CourierOrder/CourierOrder";
 import CourierHistory from "../CourierHistory/CourierHistory";
 import * as React from "react";
 
 const CourierMain = () => {
-    //const courierID = +useParams().id;
     const courierID = +localStorage.getItem('id_user');
     const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
-    console.log('courier', courierID , currentCourier, currentOrder, deliveredOrders)
+   // console.log('courier', courierID , currentCourier, currentOrder, deliveredOrders)
 
 
     const dispatch = useDispatch();
@@ -32,13 +26,6 @@ const CourierMain = () => {
         dispatch(getOrders());
         dispatch(getCouriers());
     }, [dispatch]);
-
-    // /////отслеживаем клик по меню и выбор страницы для показа//
-    // const [option, setOption] = useState('0');
-    // const onMenuItemClick = (option) => {
-    //     setOption(option);
-    //     console.log('onMenuItemClick', option);
-    // };
 
     /////отслеживаем клик по карте для увеличения на всю страницу//
     const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
@@ -68,7 +55,6 @@ const CourierMain = () => {
             </Stack>
 
             <CourierHistory orders={deliveredOrders} />
-            {/*onClick={() => setOption('2')}*/}
         </>
     );
 };

@@ -2,7 +2,9 @@ import {
     CHANGE_COURIERS_IN_DB_FAILURE,
     CHANGE_COURIERS_IN_DB_PENDING,
     CHANGE_COURIERS_IN_DB_SUCCESS,
-    DELETE_COURIERS_IN_DB, DELETE_COURIERS_IN_DB_FAILURE, DELETE_COURIERS_IN_DB_PENDING, DELETE_COURIERS_IN_DB_SUCCESS,
+    DELETE_COURIERS_IN_DB_FAILURE,
+    DELETE_COURIERS_IN_DB_PENDING,
+    DELETE_COURIERS_IN_DB_SUCCESS,
     GET_COURIERS_FROM_DB,
     REGISTER_COURIERS_IN_DB_FAILURE,
     REGISTER_COURIERS_IN_DB_PENDING,
@@ -23,7 +25,7 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case GET_COURIERS_FROM_DB: {
             console.log('reducer', state, payload)
-            const new_st = {...state, couriers: payload} //{...state, couriers: [...state.couriers, ...payload]}
+            const new_st = {...state, couriers: payload}
             console.log('new_st', new_st, state)
             return new_st
         };

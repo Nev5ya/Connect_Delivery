@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import {Typography, Box, Button, TextField, CircularProgress} from '@mui/material';
+import {Typography, Box, CircularProgress} from '@mui/material';
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {useDispatch, useSelector} from "react-redux";
-import {changeOrder} from "../../store/orders/actions";
-import {changeCourier, deleteCourier} from "../../store/couriers/actions";
-import {selectCouriersByStatus, selectRequestCouriers} from "../../store/couriers/selector";
+import { deleteCourier} from "../../store/couriers/actions";
+import { selectRequestCouriers} from "../../store/couriers/selector";
 import ErrorWindow from "../ErrorWindow/ErrorWindow";
 import {REQUEST_STATUS} from "../../utils/constants";
-import SuccessModal from "../SuccessModal/SuccessModal";
 
 const CourierRedactDelete = ({data, closeModal}) => {
     const couriersRequest = useSelector(selectRequestCouriers);
@@ -19,7 +17,6 @@ const CourierRedactDelete = ({data, closeModal}) => {
     const onDeleteCourier = () => {
         dispatch(deleteCourier(data.id));
     };
-
 
     const onClickHandle = () => {
         setOpenError(false);
@@ -34,6 +31,7 @@ const CourierRedactDelete = ({data, closeModal}) => {
             setOpenError(true);
         }
     };
+
     const closeEdit = () => {
         closeModal();
     };

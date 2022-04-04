@@ -46,14 +46,6 @@ export const CourierRegistration = () => {
     setOpenModal(false);
   };
   const loading = useSelector(selectRegisterLoading);
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   try {
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
 
   const dispatch = useDispatch();
   const registrationClick = () => {
