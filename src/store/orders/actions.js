@@ -21,17 +21,18 @@ export const getOrdersFromDB = (payload) => ({
 });
 
 export const getOrders = () => {
-  return function (dispatch) {
-    fetch(`https://xn--l1aej.pw/api/admin/orders?auth-token=${localStorage.getItem("auth-token")}`)
-        .then(response => {
-            console.log('json1', response)
-            return response.json()
+    return function (dispatch) {
+        fetch(`https://xn--l1aej.pw/api/admin/orders?auth-token=${localStorage.getItem("auth-token")}`)
+            .then(response => {
+                console.log('json1', response)
+                return response.json()
 
-        })
-        .then(json => {
-          console.log('json', json)
-          return dispatch(getOrdersFromDB(json.data))})
-  };
+            })
+            .then(json => {
+                console.log('json', json)
+                return dispatch(getOrdersFromDB(json.data))
+            })
+    };
 };
 
 
@@ -44,23 +45,24 @@ export const changeOrderInDB = (payload) => ({
 export const changeOrder = (data) => {
     console.log('changeOrder', data);
     return function (dispatch) {
-            fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    mode:'cors'
-                },
-                body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
-            })
-                .then(response => {
-                    // console.log('json1 changeOrderInDB', response)
-                    return response.json()
+        fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                mode: 'cors'
+            },
+            body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
+        })
+            .then(response => {
+                // console.log('json1 changeOrderInDB', response)
+                return response.json()
 
-                })
-                .then(json => {
-                    console.log('json changeOrderInDB', json)
-                    return dispatch(changeOrderInDB(json.updatedOrder))})
-                .catch(err => console.log('err', err))
+            })
+            .then(json => {
+                console.log('json changeOrderInDB', json)
+                return dispatch(changeOrderInDB(json.updatedOrder))
+            })
+            .catch(err => console.log('err', err))
     };
 };
 
@@ -70,31 +72,23 @@ export const registrOrderInDB = (payload) => ({
     payload: payload
 });
 
-export const registrOrder = () => {
+export const registrOrder = (data) => {
     console.log('registrOrder')
-    const data = {
-        name: 'Диван',
-        address: 'Москва, Мясницкая, 45',
-        delivery_date: '2022-04-11',
-        order_status_id: 1,
-        user_id: null,
-        comment: 'Позвонить'
-    };
 
-return function (dispatch) {
+    return function (dispatch) {
 
-        fetch(`https://xn--l1aej.pw/api/admin/orders`,{
+        fetch(`https://xn--l1aej.pw/api/admin/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 "X-Requested-With": "XMLHttpRequest",
                 'Accept': 'application/json',
-                 // 'mode':'cors'
+                // 'mode':'cors'
             },
             body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
         })
             .then(response => {
-                console.log('json1 changeOrderInDB', response)
+                console.log('Order created', response)
                 return response.json()
 
             })
