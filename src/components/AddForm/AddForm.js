@@ -4,7 +4,7 @@ import {MyButtonContained} from "../Button/button";
 
 const AddForm = (props) => {
     const userID = +localStorage.getItem('id_user');
-    const userName = +localStorage.getItem('id_name');
+    const userName = localStorage.getItem('name_user');
 
     const [value, setValue] = useState({text:''});
 

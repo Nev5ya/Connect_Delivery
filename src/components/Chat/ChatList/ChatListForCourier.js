@@ -19,7 +19,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 export default function ChatListForCourier({currentCourier}) {
     const courierID = +localStorage.getItem('id_user');
-    const courierName = +localStorage.getItem('name_user');
+    const courierName = localStorage.getItem('name_user');
     const dispatch = useDispatch();
 
     const chatList = useSelector(selectChats);
