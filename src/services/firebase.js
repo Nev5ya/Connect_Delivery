@@ -11,18 +11,6 @@ import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCiqSsBQYuYPqaniBgVJmHHpsWGTbs8WR0",
-//   authDomain: "socialnetwork-de904.firebaseapp.com",
-//   databaseURL: "https://socialnetwork-de904-default-rtdb.firebaseio.com",
-//   projectId: "socialnetwork-de904",
-//   storageBucket: "socialnetwork-de904.appspot.com",
-//   messagingSenderId: "419015389004",
-//   appId: "1:419015389004:web:50afa79994c27f8daaa9e9"
-// };
-
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBVQRYebxUor9jSvufs8_r5ZP5BgSvF-Lg",
