@@ -1,4 +1,4 @@
-import { onValue, ref, set } from '@firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 import { db } from '../../services/firebase';
 import { authorList } from '../../utils/constants';
 

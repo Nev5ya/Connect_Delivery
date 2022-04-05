@@ -19,6 +19,8 @@ import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 
 export default function ChatListForAdmin({onSelectChat}) {
+    const userID = +localStorage.getItem('id_user');
+    const userName = localStorage.getItem('id_name');
 
     const dispatch = useDispatch();
 

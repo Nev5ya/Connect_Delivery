@@ -36,7 +36,8 @@ export const Chat = ({mode, currentCourier}) => {
     const selectedChatExists = useMemo(() => selectIfChatExists(currentChatId), [currentChatId]);
     const checkChatId = useSelector(selectedChatExists);
     const selectedChatName = useMemo(() => selectChatName(currentChatId), [currentChatId]);
-    const chatName = useSelector(selectedChatName);
+    const chatNameCourier = useSelector(selectedChatName)
+    const chatName = (mode === "Admin") ? chatNameCourier : "Администратор";
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>

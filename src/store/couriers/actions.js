@@ -1,3 +1,4 @@
+import {addChatFb} from "../chats/actions";
 
 export const GET_COURIERS_FROM_DB = "COURIERS::GET_COURIERS_FROM_DB"
 
@@ -177,6 +178,7 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
         console.log('result', result);
 
         dispatch(registerCourierInDBSuccess(result.newUser));
+        dispatch(addChatFb(result.newUser.id, result.newUser.name));
     } catch (e) {
         console.log('error', e);
         dispatch(registerCourierInDBFailure(e.message));
