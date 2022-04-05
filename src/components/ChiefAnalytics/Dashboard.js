@@ -6,17 +6,15 @@ export const Dashboard = () => {
         <>
             <Grid item xs={12}>
                 <Paper elevation={0}>
-                    <Grid container alignItems="center" gap={2}>
+                    <Grid container alignItems="center" gap={1}>
                         <Grid item xs={12}>
-                            <Box sx={{p: 2}}>
-                                <Typography align="left" variant="h4">
-                                    Dashboard
-                                </Typography>
-                            </Box>
+                            <Typography align="left" variant="h4" marginY={2}>
+                                Dashboard
+                            </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Paper elevation={2}>
-                                <Box sx={{ p: 3 }}>
+                                <Box sx={{p: 3}}>
                                     <Typography variant="h6">В обработке 20 заказов</Typography>
                                     <Typography variant="h6">На линии 42 курьера</Typography>
                                     <Typography variant="h6">
