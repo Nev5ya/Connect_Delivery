@@ -1,35 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import { ref, set, onValue } from "firebase/database";
-import { db } from "../../services/firebase";
-import { auth } from "../../services/firebase";
 
-console.log(auth);
 export const Profile = ({ onLogout }) => {
-  /*const [role, setRole] = useState("");
-  const [roleId, setRoleId] = useState("");
-  const [roleEmail, setRoleEmail] = useState("");*/
 
   const handleClick = () => {
     onLogout();
   };
-
- /* useEffect(() => {
-    const profileDbRef = ref(db, "profile/login/role");
-    const unsubscribe2 = onValue(profileDbRef, () => {
-      setRole(localStorage.getItem('role'));
-      setRoleId(localStorage.getItem('role_id'));
-      setRoleEmail(localStorage.getItem('role_email'));
-    });
-    return unsubscribe2;
-  }, []);
-
-
-set(ref(db, "profile/login/role"), {
-  role: role,
-});*/
 
 const email = localStorage.getItem('email');
 
@@ -68,15 +43,6 @@ const email = localStorage.getItem('email');
         <Button variant="contained" disabled>edit</Button>
 
       </main>
-      <footer className="footer">
-      <br/>
-        <Stack direction="row" spacing={4}>
-          <a href="#"><i className="fab fa-telegram icon"></i></a>
-          <a href="#"><i className="fab fa-vk icon"></i></a>
-          <a href="#"><i className="fa fa-signal icon"></i></a>
-          <a href="#"><i className="fab fa-google-plus-g icon"></i></a>
-        </Stack>
-      </footer>
   </div>
 
   );
