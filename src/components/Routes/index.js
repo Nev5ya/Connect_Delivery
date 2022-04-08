@@ -7,26 +7,18 @@ import {Profile} from "../Profile";
 import {ChiefAnalytics} from "../ChiefAnalytics/ChiefAnalytics";
 import {AdminTable} from "../AdminTable";
 import CouriersPage from "../CouriersPage/CouriersPage";
-import {NavLink, Route, Router, Routes, BrowserRouter, Navigate} from "react-router-dom";
+import {NavLink, Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import {NotFound} from "../NotFound";
-
-
-const routes = [
-    { path: "/", name: "Home", Component: Home },
-    { path: "/Profile", name: "Profile", Component: Profile },
-    { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
-    { path: "/Admin/", name: "Admin", Component: AdminTable },
-    { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
-];
 
 
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
+    let [routes, setRoutes] = useState([]);
     let activeStyle = {
         color: "red",
         fontWeight: "bold",
     };
-
+    const currentUserRoleID = localStorage.getItem('role_id');
 
     useEffect(() => {
 
@@ -41,10 +33,6 @@ export const Routing = () => {
         return unsubscribe;
     }, []);
 
-    const currentUserID = +localStorage.getItem('id_user');
-    const currentUserRoleID = localStorage.getItem('role_id');
-    console.log('currentUser', currentUserID, currentUserRoleID)
-
     const handleLogout = async () => {
         try {
             await signOut();
@@ -52,6 +40,36 @@ export const Routing = () => {
             console.log(e);
         }
     };
+
+    useEffect(() => {
+        routes = [
+            { path: "/", name: "Home", Component: Home },
+            { path: "/Profile", name: "Profile", Component: Profile },
+            { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
+            { path: "/Admin/", name: "Admin", Component: AdminTable },
+            { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+        ]
+        
+        
+        switch (currentUserRoleID) {
+            case "1":
+                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "CouriersPage"));
+                
+              break;
+            case "2":
+                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "Admin"));
+                
+              break;
+            case "3":
+                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "ChiefAnalytics"));
+                
+              break;
+            default:
+                setRoutes(routes = routes.filter(el => el.name === ""));
+                
+          }
+        }, [routes]);
+
 
     return (
         <BrowserRouter  >
