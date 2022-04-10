@@ -6,9 +6,9 @@ import {selectCouriers, selectCouriersByStatus} from "../../../store/couriers/se
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
 import * as React from "react";
-import {MyButtonContained} from "../../Button/button";
-import {registrCourier} from "../../../store/couriers/actions";
-import {registrOrder} from "../../../store/orders/actions";
+// import {MyButtonContained} from "../../Button/button";
+// import {registrCourier} from "../../../store/couriers/actions";
+// import {registrOrder} from "../../../store/orders/actions";
 
 export const CouriersOperation = () => {
     const couriers = useSelector(selectCouriers);
@@ -28,10 +28,10 @@ export const CouriersOperation = () => {
     //     console.log('onRegistrCourierClick');
     //     dispatch(registrCourier());
     // };
-    const onRegistrOrderClick = () => {
-        console.log('onRegistrOrderClick');
-        dispatch(registrOrder());
-    };
+    // const onRegistrOrderClick = () => {
+    //     console.log('onRegistrOrderClick');
+    //     dispatch(registrOrder());
+    // };
 
 
       return (
@@ -63,12 +63,12 @@ export const CouriersOperation = () => {
               {/*    text={'Зарегистрировать нового курьера'}*/}
               {/*    onClick={onRegistrCourierClick}*/}
               {/*/>*/}
-              <MyButtonContained
-                  disabled={false}
-                  sx={{cursor: 'pointer'}}
-                  text={'Зарегистрировать новый заказ'}
-                  onClick={onRegistrOrderClick}
-              />
+              {/*<MyButtonContained*/}
+              {/*    disabled={false}*/}
+              {/*    sx={{cursor: 'pointer'}}*/}
+              {/*    text={'Зарегистрировать новый заказ'}*/}
+              {/*    onClick={onRegistrOrderClick}*/}
+              {/*/>*/}
           </>
       );
 };
