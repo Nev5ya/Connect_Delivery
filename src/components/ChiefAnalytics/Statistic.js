@@ -1,14 +1,7 @@
-
-
 import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {MenuChiefSettings} from "./MenuChiefSettings"
 
 import {Box, Paper, Grid, Typography} from "@mui/material";
 export const Statistic = () => {
-    // Заглушки
-    const dataFromDB = {
-        name: 'Олег Руководитель',
-    }
 
     const data = [
         { name: 'ID 1', uv: 400, pv: 2400, amt: 2400 },
@@ -23,24 +16,13 @@ export const Statistic = () => {
 
     return (
         <>
-        <Grid container spacing={2} alignItems="center" sx={{mt: 1}}>
-            <Grid item xs={1}>
-                <MenuChiefSettings/>
-            </Grid>
-            <Grid item xs={11}>
-                <Typography align="left" variant="h3">
-                    {dataFromDB.name}
-                </Typography>
-            </Grid>
             <Grid item xs={12}>
                 <Paper elevation={0}>
-                    <Grid container alignItems="center" gap={2}>
+                    <Grid container alignItems="center" gap={1}>
                         <Grid item xs={12}>
-                            <Box sx={{p: 2}}>
-                                <Typography align="left" variant="h4">
-                                    Statistic
-                                </Typography>
-                                </Box>
+                            <Typography align="left" variant="h4" marginY={2}>
+                                Statistic
+                            </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Paper elevation={2}>
@@ -60,13 +42,9 @@ export const Statistic = () => {
                                 </Box>
                             </Paper>
                         </Grid>
-                        </Grid>
+                    </Grid>
                 </Paper>
             </Grid>
-                    </Grid>
-
-
-
         </>
     )
 }
