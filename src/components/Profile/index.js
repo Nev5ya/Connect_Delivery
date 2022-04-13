@@ -1,4 +1,36 @@
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}));
 
 export const Profile = ({ onLogout }) => {
 
@@ -8,12 +40,41 @@ export const Profile = ({ onLogout }) => {
 
 const email = localStorage.getItem('email');
 
+const role = localStorage.getItem('role_id');
+
+let name; 
+switch(role) {
+  case '1':  
+    name = "courier";
+    break;
+
+  case '2':  
+  name = "admin";
+    break;
+
+  case '3':  
+  name = "chief";
+    break;
+
+  default:
+    name = "";
+    break;
+}
+
+const photo = "../images/" + name + "-2.jpg";
+
   return (
   <div className="profile">
       <header className="showlogin">Personal Account</header>
       <aside>
             <div className="left_box"> 
-            <img className="photo_profile" src="../images/profile.png" alt="logo"></img>
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              variant="dot"
+            >
+              <Avatar className="photo_profile" src={photo} alt="logo" sx={{ width: 256, height: 256 }}/>
+            </StyledBadge>
                 &nbsp; &nbsp;  filled 34% &nbsp;
             <progress value="34" max="100">
               <div id="progress" className="graph"></div>
