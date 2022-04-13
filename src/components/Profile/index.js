@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
@@ -33,17 +34,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export const Profile = ({ onLogout }) => {
+  const [photo, setPhoto] = useState("");
 
-  const handleClick = () => {
-    onLogout();
-  };
+  const email = localStorage.getItem('email');
 
-const email = localStorage.getItem('email');
+  const role = localStorage.getItem('role_id');
 
-const role = localStorage.getItem('role_id');
-
-let name; 
-switch(role) {
+  let name; 
+  switch(role) {
   case '1':  
     name = "courier";
     break;
@@ -59,9 +57,15 @@ switch(role) {
   default:
     name = "";
     break;
-}
+  }
 
-const photo = "../images/" + name + "-2.jpg";
+  useEffect(() => {
+    setPhoto ("../images/" + name + "-2.jpg");
+  }, [name]);
+
+  const handleClick = () => onLogout()
+ 
+  const handleChangePhoto = ()=> setPhoto("../images/default.jpg")
 
   return (
   <div className="profile">
@@ -73,7 +77,7 @@ const photo = "../images/" + name + "-2.jpg";
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               variant="dot"
             >
-              <Avatar className="photo_profile" src={photo} alt="logo" sx={{ width: 256, height: 256 }}/>
+              <Avatar className="photo_profile" src={photo} sx={{ width: 256, height: 256 }}/>
             </StyledBadge>
                 &nbsp; &nbsp;  filled 34% &nbsp;
             <progress value="34" max="100">
@@ -82,6 +86,9 @@ const photo = "../images/" + name + "-2.jpg";
              </progress>
              <br/>
              <br/>
+            <Button variant="contained" onClick={handleChangePhoto}>change photo</Button>
+            <br/>
+            <br/>
             <Button variant="contained" disabled>change password</Button>
             <br/>
             <br/>
