@@ -13,7 +13,10 @@ import {
 } from '@mui/material';
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
 import {useDispatch, useSelector} from "react-redux";
-import {selectOrdersforPaginAdmin, selectOrdersWithOutUserId} from "../../../store/orders/selector";
+import {
+	selectOrdersForPaginAdmin,
+	selectOrdersWithOutUserId
+} from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
 import {selectCouriersByStatus} from "../../../store/couriers/selector";
 import Typography from "@mui/material/Typography";
@@ -23,24 +26,39 @@ import ModalWindow from "../../ModalWindow/ModalWindow";
 import CourierRedact from "../../CourierRedact/CourierRedact";
 import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
 import {changeCourier} from "../../../store/couriers/actions";
+import {withStyles} from "@mui/styles";
+import {DataGrid} from "@mui/x-data-grid";
+import OrderAppointmentCourierModal from "../../OrderAppointmentCourierModal/OrderAppointmentCourierModal";
 
-const AdminInWork = ({setOption}) => {
+const AdminInWork = () => {
+	let [page, setPage] = useState(0);
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+		console.log('setPage handleChangePage', newPage);
+	};
 
-	const ordersforPaginAdmin = useSelector(selectOrdersforPaginAdmin);
+	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const handleChangeRowsPerPage = (event) => {
+		setRowsPerPage(parseInt(event.target.value, 10));
+		setPage(1);
+		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+	};
+
+	const ordersForPagin = useSelector((state) => selectOrdersForPaginAdmin(state, rowsPerPage, page));
 	const ordersWithOutUserId = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
 	//const orders = useSelector(selectOrders) // список всех заказов
 	console.log('AdminInWork', ordersWithOutUserId)
 
-	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
-	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
+	// const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
+	// const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
 
-	console.log('adminWork', couriersOnline, ordersforPaginAdmin, couriersOnlineAndNull)
-	/////Вызов Редактировать курьера//
-	const dispatch = useDispatch();
-	const onChangeCourier = (order_id, event) => {
-		dispatch(changeOrder({id: order_id, order_status_id: 2, user_id: event.target.value}));
-		//dispatch(changeCourier({id: event.target.value, user_status_id: 3}));
-	};
+	//console.log('adminWork', couriersOnline, ordersForPagin, couriersOnlineAndNull)
+	// /////Вызов Редактировать курьера//
+	// const dispatch = useDispatch();
+	// const onChangeCourier = (order_id, event) => {
+	// 	dispatch(changeOrder({id: order_id, order_status_id: 2, user_id: event.target.value}));
+	// 	//dispatch(changeCourier({id: event.target.value, user_status_id: 3}));
+	// };
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);
@@ -56,67 +74,114 @@ const AdminInWork = ({setOption}) => {
 		console.log('onClickHandle', order, openModal);
 	};
 
+
+	const StyledDataGrid = withStyles({
+		root: {
+			"& .MuiDataGrid-renderingZone": {
+				maxHeight: "none !important"
+			},
+			"& .MuiDataGrid-cell": {
+				lineHeight: "unset !important",
+				maxHeight: "none !important",
+				whiteSpace: "normal"
+			},
+			"& .MuiDataGrid-row": {
+				maxHeight: "none !important"
+			},
+			"& .MuiDataGrid-columnHeaders": {
+				backgroundColor: "#E4E4E4",
+				color: "black",
+				fontSize: 15,
+				weight: 'bold',
+				textAlign: 'center',
+			},
+			'& div[data-rowIndex][role="row"]:nth-of-type(2n)': {
+				backgroundColor: '#fcfcfc',
+			},
+			'& .header-column': {
+				fontWeight: 'bold',
+			},
+
+		},
+		header: {
+			fontWeight: 'bold',
+		},
+
+	})(DataGrid);
+
+	const columns = [
+		{ field: 'id', headerName: 'ID', width: 30 },
+		{
+			field: 'address',
+			headerName: 'АДРЕС ДОСТАВКИ',
+			flex: 2 ,
+			headerAlign: 'center',
+			align: 'center',
+		},
+		{
+			field: 'comment',
+			headerName: 'КОММЕНТАРИЙ',
+			flex: 1 ,
+			headerAlign: 'center',
+			align: 'center',
+		},
+		{
+			field: 'name',
+			headerName: 'НАИМЕНОВАНИЕ',
+			flex: 1 ,
+			headerAlign: 'center',
+			align: 'center',
+		},
+		{
+			field: 'courier_name',
+			headerName: 'КУРЬЕР',
+			flex: 1 ,
+			headerAlign: 'center',
+			align: 'center',
+			editable: true,
+			type: 'singleSelect',
+			valueOptions: [{id: 1, n: 'United Kingdom'}, {id: 2, n:'Spain'}]
+
+		},
+	];
+
+	const rows = ordersForPagin.map((row) => {
+		return {
+			id: row.id,
+			address: row.address,
+			comment: row.comment,
+			name: row.name,
+			courier_name: 'НАЗНАЧИТЬ...',
+		}
+	});
+
 	return (
 		<>
 			<Typography variant='h6' component='h2'>В обработке</Typography>
-			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
-					<TableHead>
-						<TableRow>
-							<StyledTableCell>ID</StyledTableCell>
-							<StyledTableCell align='center'>АДРЕС ДОСТАВКИ</StyledTableCell>
-							<StyledTableCell align='center'>НАИМЕНОВАНИЕ</StyledTableCell>
-							<StyledTableCell align='center'>КОММЕНТАРИЙ</StyledTableCell>
-							<StyledTableCell align='center'>КУРЬЕР</StyledTableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{ordersforPaginAdmin.map((row) => (
-							<StyledTableRow key={row.id}>
-								<StyledTableCell component='th'
-												 scope='row'
-												 sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
-												 onClick={() => onClickHandle(row)}>
-									{row.id}
-								</StyledTableCell>
-								<StyledTableCell align='center' sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
-												 onClick={() => onClickHandle(row)}>{row.address}
-								</StyledTableCell>
-								<StyledTableCell align='center'sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
-												 onClick={() => onClickHandle(row)}>{row.name}
-								</StyledTableCell>
-								<StyledTableCell align='center'sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
-												 onClick={() => onClickHandle(row)}>{row.comment}
-								</StyledTableCell>
-								<StyledTableCell align='center'>
-									<Box sx={{ minWidth: 120 }}>
-										<FormControl fullWidth>
-											<NativeSelect onChange={(event) => onChangeCourier(row.id, event)}
-											value={'Не назначено'}>
-												{/*<option value={-1}>Не назначено</option>*/}
-												{ couriersOnlineAndNull.map(item => (
-													<option
-														key={item.id}
-														value={item.id}
-													>{item.name}</option>
-												)) }
-											</NativeSelect>
-										</FormControl>
-									</Box>
-								</StyledTableCell>
-							</StyledTableRow>
-						))}
-					</TableBody>
-				</Table>
-				<PaginationComponent type='AdminInWork' orders = {ordersWithOutUserId} />
+			<TableContainer component={Paper} style={{ flexGrow: 1 }}>
+				<StyledDataGrid
+					autoHeight
+					rows={rows}
+					columns={columns}
+					disableSelectionOnClick
+					hideFooterPagination={true}
+					hideFooter={true}
+					hideFooterRowCount={true}
+					 onRowClick={(event) => onClickHandle(event.row)}
+				/>
+				<PaginationComponent type='AdminHistory'
+									 rows = {ordersWithOutUserId}
+									 pageQtl={rowsPerPage}
+									 changePage={handleChangePage}
+									 changeRowsPerPage={handleChangeRowsPerPage}
+				/>
 			</TableContainer>
 			{openModal ? (
 				<ModalWindow
 					data={orderCurrent}
-					component={OrderDescriptionModal}
+					component={OrderAppointmentCourierModal}
 					openModal={openModal}
 					closeModal={closeModal}
-					setOption={setOption}
 				/>
 			) : null}
 		</>

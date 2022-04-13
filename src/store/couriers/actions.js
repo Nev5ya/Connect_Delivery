@@ -157,7 +157,7 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
     };
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/register1`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/register`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

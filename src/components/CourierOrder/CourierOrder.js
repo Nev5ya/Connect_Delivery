@@ -1,22 +1,68 @@
-import {Box, Grid} from "@mui/material";
+import {Box, CircularProgress, Grid} from "@mui/material";
 import * as React from "react";
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import Stack from "@mui/material/Stack";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeOrder} from "../../store/orders/actions";
 import Typography from "@mui/material/Typography";
 import {changeCourier} from "../../store/couriers/actions";
+import {REQUEST_STATUS} from "../../utils/constants";
+import ModalWindow from "../ModalWindow/ModalWindow";
+import ErrorWindow from "../ErrorWindow/ErrorWindow";
+import SuccessModal from "../SuccessModal/SuccessModal";
+import {useState} from "react";
+import {selectRequestOrders} from "../../store/orders/selector";
+
 
 export const CourierOrder = ({order}) => {
     console.log('CourierOrder', order)
 
+    const ordersRequest = useSelector(selectRequestOrders);
+    console.log('CourierOrder', order, ordersRequest)
+    let [openModal, setOpenModal] = useState(false);
+    const closeModal = () => {
+        setOpenModal(false);
+    };
     /////изменение статуса заказа на Доставлено//
     const dispatch = useDispatch();
     const onChangeDelivered = () => {
-        //dispatch(changeCourier({id: order.user_id, user_status_id: 2}));
         dispatch(changeOrder({id: order.id, order_status_id: 3 }));
-
     };
+
+    const onClickHandle = () => {
+        console.log('onClickHandle CourierRedact');
+        onChangeDelivered();
+            setOpenModal(true);
+    };
+
+    const renderModal = () => {
+        if (!openModal) {
+            return null;
+        }
+        console.log('renderModal', openModal, ordersRequest)
+        switch (ordersRequest.status) {
+            case REQUEST_STATUS.PENDING: {
+                return <CircularProgress/>
+            }
+            case REQUEST_STATUS.FAILURE: {
+                return <ModalWindow
+                    data={ordersRequest}
+                    component={ErrorWindow}
+                    openModal={openModal}
+                    closeModal={closeModal}
+                />
+            }
+            case REQUEST_STATUS.SUCCESS: {
+                return <ModalWindow
+                    openModal
+                    data={`Заказ ${order.id} ${order.name} - доставлен`}
+                    component={SuccessModal}
+                    closeModal={closeModal}
+                />
+            }
+        }
+    };
+
 
     return (
         <>
@@ -50,13 +96,13 @@ export const CourierOrder = ({order}) => {
                                             disabled={true}
                                             sx={{cursor: 'pointer'}}
                                             text={'Доставлено'}
-                                            onClick={onChangeDelivered}
+                                            onClick={onClickHandle}
                                         />
                                         :<MyButtonContained
                                             disabled={false}
                                             sx={{cursor: 'pointer'}}
                                             text={'Доставлено'}
-                                            onClick={onChangeDelivered}
+                                            onClick={onClickHandle}
                                         />}
                                     <MyButtonOutlined sx={{cursor: 'pointer'}} text={'Перейти в чат'}/>
                                 </Stack>
@@ -69,6 +115,7 @@ export const CourierOrder = ({order}) => {
                         }
                     </Stack>
                 </Grid>
+            {renderModal()}
         </>
     );
 };
