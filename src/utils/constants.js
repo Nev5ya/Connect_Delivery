@@ -40,4 +40,4 @@ export const iconCourierStatus = (status_id) => {
     return <Brightness1Icon sx={{color: "red"}}/>
   }
 }
-export const pageQtl = 2;
+export const pageQtl = 5;

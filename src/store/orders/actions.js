@@ -1,18 +1,24 @@
+import {
+    CHANGE_COURIERS_IN_DB_FAILURE,
+    CHANGE_COURIERS_IN_DB_PENDING,
+    CHANGE_COURIERS_IN_DB_SUCCESS, changeCourierInDBFailure, changeCourierInDBPending, changeCourierInDBSuccess
+} from "../couriers/actions";
+
 const axios = require('axios').default;
 
 axios.defaults.withCredentials = true;
 
-export const SET_PAGE_ADMIN = "ORDERS::SET_PAGE_ADMIN"
-export const setPageAdmin = (payload) => ({
-    type: SET_PAGE_ADMIN,
-    payload: payload,
-});
-
-export const SET_PAGE_HISTORY = "ORDERS::SET_PAGE_HISTORY"
-export const setPageHistory = (payload) => ({
-    type: SET_PAGE_HISTORY,
-    payload: payload,
-});
+// export const SET_PAGE_ADMIN = "ORDERS::SET_PAGE_ADMIN"
+// export const setPageAdmin = (payload) => ({
+//     type: SET_PAGE_ADMIN,
+//     payload: payload,
+// });
+//
+// export const SET_PAGE_HISTORY = "ORDERS::SET_PAGE_HISTORY"
+// export const setPageHistory = (payload) => ({
+//     type: SET_PAGE_HISTORY,
+//     payload: payload,
+// });
 
 export const GET_ORDERS_FROM_DB = "ORDERS::GET_ORDERS_FROM_DB"
 export const getOrdersFromDB = (payload) => ({
@@ -35,34 +41,53 @@ export const getOrders = () => {
     };
 };
 
+export const CHANGE_ORDERS_IN_DB_PENDING = "ORDERS::CHANGE_ORDERS_IN_DB_PENDING"
+export const CHANGE_ORDERS_IN_DB_SUCCESS = "ORDERS::CHANGE_ORDERS_IN_DB_SUCCESS"
+export const CHANGE_ORDERS_IN_DB_FAILURE = "ORDERS::CHANGE_ORDERS_IN_DB_FAILURE"
 
-export const CHANGE_ORDERS_IN_DB = "ORDERS::CHANGE_ORDERS_IN_DB"
-export const changeOrderInDB = (payload) => ({
-    type: CHANGE_ORDERS_IN_DB,
-    payload: payload
+export const changeOrderInDBPending = () => ({
+    type: CHANGE_ORDERS_IN_DB_PENDING,
+});
+export const changeOrderInDBSuccess = (data) => ({
+    type: CHANGE_ORDERS_IN_DB_SUCCESS,
+    payload: data
+});
+export const changeOrderInDBFailure = (error) => ({
+    type: CHANGE_ORDERS_IN_DB_FAILURE,
+    payload: error
 });
 
-export const changeOrder = (data) => {
-    return function (dispatch) {
-        fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`, {
+
+export const changeOrder = (data) => async (dispatch) => {
+    dispatch(changeOrderInDBPending());
+    console.log('changeOrder', data)
+
+    try {
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                mode: 'cors'
+                mode:'cors'
             },
             body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
-        })
-            .then(response => {
-                // console.log('json1 changeOrderInDB', response)
-                return response.json()
+        });
 
-            })
-            .then(json => {
-                return dispatch(changeOrderInDB(json.updatedOrder))
-            })
-            .catch(err => console.log('err', err))
-    };
+        if (!response.ok) {
+            console.log('response.ok', response.ok);
+            throw new Error(`error ${response.status}`);
+        };
+
+        const result = await response.json();
+
+        console.log('result', result);
+
+        dispatch(changeOrderInDBSuccess(result.updatedOrder));
+    } catch (e) {
+        console.log('error', e);
+        dispatch(changeOrderInDBFailure(e.message));
+    }
 };
+
 
 export const REGISTR_ORDERS_IN_DB = "COURIERS::REGISTR_ORDERS_IN_DB"
 export const registrOrderInDB = (payload) => ({
