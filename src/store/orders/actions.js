@@ -66,16 +66,31 @@ export const changeOrder = (data) => {
     };
 };
 
-export const REGISTR_ORDERS_IN_DB = "COURIERS::REGISTR_ORDERS_IN_DB"
-export const registrOrderInDB = (payload) => ({
-    type: REGISTR_ORDERS_IN_DB,
-    payload: payload
+export const CREATE_ORDER_IN_DB_PENDING = "ORDERS::CREATE_ORDER_IN_DB_PENDING"
+export const CREATE_ORDER_IN_DB_SUCCESS = "ORDERS::CREATE_ORDER_IN_DB_SUCCESS"
+export const CREATE_ORDER_IN_DB_FAILURE = "ORDERS::CREATE_ORDER_IN_DB_FAILURE"
+
+// export const createOrderInDB = (payload) => ({
+//     type: CREATE_ORDER_IN_DB,
+//     payload: payload
+// });
+export const createOrderInDBPending = () => ({
+    type: CREATE_ORDER_IN_DB_PENDING,
+});
+export const createOrderInDBSuccess = (data) => ({
+    type: CREATE_ORDER_IN_DB_SUCCESS,
+    payload: data
+});
+export const createOrderInDBFailure = (error) => ({
+    type: CREATE_ORDER_IN_DB_FAILURE,
+    payload: error
 });
 
-export const registrOrder = (data) => {
-    console.log('registrOrder')
+export const createOrder = (data) => {
+    // console.log('createOrder')
 
     return function (dispatch) {
+        dispatch(createOrderInDBPending());
 
         fetch(`https://xn--l1aej.pw/api/admin/orders`, {
             method: 'POST',
@@ -89,9 +104,13 @@ export const registrOrder = (data) => {
         })
             .then(response => {
                 console.log('Order created', response)
-                return response.json()
 
+                dispatch(createOrderInDBSuccess(response.newOrder));
+                return response.json()
             })
-            .catch(err => console.log('err', err))
+            .catch(err => {
+                dispatch(createOrderInDBFailure(err.message));
+                console.log('err', err)
+            })
     }
 }

@@ -2,17 +2,19 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {Stack} from "@mui/material";
+import {CircularProgress, Stack} from "@mui/material";
 
 import {MyButtonContained} from "../../Button/button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import {Box} from "@mui/system";
-import {registrOrder} from "../../../store/orders/actions";
-
+import {createOrder} from "../../../store/orders/actions";
+import {REQUEST_STATUS} from "../../../utils/constants";
+import ModalWindow from "../../ModalWindow/ModalWindow";
+import ErrorWindow from "../../ErrorWindow/ErrorWindow";
+import SuccessModal from "../../SuccessModal/SuccessModal";
 
 export const AdminCreateOrder = () => {
-    const [option, setOption] = useState('0');
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
@@ -38,13 +40,19 @@ export const AdminCreateOrder = () => {
     };
 
     const onRegisterOrderClick = () => {
-        dispatch(registrOrder(orderData));
+        dispatch(createOrder(orderData));
+        setOpenModal(true);
         showOrderCreationForm();
     };
 
     const showOrderCreationForm = () => {
         setFormVisible((formVisible) => formVisible = !formVisible)
     }
+
+    let [openModal, setOpenModal] = useState(false);
+    const closeModal = () => {
+        setOpenModal(false);
+    };
 
     const orderData = {
         name: name,
@@ -54,6 +62,35 @@ export const AdminCreateOrder = () => {
         user_id: null,
         comment: comment
     };
+
+    const renderModal = () => {
+        // if (!openModal) {
+        //     return null;
+        // }
+        // console.log('renderModal', openModal, ordersRequest)
+        // switch (ordersRequest.status) {
+        //     case REQUEST_STATUS.PENDING: {
+        //         return <CircularProgress/>
+        //     }
+        //     case REQUEST_STATUS.FAILURE: {
+        //         return <ModalWindow
+        //             data={ordersRequest}
+        //             component={ErrorWindow}
+        //             openModal={openModal}
+        //             closeModal={closeModal}
+        //         />
+        //     }
+        //     case REQUEST_STATUS.SUCCESS: {
+        //         return <ModalWindow
+        //             openModal
+        //             data={`Новый заказ ${order.id} ${order.name} создан`}
+        //             component={SuccessModal}
+        //             closeModal={closeModal}
+        //         />
+        //     }
+        // }
+    };
+
 
     return (
         <>

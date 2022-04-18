@@ -1,4 +1,13 @@
-import {CHANGE_ORDERS_IN_DB, GET_ORDERS_FROM_DB, SET_PAGE_ADMIN, SET_PAGE_HISTORY} from "./actions";
+import {
+  CHANGE_ORDERS_IN_DB,
+  GET_ORDERS_FROM_DB,
+  SET_PAGE_ADMIN,
+  SET_PAGE_HISTORY,
+  CREATE_ORDER_IN_DB_PENDING,
+  CREATE_ORDER_IN_DB_SUCCESS,
+  CREATE_ORDER_IN_DB_FAILURE
+} from "./actions";
+import {REQUEST_STATUS} from "../../utils/constants";
 
 const initialState = {
   orders:[],
@@ -39,6 +48,45 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
       const new_st1 = {...state, orders: [...filter, payload]}
       // console.log('new_st', new_st1, state)
       return new_st1
+
+
+    case CREATE_ORDER_IN_DB_PENDING: {
+      return {
+        // ...state,
+        // request: {
+        //   error: null,
+        //   status: REQUEST_STATUS.PENDING
+        // }
+      };
+    }
+
+    case CREATE_ORDER_IN_DB_SUCCESS: {
+      console.log('reducer CREATE_ORDER_IN_DB_SUCCESS', state, payload);
+
+      // const filterChange = state.couriers.filter((item) => {
+      //   return item.id !== payload.id
+      // });
+
+      return {
+        // ...state,
+        // request: {
+        //   error: null,
+        //   status: REQUEST_STATUS.SUCCESS
+        // },
+        // couriers: [...filterChange, payload]
+      };
+    }
+
+    case CREATE_ORDER_IN_DB_FAILURE: {
+      console.log('CREATE_ORDER_IN_DB_FAILURE', state, payload)
+      return {
+        // ...state,
+        // request: {
+        //   error: payload,
+        //   status: REQUEST_STATUS.FAILURE
+        // }
+      };
+    }
 
     default:
       return state
