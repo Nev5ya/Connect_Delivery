@@ -26,12 +26,10 @@ const CouriersPage = () => {
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
     const courierBusy = currentOrder?.length > 0;
-    console.log('courierBusy', courierBusy, currentOrder?.length > 0)
 
     //console.log('courier', courierBusy, courierID, currentCourier, currentOrder, deliveredOrders)
     const dispatch = useDispatch();
     useEffect((event) => {
-        console.log('useEffect')
         dispatch(getOrders());
         dispatch(getCouriers());
     }, [dispatch]);
@@ -40,13 +38,11 @@ const CouriersPage = () => {
     const [option, setOption] = useState('0');
     const onMenuItemClick = (option) => {
         setOption(option);
-        console.log('onMenuItemClick', option);
     };
 
     /////отслеживаем клик по карте для увеличения на всю страницу//
     const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
     const clickOnMap = () => {
-     console.log('clickOnMapToggle', clickOnMapToggle);
      setClickOnMapToggle(!clickOnMapToggle);
     };
 

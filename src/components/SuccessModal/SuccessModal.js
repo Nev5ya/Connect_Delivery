@@ -15,7 +15,7 @@ const SuccessModal = ({ data, closeModal }) => {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column'}}>
         <Typography sx={{mt: 3, mb: 3}} variant="h5" component="div">
-          Новый курьер {data} зарегистрирован!!!
+          {data}
         </Typography>
 
         <MyButtonContained text={'OK'} onClick={closeSuccessModal} />

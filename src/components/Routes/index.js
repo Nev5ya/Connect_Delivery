@@ -10,7 +10,6 @@ import CouriersPage from "../CouriersPage/CouriersPage";
 import {NavLink, Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import {NotFound} from "../NotFound";
 
-
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
     let [routes, setRoutes] = useState([]);
@@ -42,6 +41,7 @@ export const Routing = () => {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         routes = [
             { path: "/", name: "Home", Component: Home },
             { path: "/Profile", name: "Profile", Component: Profile },
@@ -68,8 +68,7 @@ export const Routing = () => {
                 setRoutes(routes = routes.filter(el => el.name === ""));
                 
           }
-        }, [routes]);
-
+        }, []);
 
     return (
         <BrowserRouter  >
@@ -103,17 +102,17 @@ export const Routing = () => {
                     </Route>
                     <Route
                         path="/ChiefAnalytics/*"
-                        element={authed ? <ChiefAnalytics /> : <Navigate to="/" />}
+                        element={authed ? <ChiefAnalytics /> : <Navigate to="/ChiefAnalytics/" />}
                     >
                     </Route>
                     <Route
                         path="/Admin/*"
-                        element={(authed && (currentUserRoleID === '2')) ? <AdminTable /> : <Navigate to="/" />}
+                        element={(authed && (currentUserRoleID === '2')) ? <AdminTable /> : <Navigate to="/Admin/" />}
                     >
                     </Route>
                     <Route
                         path="/CouriersPage/*"
-                        element={(authed && (currentUserRoleID === '1')) ? <CouriersPage /> : <Navigate to="/" />}
+                        element={(authed && (currentUserRoleID === '1')) ? <CouriersPage /> : <Navigate to="/CouriersPage/" />}
                     >
                     </Route>
                     <Route

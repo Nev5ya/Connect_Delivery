@@ -72,7 +72,7 @@ export const CourierRegistration = () => {
       case REQUEST_STATUS.SUCCESS: {
         return <ModalWindow
           openModal
-          data={`${name} ${surname}`}
+          data={`Новый курьер ${name} ${surname} зарегистрирован!`}
           component={SuccessModal}
           closeModal={closeModal}
         />

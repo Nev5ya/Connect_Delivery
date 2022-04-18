@@ -11,14 +11,11 @@ export const getCouriers = () => {
   return function (dispatch) {
     fetch(`https://xn--l1aej.pw/api/admin/user?auth-token=${localStorage.getItem("auth-token")}`)
         .then(response => {
-            console.log('json1', response)
             return response.json()
 
         })
         .then(json => {
             const couriers = json.data.filter(item => item.role_id === 1)
-            console.log('json', json, couriers)
-            // return dispatch(getCouriersFromDB(couriers))})
             return dispatch(getCouriersFromDB(json.data))})
   }
 };
@@ -41,7 +38,6 @@ export const changeCourierInDBFailure = (error) => ({
 
 export const changeCourier = (data) => async (dispatch) => {
     dispatch(changeCourierInDBPending());
-    console.log('changeCourier', data)
 
     try {
         const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${data.id}`,{
@@ -54,13 +50,11 @@ export const changeCourier = (data) => async (dispatch) => {
         });
 
         if (!response.ok) {
-            console.log('response.ok', response.ok);
+
             throw new Error(`error ${response.status}`);
         }
 
         const result = await response.json();
-
-        console.log('result', result);
 
         dispatch(changeCourierInDBSuccess(result.updatedUser));
     } catch (e) {
@@ -69,12 +63,6 @@ export const changeCourier = (data) => async (dispatch) => {
     }
 };
 
-// export const DELETE_COURIERS_IN_DB = "COURIERS::DELETE_COURIERS_IN_DB"
-//
-// export const deleteCourierInDB = (payload) => ({
-//     type: DELETE_COURIERS_IN_DB,
-//     payload: payload
-// });
 
 export const DELETE_COURIERS_IN_DB_PENDING = "DELETE::DELETE_COURIERS_IN_DB_PENDING"
 export const DELETE_COURIERS_IN_DB_SUCCESS = "DELETE::DELETE_COURIERS_IN_DB_SUCCESS"
@@ -95,7 +83,7 @@ export const deleteCourierInDBFailure = (error) => ({
 
 export const deleteCourier = (courier_id) => async (dispatch) => {
     dispatch(deleteCourierInDBPending());
-    console.log('deleteCourier', courier_id)
+
     const data = {
         id: courier_id
     };
@@ -112,13 +100,11 @@ export const deleteCourier = (courier_id) => async (dispatch) => {
         });
 
         if (!response.ok) {
-            console.log('response.ok', response.ok);
+
             throw new Error(`error ${response.status}`);
         }
 
         const result = await response.json();
-
-        console.log('result', result);
 
         dispatch(deleteCourierInDBSuccess(data));
     } catch (e) {
@@ -157,7 +143,7 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
     };
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/register1`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/register`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -175,7 +161,6 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
 
         const result = await response.json();
 
-        console.log('result', result);
 
         dispatch(registerCourierInDBSuccess(result.newUser));
         dispatch(addChatFb(result.newUser.id, result.newUser.name));

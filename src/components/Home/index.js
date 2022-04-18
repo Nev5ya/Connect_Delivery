@@ -42,10 +42,6 @@ export const Home = () => {
     setLogin("");
     setPass("");
     onLogin(login, pass);
-
-    set(ref(db, "profile/login"), {
-      login: login,
-    });
   };
 
   return (
