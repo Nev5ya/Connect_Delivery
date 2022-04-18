@@ -43,7 +43,6 @@ export const changeOrderInDB = (payload) => ({
 });
 
 export const changeOrder = (data) => {
-    console.log('changeOrder', data);
     return function (dispatch) {
         fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`, {
             method: 'PUT',
@@ -59,7 +58,6 @@ export const changeOrder = (data) => {
 
             })
             .then(json => {
-                console.log('json changeOrderInDB', json)
                 return dispatch(changeOrderInDB(json.updatedOrder))
             })
             .catch(err => console.log('err', err))
@@ -73,7 +71,6 @@ export const registrOrderInDB = (payload) => ({
 });
 
 export const registrOrder = (data) => {
-    console.log('registrOrder')
 
     return function (dispatch) {
 
@@ -88,7 +85,6 @@ export const registrOrder = (data) => {
             body: JSON.stringify(Object.assign({data}, {'auth-token': localStorage.getItem('auth-token')}))
         })
             .then(response => {
-                console.log('Order created', response)
                 return response.json()
 
             })

@@ -16,6 +16,7 @@ import MyMap from "../Map/map";
 import {CouriersOperation} from "./CouriersOperation/CouriersOperation";
 import {CourierRegistration} from "./CourierRegistration/CourierRegistration";
 
+
 export const AdminTable = () => {
 
     const dispatch = useDispatch();

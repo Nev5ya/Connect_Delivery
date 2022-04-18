@@ -30,7 +30,6 @@ export const colorLabel = (typeLabel, status_id) => {
 };
 
 export const iconCourierStatus = (status_id) => {
-  console.log('iconCourierStatus', status_id)
   if (status_id === 2) {//'online'
     return <Brightness1Icon sx={{color: "green"}}/>
   }

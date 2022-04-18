@@ -22,13 +22,11 @@ export const selectOrdersWithUserId = (state) => state.orders.orders
     });
 
 export const selectTransitOrderForCourier = (state, courierID) => {
-     console.log('selectTransitOrderForCourier', state, state.orders)
     const orders = state.orders.orders;
      const a = orders.filter(item => {
          // console.log('selectTransitOrderForCourier2', item.user_id , courierID ,  item.order_status_id)
         return (item.user_id === courierID && item.order_status_id !== 3) //status: "transit"
     })
-    console.log('selectTransitOrderForCourier1', a)
     return a
 };
 
@@ -62,7 +60,6 @@ export const selectOrdersforPaginHistory = (state) => {
         return item.user_id !== null
     })
     const ordersHistory = orders.slice(startIndexHistory, endIndexHistory);
-    console.log('selectOrdersforPaginHistory', orders)
     return ordersHistory;
 };
 

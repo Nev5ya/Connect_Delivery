@@ -18,7 +18,6 @@ import Typography from "@mui/material/Typography";
 const AdminHistory = () => {
 	const ordersforPaginHistory = useSelector(selectOrdersforPaginHistory);
 	const ordersWithUserId = useSelector(selectOrdersWithUserId);
-	console.log('AdminHistory', ordersWithUserId)
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);

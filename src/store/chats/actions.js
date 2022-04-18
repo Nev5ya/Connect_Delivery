@@ -24,30 +24,23 @@ const setChats = (chats) => ({
 
 export const initChats = () => (dispatch) => {
   const chatDbRef = ref(db, "chats");
-    console.log('initChats', chatDbRef, db)
   onValue(chatDbRef, (snapshot) => {
     const data = snapshot.val();
-      console.log('initChats data', data)
     dispatch(setChats(Object.values(data || {})));
   });
 };
 
 export const initChat = (id) => (dispatch) => {
     const chatDbRef = ref(db, `chats/${id}`);
-    console.log('initChat', chatDbRef, db)
     onValue(chatDbRef, (snapshot) => {
         const data = snapshot.val();
-        console.log('initChat data', data)
         dispatch(setChats([data]));
     });
 };
 
 export const addChatFb = (id, name) => (dispatch) => {
   const newId = `chat-${id}`;
-  console.log('addChatFb', newId);
-//  const chatDbRef = ref(db, `chats/123`);
   const chatDbRef = ref(db, `chats/${newId}`);
-  console.log('addChatFb',  newId, chatDbRef);
   set(chatDbRef, {
     id: newId,
     name: name,
@@ -56,7 +49,6 @@ export const addChatFb = (id, name) => (dispatch) => {
 };
 
 export const deleteChatFb = (id) => () => {
-        console.log('deleteChat', id)
       const chatDbRef = ref(db, `chats/${id}`);
       // console.log('handleDeleteChat', ref.child( `chats/${id}`))
       // ref.child(Id).removeValue();

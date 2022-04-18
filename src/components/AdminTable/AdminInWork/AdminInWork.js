@@ -29,12 +29,10 @@ const AdminInWork = ({setOption}) => {
 	const ordersforPaginAdmin = useSelector(selectOrdersforPaginAdmin);
 	const ordersWithOutUserId = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
 	//const orders = useSelector(selectOrders) // список всех заказов
-	console.log('AdminInWork', ordersWithOutUserId)
 
 	const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
 	const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
 
-	console.log('adminWork', couriersOnline, ordersforPaginAdmin, couriersOnlineAndNull)
 	/////Вызов Редактировать курьера//
 	const dispatch = useDispatch();
 	const onChangeCourier = (order_id, event) => {
@@ -46,14 +44,12 @@ const AdminInWork = ({setOption}) => {
 	let [openModal, setOpenModal] = useState(false);
 	const closeModal = () => {
 		setOpenModal(false);
-		console.log('CloseModal CouriersList',  openModal);
 	};
 	/////Записываем order, на котором произведен клик и открывается модальное окно//
 	let [orderCurrent, setOrderCurrent] = useState(null);
 	const onClickHandle = (order) => {
 		setOrderCurrent(order);
 		setOpenModal(true);
-		console.log('onClickHandle', order, openModal);
 	};
 
 	return (

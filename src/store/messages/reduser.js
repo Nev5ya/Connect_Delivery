@@ -8,10 +8,8 @@ const initialState = {
 };
 
 export const messagesReducer = (state = initialState, { type, payload }) => {
-    console.log('messagesReducer', type)
   switch (type) {
     case ADD_MESSAGE: {
-        console.log('messagesReducer', type, payload)
       return {
         ...state,
         messageList: [...state.messageList, 

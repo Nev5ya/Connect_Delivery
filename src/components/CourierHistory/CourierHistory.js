@@ -12,8 +12,6 @@ import * as React from "react";
 
 const CourierHistory = ({orders,  onClick}) => {
 
-	console.log('CourierHistory', orders, onClick)
-
 	return (
 		<>
 			{onClick

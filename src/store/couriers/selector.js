@@ -27,12 +27,10 @@ export const selectCouriersByStatus = (state, status_id) => {
     const filterCouriers =  couriers.filter((courier) => {
         return (courier.user_status_id === status_id && courier.is_deleted !== 1);
     })
-     console.log('selectCouriersByStatus', status_id, filterCouriers)
     return filterCouriers
 };
 
 export const selectRequestCouriers = (state) => {
-     console.log('selectRequestCouriers', state)
     return state.couriers.request
 };
 

@@ -11,7 +11,6 @@ const PaginationComponent = (props) => {
 
     const selectQtyPage = (orders) => {
         const numberOfPages = Math.ceil(orders.length / pageQtl);
-        console.log('selectQtyPage', orders, numberOfPages,orders.length, pageQtl)
         return numberOfPages;
     };
 

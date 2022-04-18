@@ -18,7 +18,6 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
 
     const showCouriers = () => {
         couriers.forEach(label => {
-            console.log('showCouriers', label.coords)
             setCoordinates((prev) => {
                 label.typeLabel = label.role_title;
                 label.address = '';
@@ -55,12 +54,10 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                 boundsAutoApply: true
             }
         );
-        console.log('this.route', multiRoute)
         map.current.geoObjects.add(multiRoute);
     };
 
     const showLabels = (ymaps) => {
-        console.log('showLabels', orders)
         if (couriers.length !== 0) showCouriers();
         if (orders.length !== 0) showOrders(ymaps);
         if (couriers.length === 1 && orders.length === 1) addRoute(ymaps);
@@ -85,7 +82,6 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                 >
                     {
                         coordinates.map(label => {
-                            console.log('coordinates', coordinates)
                            return  <Placemark
                                 key={Math.random()}
                                 geometry={label.coordinates}

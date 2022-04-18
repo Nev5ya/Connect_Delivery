@@ -13,7 +13,6 @@ export const MessageList = ({chatId}) => {
     const messageList = useSelector(selectMessages);
 
     useEffect(() => {
-        console.log('MessageList',chatId)
         dispatch(initMessages());
     }, []);
 
@@ -30,8 +29,6 @@ export const MessageList = ({chatId}) => {
             return scrollRef.current.scrollIntoView({ behaviour: "smooth" });
         }
     }, [messageList]);
-
-    console.log('messExist messageListExtended', messageList[chatId], chatId);
 
     return (
         <Box sx={{ml: 8}}>

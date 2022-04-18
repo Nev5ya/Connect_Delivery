@@ -4,14 +4,12 @@ import "./App.css";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 
-function App() {
+const App = () => {
 
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Provider store={store}>
           <Routing />
-        </Provider>
       </PersistGate>
     </Provider>
   );

@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import {changeCourier} from "../../store/couriers/actions";
 
 export const CourierOrder = ({order}) => {
-    console.log('CourierOrder', order)
 
     /////изменение статуса заказа на Доставлено//
     const dispatch = useDispatch();

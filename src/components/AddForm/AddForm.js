@@ -11,13 +11,11 @@ const AddForm = (props) => {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        console.log('inputRef.current',inputRef.current)
         inputRef.current.focus();
       },[value, props.chatId]);
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log('form', value)
         props.onAdd(value.text, userName);
         setValue({
             text: ''
@@ -26,13 +24,12 @@ const AddForm = (props) => {
 
     const onValueChange = (event) => {
         setValue(() => {
-            console.log('onValueChange')
+
             return {
                 text: event.target.value
             }
         })
     };
-    console.log('AddForm', props.chatId)
     
     return (
         <Box sx={{ mt:2, display: 'flex', flexDirection: 'row', width: '100%'}}>

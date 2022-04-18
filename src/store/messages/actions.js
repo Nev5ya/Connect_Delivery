@@ -23,16 +23,10 @@ const setMessages = (messages) => ({
 
 
 export const initMessages = () => (dispatch) => {
-  console.log('--------initMessages0');
   const messageDbRef = ref(db, 'messages/');
-  console.log('--------initMessages00', messageDbRef);
   onValue(messageDbRef, (snapshot) => {
-      console.log('initMessages1', snapshot)
       const data = snapshot.val();
-      console.log('initMessages2', data);
-
       dispatch(setMessages((data || {})));
-      console.log('--------initMessages', data,);
   });
 };
 
@@ -46,7 +40,7 @@ export const addMessageFb = (chatId, text, author) => (dispatch) => {
     text,
     author
   };
-  console.log('addMessageFb2',  newd, new_path);
+
   set(messageDbRef, newd);
-  console.log('addMessageFb3');
+
 };
