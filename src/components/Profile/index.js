@@ -77,8 +77,6 @@ export const Profile = ({ onLogout }) => {
   
   const photo = ("../images/default.jpg");
 
-  const photoFbName = (`${name}+"-avatar.jpg"`);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -90,7 +88,6 @@ export const Profile = ({ onLogout }) => {
   const email = localStorage.getItem('email');
 
   const role = localStorage.getItem('role_id');
-
   
   switch(role) {
   case '1':  
@@ -110,6 +107,7 @@ export const Profile = ({ onLogout }) => {
     break;
   }
 
+  const photoFbName = (`${name}-avatar.jpg`);
 
   useEffect(() => {
     getDownloadURL(ref(storage, `images/${name}-avatar.jpg`))
