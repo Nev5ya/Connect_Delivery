@@ -11,42 +11,37 @@ import {REQUEST_STATUS} from "../../utils/constants";
 import ErrorWindow from "../ErrorWindow/ErrorWindow";
 import SuccessModal from "../SuccessModal/SuccessModal";
 
-const CourierDeliveredModal = ({order, closeModal}) => {
+const CourierDeliveredModal = ({data={}, closeModal}) => {
 
     const ordersRequest = useSelector(selectRequestOrders);
-    console.log('CourierOrder', order, ordersRequest)
+    console.log('CourierOrder CourierDeliveredModal', data, ordersRequest)
     let [openRequestModal, setOpenRequestModal] = useState(false);
+    let [currentOrder, setCurrentOrder] = useState({});
 
     /////изменение статуса заказа на Доставлено//
     const dispatch = useDispatch();
     const onChangeDelivered = () => {
-        dispatch(changeOrder({id: order.id, order_status_id: 3 }));
+        dispatch(changeOrder({id: data.id, order_status_id: 3 }));
     };
 
     const onClickHandle = () => {
-        setOpenRequestModal(false);
         console.log('onClickHandle CourierDeliveredModal');
         onChangeDelivered();
+        setCurrentOrder({
+            id: data.id,
+            name: data.name,
+            delivery_date: data.delivery_date,
+            address: data.address})
 
-        if (ordersRequest.error === null) {
-            console.log('ordersRequest.error', ordersRequest.error)
-            closeModal();
-        }
-        else {
             setOpenRequestModal(true);
-        }
-    };
-
-    const closeError = () => {
-        setOpenRequestModal(false);
-        console.log('CloseModal closeError',  openRequestModal);
     };
 
     const renderModal = () => {
+        console.log('renderModal', openRequestModal, ordersRequest)
         if (!openRequestModal) {
             return null;
         }
-        console.log('renderModal', openRequestModal, ordersRequest)
+
         switch (ordersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
@@ -62,7 +57,7 @@ const CourierDeliveredModal = ({order, closeModal}) => {
             case REQUEST_STATUS.SUCCESS: {
                 return <ModalWindow
                     openModal
-                    data={`Заказ ${order.id} ${order.name} - доставлен`}
+                    data={`Заказ ${currentOrder.id} ${currentOrder.name} - доставлен`}
                     component={SuccessModal}
                     closeModal={closeModal}
                 />
@@ -74,13 +69,13 @@ const CourierDeliveredModal = ({order, closeModal}) => {
         <>
             <Box>
                 <Typography variant='h6' component='h2'>
-                    Название доставки: {order.name} ID: {order.id}
+                    Название доставки: {data.name} ID: {data.id}
                 </Typography>
                 <Typography sx={{ pt: 1 }}>
-                    Доставить до: {order.delivery_date}
+                    Доставить до: {data.delivery_date}
                 </Typography>
                 <Typography sx={{ pt: 2 }}>
-                    Адрес доставки: {order.address}
+                    Адрес доставки: {data.address}
                 </Typography>
                 <Typography variant='h4' component='h2'>
                     Перевести статус заказа в "Доставлено"?

@@ -31,11 +31,12 @@ const OrderAppointmentCourierModal = ({data, closeModal}) => {
 
     const onClickHandle = () => {
         setOpenError(false);
-        console.log('onClickHandle OrderAppointmentCourierModal', currentCourierID);
+        // console.log('onClickHandle OrderAppointmentCourierModal', currentCourierID);
 
         dispatch(changeOrder({id: data.id, order_status_id: 2, user_id: currentCourierID}));
 
         setOpenModal(true);
+
 
     };
 
