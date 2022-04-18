@@ -1,8 +1,43 @@
 import {useEffect, useState} from "react";
+import { uploadBytes,ref, getDownloadURL } from "firebase/storage";
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { storage } from "../../services/firebase"
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -34,24 +69,37 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export const Profile = ({ onLogout }) => {
-  const [photo, setPhoto] = useState("");
+  let name; 
+  
+  const [state, setState ] = useState({ selectedFile: null });
+
+  const [open, setOpen] = useState(false);
+  
+  const photo = ("../images/default.jpg");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const email = localStorage.getItem('email');
 
   const role = localStorage.getItem('role_id');
-
-  let name; 
+  
   switch(role) {
   case '1':  
     name = "courier";
     break;
 
   case '2':  
-  name = "admin";
+    name = "admin";
     break;
 
   case '3':  
-  name = "chief";
+    name = "chief";
     break;
 
   default:
@@ -59,17 +107,58 @@ export const Profile = ({ onLogout }) => {
     break;
   }
 
+  const photoFbName = (`${name}-avatar.jpg`);
+
   useEffect(() => {
-    setPhoto ("../images/" + name + "-2.jpg");
-  }, [name]);
+    getDownloadURL(ref(storage, `images/${name}-avatar.jpg`))
+      .then((url) => {
+        const img = document.querySelector('img')
+        img.setAttribute('src', url)
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+  }, [name])
 
   const handleClick = () => onLogout()
- 
-  const handleChangePhoto = ()=> setPhoto("../images/default.jpg")
+
+  const uploadHandler = () => {
+    const profileImagesRef = ref(storage, `images/${photoFbName}`);
+    uploadBytes(profileImagesRef, state.selectedFile);
+    setOpen(false);
+  }
+
+  const fotoChangedHandler = event => {
+    setState({ selectedFile: event.target.files[0] })
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.readAsDataURL(file);
+    
+    reader.addEventListener('load', (event) => {
+      const img = document.querySelector('img');
+      img.src = event.target.result;
+      img.alt = file.name;
+    });
+  }
+
+  const createData = (name, value) => {
+    return { name, value };
+  }
+
+  const rows = [
+    createData('* e-mail:', `${email}`),
+    createData('*  phone:', '+7 920 520 52 52'),
+    createData('*  city:', 'Nizhniy Novgorod'),
+    createData('date of birth:', '1988.01.01'),
+  ];
 
   return (
   <div className="profile">
-      <header className="showlogin">Personal Account</header>
+      <br/>
+      <Stack direction="row" spacing={1}>
+        <Chip sx={{ color: 'primary.main', fontWeight: 'bold' }} label="Personal Account" />
+    </Stack>
+    <br/>
       <aside>
             <div className="left_box"> 
             <StyledBadge
@@ -79,14 +168,6 @@ export const Profile = ({ onLogout }) => {
             >
               <Avatar className="photo_profile" src={photo} sx={{ width: 256, height: 256 }}/>
             </StyledBadge>
-                &nbsp; &nbsp;  filled 34% &nbsp;
-            <progress value="34" max="100">
-              <div id="progress" className="graph"></div>
-              <div id="bar" ></div>
-             </progress>
-             <br/>
-             <br/>
-            <Button variant="contained" onClick={handleChangePhoto}>change photo</Button>
             <br/>
             <br/>
             <Button variant="contained" disabled>change password</Button>
@@ -95,24 +176,40 @@ export const Profile = ({ onLogout }) => {
             <Button variant="contained" onClick={handleClick}>Logout</Button>
             <br/>
             <br/>
+            <Button variant="contained" onClick={handleClickOpen}>
+                изменить аватарку
+            </Button>
+            <br/>
+            <br/>
+            <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Загрузить новую аватарку</DialogTitle>
+            <DialogContent>
+            <TextField type="file" id="file-uploader"  onChange={fotoChangedHandler}/>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={uploadHandler}>Upload!</Button>
+            </DialogActions>
+            </Dialog>
             </div>
       </aside>
-      <main>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label> {email} &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  phone:</label> +7 920 520 52 52 &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>sex:</label>  man</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  city:</label> Nizhniy Novgorod &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>street:</label>    Minina str. 1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>house number:</label>    1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>app.:</label>    1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>date of birth:</label>    1988.01.01 &#9773;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>hobby:</label>    travel &#9786;</li>
-        <br/>
-        <Button variant="contained" disabled>edit</Button>
-
-      </main>
+      <TableContainer sx={{ maxWidth: 320 }} component={Paper}>
+        <Table sx={{ maxWidth: 320 }} aria-label="customized table">
+            <TableBody>
+            {rows.map((row) => (
+                  <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell sx={{ color: 'primary.main' }}  align="right">{row.value} </StyledTableCell>         
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+        </Table>
+      </TableContainer>
+      <br/>
+      <Button variant="contained" disabled>edit</Button>
   </div>
 
   );
 };
-
