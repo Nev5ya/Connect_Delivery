@@ -12,55 +12,21 @@ import ErrorWindow from "../ErrorWindow/ErrorWindow";
 import SuccessModal from "../SuccessModal/SuccessModal";
 import {useState} from "react";
 import {selectRequestOrders} from "../../store/orders/selector";
+import CourierRedact from "../CourierRedact/CourierRedact";
+import CourierDeliveredModal from "../CourierDeliveredModal/CourierDeliveredModal";
 
 
 export const CourierOrder = ({order}) => {
     console.log('CourierOrder', order)
 
-    const ordersRequest = useSelector(selectRequestOrders);
-    console.log('CourierOrder', order, ordersRequest)
     let [openModal, setOpenModal] = useState(false);
     const closeModal = () => {
         setOpenModal(false);
     };
-    /////изменение статуса заказа на Доставлено//
-    const dispatch = useDispatch();
-    const onChangeDelivered = () => {
-        dispatch(changeOrder({id: order.id, order_status_id: 3 }));
-    };
 
     const onClickHandle = () => {
-        console.log('onClickHandle CourierRedact');
-        onChangeDelivered();
-            setOpenModal(true);
-    };
-
-    const renderModal = () => {
-        if (!openModal) {
-            return null;
-        }
-        console.log('renderModal', openModal, ordersRequest)
-        switch (ordersRequest.status) {
-            case REQUEST_STATUS.PENDING: {
-                return <CircularProgress/>
-            }
-            case REQUEST_STATUS.FAILURE: {
-                return <ModalWindow
-                    data={ordersRequest}
-                    component={ErrorWindow}
-                    openModal={openModal}
-                    closeModal={closeModal}
-                />
-            }
-            case REQUEST_STATUS.SUCCESS: {
-                return <ModalWindow
-                    openModal
-                    data={`Заказ ${order.id} ${order.name} - доставлен`}
-                    component={SuccessModal}
-                    closeModal={closeModal}
-                />
-            }
-        }
+        console.log('onClickHandle CourierOrder');
+        setOpenModal(true);
     };
 
 
@@ -115,7 +81,9 @@ export const CourierOrder = ({order}) => {
                         }
                     </Stack>
                 </Grid>
-            {renderModal()}
+            {openModal ? (
+                <ModalWindow data={order} component={CourierDeliveredModal} openModal={openModal} closeModal={closeModal}/>
+            ) : null}
         </>
     );
 };
