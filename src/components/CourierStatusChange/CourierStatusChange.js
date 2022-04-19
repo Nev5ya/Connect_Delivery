@@ -7,7 +7,7 @@ import {changeCourier} from "../../store/couriers/actions";
 import {selectRequestCouriers} from "../../store/couriers/selector";
 
 export const CourierStatusChange = (props) => {
-    const courier = props?.courier[0];
+    const courier = props?.courier;
     const courierID = +localStorage.getItem('id_user');
     const statusId = courier?.user_status_id - 1;
     const [checked, setChecked] = useState(!!statusId);

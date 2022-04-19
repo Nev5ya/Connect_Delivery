@@ -1,20 +1,35 @@
-export const CourierMenu = (onMenuItemClick) => [
-  {
-    name: 'Основная страница',
-    option: '0',
-    func: () => onMenuItemClick('0'),
-    href: '',
-  },
-  {
-    name: 'Чат с администратором',
-    option: '1',
-    func: () => onMenuItemClick('1'),
-    href: 'Chat',
-  },
-  {
-    name: 'История доставок',
-    option: '2',
-    func: () => onMenuItemClick('2'),
-    href: 'CourierHistory',
-  },
-]
+import {useNavigate} from "react-router-dom";
+import Menu from "../../utils/Menu";
+import * as React from "react";
+
+export const CourierMenu = () => {
+
+  const courierMenu = [
+    {
+      name: 'Основная страница',
+      func: () => onMenuItemClick(''),
+    },
+    {
+      name: 'Чат с администратором',
+      func: () => onMenuItemClick('Chat'),
+    },
+    {
+      name: 'История доставок',
+      func: () => onMenuItemClick('CourierHistory'),
+    },
+  ];
+  const navigate = useNavigate();
+
+  const onMenuItemClick = (link) => {
+    console.log('onMenuItemClick', link)
+    navigate('/CouriersPage/' + link)
+  };
+
+  return (
+      <Menu menuItem={courierMenu}/>
+  );
+};
+
+
+
+
