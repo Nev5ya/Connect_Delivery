@@ -14,8 +14,9 @@ import {
 import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
 import {useDispatch, useSelector} from "react-redux";
 import {
+	selectOrdersForPagin,
 	selectOrdersForPaginAdmin,
-	selectOrdersWithOutUserId
+	selectOrdersWithOutUserId, selectOrdersWithUserId
 } from "../../../store/orders/selector";
 import {changeOrder} from "../../../store/orders/actions";
 import {selectCouriersByStatus} from "../../../store/couriers/selector";
@@ -39,25 +40,15 @@ const AdminInWork = () => {
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
+		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-		setPage(1);
+
 		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
 
-	const ordersForPagin = useSelector((state) => selectOrdersForPaginAdmin(state, rowsPerPage, page));
-	const ordersWithOutUserId = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
-	//const orders = useSelector(selectOrders) // список всех заказов
-
-	// const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
-	// const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
-
-	//console.log('adminWork', couriersOnline, ordersForPagin, couriersOnlineAndNull)
-	// /////Вызов Редактировать курьера//
-	// const dispatch = useDispatch();
-	// const onChangeCourier = (order_id, event) => {
-	// 	dispatch(changeOrder({id: order_id, order_status_id: 2, user_id: event.target.value}));
-	// 	//dispatch(changeCourier({id: event.target.value, user_status_id: 3}));
-	// };
+	const orders = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
+	const ordersForPagin = useSelector(
+		(state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);
@@ -167,7 +158,7 @@ const AdminInWork = () => {
 					 onRowClick={(event) => onClickHandle(event.row)}
 				/>
 				<PaginationComponent type='AdminHistory'
-									 rows = {ordersWithOutUserId}
+									 rows = {orders}
 									 pageQtl={rowsPerPage}
 									 changePage={handleChangePage}
 									 changeRowsPerPage={handleChangeRowsPerPage}

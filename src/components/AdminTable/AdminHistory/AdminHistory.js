@@ -1,7 +1,11 @@
 import {TableContainer, Paper,} from '@mui/material';
 
 import {useSelector} from "react-redux";
-import {selectOrdersForPaginHistory, selectOrdersWithUserId} from "../../../store/orders/selector";
+import {
+	selectOrdersForPagin,
+	selectOrdersForPaginHistory,
+	selectOrdersWithUserId
+} from "../../../store/orders/selector";
 import PaginationComponent from "../../Pagination/Pagination";
 import {useState} from "react";
 import ModalWindow from "../../ModalWindow/ModalWindow";
@@ -19,14 +23,15 @@ const AdminHistory = () => {
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
+		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-		setPage(1);
 		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
+	const orders = useSelector(selectOrdersWithUserId);
+	const ordersForPagin = useSelector(
+		(state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
 
-	const ordersForPagin = useSelector((state) => selectOrdersForPaginHistory(state, rowsPerPage, page));
 
-	const ordersWithUserId = useSelector(selectOrdersWithUserId);
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);
@@ -150,7 +155,7 @@ const AdminHistory = () => {
 					onRowClick={(event) => onClickHandle(event.row)}
 				/>
 				<PaginationComponent type='AdminHistory'
-									 rows = {ordersWithUserId}
+									 rows = {orders}
 									 pageQtl={rowsPerPage}
 									 changePage={handleChangePage}
 									 changeRowsPerPage={handleChangeRowsPerPage}
