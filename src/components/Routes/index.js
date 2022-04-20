@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef, useCallback} from "react";
 import {Breadcrumbs, Container} from '@mui/material';
 import {signOut, auth} from "../../services/firebase";
 import {onAuthStateChanged} from "firebase/auth";
@@ -10,72 +10,57 @@ import CouriersPage from "../CouriersPage/CouriersPage";
 import {NavLink, Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import {NotFound} from "../NotFound";
 
+const _ = require("lodash");
+
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
-    let [routes, setRoutes] = useState([]);
+    let routes = useRef([]);
     let activeStyle = {
         color: "red",
         fontWeight: "bold",
     };
-    const currentUserRoleID = localStorage.getItem('role_id');
-
-    useEffect(() => {
-
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthed(true);
-            } else {
-                setAuthed(false);
-            }
-        });
-
-        return unsubscribe;
-    }, []);
 
     const handleLogout = async () => {
         try {
+            routes.current = [];
             await signOut();
         } catch (e) {
             console.log(e);
         }
     };
 
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        routes = [
-            { path: "/", name: "Home", Component: Home },
-            { path: "/Profile", name: "Profile", Component: Profile },
-            { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics },
-            { path: "/Admin/", name: "Admin", Component: AdminTable },
-            { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage },
+    const currentRoute = useCallback(() => {
+        routes.current = [
+            { path: "/", name: "Home", Component: Home, id: "5" },
+            { path: "/Profile", name: "Profile", Component: Profile, id: "4"},
+            { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics, id: "3" },
+            { path: "/Admin/", name: "Admin", Component: AdminTable, id: "2" },
+            { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage, id: "1" },
         ]
-        
-        
-        switch (currentUserRoleID) {
-            case "1":
-                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "CouriersPage"));
-                
-              break;
-            case "2":
-                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "Admin"));
-                
-              break;
-            case "3":
-                setRoutes(routes = routes.filter(el => el.name === "Profile" || el.name === "ChiefAnalytics"));
-                
-              break;
-            default:
-                setRoutes(routes = routes.filter(el => el.name === ""));
-                
-          }
-        }, []);
+        let currentUserRoleID = localStorage.getItem('role_id');
+        routes.current = _.concat(_.find(routes.current,{id: "4"}), _.find(routes.current,{id: currentUserRoleID}));
+      }, []);
+
+    useEffect(() => {
+
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setAuthed(true);
+                currentRoute()
+            } else {
+                setAuthed(false);
+            }
+        });
+
+        return unsubscribe;
+    });
 
     return (
         <BrowserRouter  >
             <Container fixed>
                 <Breadcrumbs aria-label="breadcrumb">
 
-                    {routes.map((route) => (
+                    {routes.current.map((route) => (
                         <NavLink
                             key={route.path}
                             to={route.path}
@@ -107,12 +92,12 @@ export const Routing = () => {
                     </Route>
                     <Route
                         path="/Admin/*"
-                        element={(authed && (currentUserRoleID === '2')) ? <AdminTable /> : <Navigate to="/Admin/" />}
+                        element={authed  ? <AdminTable /> : <Navigate to="/Admin/" />}
                     >
                     </Route>
                     <Route
                         path="/CouriersPage/*"
-                        element={(authed && (currentUserRoleID === '1')) ? <CouriersPage /> : <Navigate to="/CouriersPage/" />}
+                        element={authed  ? <CouriersPage /> : <Navigate to="/CouriersPage/" />}
                     >
                     </Route>
                     <Route
