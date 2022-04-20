@@ -1,35 +1,35 @@
 import { useState } from 'react';
-import { Typography, Box, Button } from '@mui/material';
-import {MyButtonContained, MyButtonOutlined} from "../Button/button";
+import { Typography, Box} from '@mui/material';
+import {MyButtonContained} from "../Button/button";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CourierRedactEdit from "./CourierRedactEdit";
 import CourierRedactDelete from "./CourierRedactDelete";
 
 const CourierRedact = ({data, closeModal}) => {
 
-    console.log('CourierRedact', data);
+    // console.log('CourierRedact', data);
     let [openEdit, setOpenEdit] = useState(false);
     let [openDel, setOpenDel] = useState(false);
 
     const onClickHandleRedact = () => {
         setOpenEdit(true);
-        console.log('onClickHandle CourierRedact');
+        // console.log('onClickHandle CourierRedact');
     };
 
     const onClickHandleDelete = () => {
         setOpenDel(true);
-        console.log('onClickHandleDelete ', openDel);
+        // console.log('onClickHandleDelete ', openDel);
     };
 
     const closeModalEdit = () => {
         setOpenEdit(false);
-        console.log('CloseModal CourierRedact',  openEdit);
+        // console.log('CloseModal CourierRedact',  openEdit);
         closeModal();
     };
 
     const closeModalDel = () => {
         setOpenDel(false);
-        console.log('closeModalDel CourierRedact',  openDel);
+        // console.log('closeModalDel CourierRedact',  openDel);
         closeModal();
     };
 

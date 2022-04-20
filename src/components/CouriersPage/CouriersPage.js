@@ -24,7 +24,6 @@ const CouriersPage = () => {
         dispatch(getCouriers());
     }, [dispatch]);
 
-
      return (
         <>
             <CouriersPageHeader currentCourier={currentCourier[0]}/>

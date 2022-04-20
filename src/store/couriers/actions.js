@@ -15,7 +15,7 @@ export const getCouriers = () => {
 
         })
         .then(json => {
-            const couriers = json.data.filter(item => item.role_id === 1)
+            // const couriers = json.data.filter(item => item.role_id === 1)
             return dispatch(getCouriersFromDB(json.data))})
   }
 };
@@ -104,7 +104,7 @@ export const deleteCourier = (courier_id) => async (dispatch) => {
             throw new Error(`error ${response.status}`);
         }
 
-        const result = await response.json();
+        // const result = await response.json();
 
         dispatch(deleteCourierInDBSuccess(data));
     } catch (e) {
@@ -161,11 +161,10 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
 
         const result = await response.json();
 
-
         dispatch(registerCourierInDBSuccess(result.newUser));
         dispatch(addChatFb(result.newUser.id, result.newUser.name));
     } catch (e) {
         console.log('error', e);
         dispatch(registerCourierInDBFailure(e.message));
     }
-}
+};

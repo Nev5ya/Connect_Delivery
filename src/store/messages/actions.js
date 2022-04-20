@@ -1,6 +1,5 @@
 import { onValue, ref, set } from 'firebase/database';
 import { db } from '../../services/firebase';
-import { authorList } from '../../utils/constants';
 
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const DELETE_MESSAGE = "MESSAGES::DELETE_MESSAGE";
@@ -33,7 +32,7 @@ export const initMessages = () => (dispatch) => {
 export const addMessageFb = (chatId, text, author) => (dispatch) => {
   const newId = `message-${Date.now()}`;
    console.log('addMessageFb', newId);
-   const new_path = `messages/${chatId}/${newId}`;
+   // const new_path = `messages/${chatId}/${newId}`;
   const messageDbRef = ref(db, `messages/${chatId}/${newId}`);
    const newd = {
     id: newId,

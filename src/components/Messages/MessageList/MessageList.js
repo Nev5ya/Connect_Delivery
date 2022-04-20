@@ -17,7 +17,7 @@ export const MessageList = ({chatId}) => {
     }, []);
 
     const handleAddMessage = useCallback(( text, author) => {
-            console.log('handleAddMessage', chatId, text, author)
+            // console.log('handleAddMessage', chatId, text, author)
             dispatch(addMessageFb(chatId, text, author));
         },
         [chatId]
@@ -25,7 +25,7 @@ export const MessageList = ({chatId}) => {
 
     useEffect(() => {
         if (scrollRef.current) {
-            console.log('scrollRef',scrollRef.current)
+            // console.log('scrollRef',scrollRef.current)
             return scrollRef.current.scrollIntoView({ behaviour: "smooth" });
         }
     }, [messageList]);

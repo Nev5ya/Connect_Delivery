@@ -68,7 +68,7 @@ export const Routing = () => {
                 setRoutes(routes = routes.filter(el => el.name === ""));
                 
           }
-        }, []);
+        }, [currentUserRoleID]);
 
     return (
         <BrowserRouter  >

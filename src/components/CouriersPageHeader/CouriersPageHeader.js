@@ -1,7 +1,5 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import {CourierStatusChange} from "../CourierStatusChange/CourierStatusChange";
 import {Box, Divider} from "@mui/material";
 import {useSelector} from "react-redux";
@@ -17,7 +15,6 @@ const CouriersPageHeader = ({currentCourier}) => {
             <Box sx={{width: '100%', typography: 'body1'}}>
                 <Box sx={{ mb: 3, mt: 2, display: 'flex', justifyContent: 'left'}}>
                     <CourierMenu/>
-
                         <Typography sx={{ml: 4, mt: 1}}  variant="h4" component="h2" >
                             {currentCourier?.name}
                             <span className="courier-status"></span>

@@ -1,32 +1,10 @@
-import {
-	Table,
-	TableBody,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Paper,
-	Box,
-	FormControl,
-	NativeSelect,
-	Stack,
-	Button,
-} from '@mui/material';
-import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
-import {useDispatch, useSelector} from "react-redux";
-import {
-	selectOrdersForPagin,
-	selectOrdersForPaginAdmin,
-	selectOrdersWithOutUserId, selectOrdersWithUserId
-} from "../../../store/orders/selector";
-import {changeOrder} from "../../../store/orders/actions";
-import {selectCouriersByStatus} from "../../../store/couriers/selector";
+import {TableContainer, Paper,} from '@mui/material';
+import {useSelector} from "react-redux";
+import {selectOrdersForPagin, selectOrdersWithOutUserId, } from "../../../store/orders/selector";
 import Typography from "@mui/material/Typography";
 import PaginationComponent from "../../Pagination/Pagination";
 import {useState} from "react";
 import ModalWindow from "../../ModalWindow/ModalWindow";
-import CourierRedact from "../../CourierRedact/CourierRedact";
-import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
-import {changeCourier} from "../../../store/couriers/actions";
 import {withStyles} from "@mui/styles";
 import {DataGrid} from "@mui/x-data-grid";
 import OrderAppointmentCourierModal from "../../OrderAppointmentCourierModal/OrderAppointmentCourierModal";
@@ -35,15 +13,14 @@ const AdminInWork = () => {
 	let [page, setPage] = useState(0);
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
-		console.log('setPage handleChangePage', newPage);
+		// console.log('setPage handleChangePage', newPage);
 	};
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
 		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-
-		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+		// console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
 
 	const orders = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
@@ -61,7 +38,6 @@ const AdminInWork = () => {
 		setOrderCurrent(order);
 		setOpenModal(true);
 	};
-
 
 	const StyledDataGrid = withStyles({
 		root: {
@@ -89,12 +65,10 @@ const AdminInWork = () => {
 			'& .header-column': {
 				fontWeight: 'bold',
 			},
-
 		},
 		header: {
 			fontWeight: 'bold',
 		},
-
 	})(DataGrid);
 
 	const columns = [
@@ -129,7 +103,6 @@ const AdminInWork = () => {
 			editable: true,
 			type: 'singleSelect',
 			valueOptions: [{id: 1, n: 'United Kingdom'}, {id: 2, n:'Spain'}]
-
 		},
 	];
 

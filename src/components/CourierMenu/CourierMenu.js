@@ -21,7 +21,7 @@ export const CourierMenu = () => {
   const navigate = useNavigate();
 
   const onMenuItemClick = (link) => {
-    console.log('onMenuItemClick', link)
+    // console.log('onMenuItemClick', link)
     navigate('/CouriersPage/' + link)
   };
 

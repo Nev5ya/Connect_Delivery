@@ -38,7 +38,7 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
         };
 
         case CHANGE_COURIERS_IN_DB_SUCCESS: {
-          console.log('reducer CHANGE_COURIERS_IN_DB_SUCCESS', state, payload);
+          // console.log('reducer CHANGE_COURIERS_IN_DB_SUCCESS', state, payload);
 
           const filterChange = state.couriers.filter((item) => {
             return item.id !== payload.id
@@ -75,7 +75,6 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
         };
 
         case REGISTER_COURIERS_IN_DB_SUCCESS: {
-
           const filterChange = state.couriers.filter((item) => {
             return item.id !== payload.id
           });
@@ -99,6 +98,7 @@ export const couriersReducer = (state = initialState, {type, payload}) => {
                 }
             };
         };
+
         case DELETE_COURIERS_IN_DB_PENDING: {
             return {
                 ...state,

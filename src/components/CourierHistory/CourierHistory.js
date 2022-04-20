@@ -1,17 +1,9 @@
-import {
-	Table,
-	TableBody,
-	TableContainer,
-	TableHead,
-	Paper, Box,
-} from '@mui/material';
-
-import {StyledTableCell, StyledTableRow} from './CourierHistoryStyle.js';
+import {TableContainer,Paper, Box,} from '@mui/material';
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import {useState} from "react";
 import {useSelector} from "react-redux";
-import {selectOrdersForPagin, selectOrdersForPaginHistory} from "../../store/orders/selector";
+import {selectOrdersForPagin} from "../../store/orders/selector";
 import {withStyles} from "@mui/styles";
 import {DataGrid} from "@mui/x-data-grid";
 import PaginationComponent from "../Pagination/Pagination";
@@ -21,14 +13,14 @@ const CourierHistory = ({orders,  onClick}) => {
 	let [page, setPage] = useState(0);
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
-		console.log('setPage handleChangePage', newPage);
+		// console.log('setPage handleChangePage', newPage);
 	};
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
 		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+		// console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
 
 	const ordersForPagin = useSelector(
@@ -60,12 +52,10 @@ const CourierHistory = ({orders,  onClick}) => {
 			'& .header-column': {
 				fontWeight: 'bold',
 			},
-
 		},
 		header: {
 			fontWeight: 'bold',
 		},
-
 	})(DataGrid);
 
 	const columns = [
@@ -109,8 +99,7 @@ const CourierHistory = ({orders,  onClick}) => {
 			name: row.name,
 		}
 	});
-	console.log('rows', rows)
-
+	// console.log('rows', rows)
 
 	return (
 		<>

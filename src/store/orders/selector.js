@@ -7,7 +7,7 @@ export const selectOrders = (state) => state.orders.orders
 export const selectOrderLoading = (state) => state.orders.request.status === REQUEST_STATUS.PENDING;
 
 export const selectRequestOrders = (state) => {
-    console.log('selectRequestOrders', state)
+    // console.log('selectRequestOrders', state)
     return state.orders.request
 };
 
@@ -53,7 +53,7 @@ export const selectDeliveredOrdersForCourier = (state, courierID) => {
 };
 
 export const selectOrdersForPagin = (state, orders, pageQtl, currentPage) => {
-    console.log('selectOrdersForHistory1', orders, pageQtl, currentPage)
+    // console.log('selectOrdersForHistory1', orders, pageQtl, currentPage)
     if ((orders === null) | (orders === 'undefined')) {
         return []
     } else {
@@ -72,9 +72,9 @@ export const selectOrdersForPagin = (state, orders, pageQtl, currentPage) => {
                         }
                     else return (a.id - b.id)
             })
-        console.log('selectOrdersSort', orders)
+        // console.log('selectOrdersSort', orders)
         const ordersForPagin = orders.slice(startIndex, endIndex);
-        console.log('selectOrdersForHistory', pageQtl, currentPage, ordersForPagin)
+        // console.log('selectOrdersForHistory', pageQtl, currentPage, ordersForPagin)
         return ordersForPagin;
     }
 };

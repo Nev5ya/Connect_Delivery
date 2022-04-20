@@ -1,7 +1,5 @@
 import {REQUEST_STATUS} from "../../utils/constants";
 
-
-
 export const selectCouriers = (state) => state.couriers.couriers.filter((courier) => {
     return courier.is_deleted !== 1;
 });

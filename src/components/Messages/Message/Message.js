@@ -1,6 +1,4 @@
-
 import React from 'react';
-
 import {Avatar, Divider, Grid, List, ListItem, ListItemIcon, TextField, ListItemText } from "@mui/material";
 
 const Message = ({text, author, id, avatar}) => {
