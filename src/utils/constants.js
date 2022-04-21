@@ -41,3 +41,5 @@ export const iconCourierStatus = (status_id) => {
   }
 }
 export const pageQtl = 5;
+
+export const photoURL = 'https://xn--l1aej.pw/public';

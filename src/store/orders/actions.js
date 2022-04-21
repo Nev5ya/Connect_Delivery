@@ -5,6 +5,7 @@ export const getOrdersFromDB = (payload) => ({
 });
 
 export const getOrders = () => {
+    console.log('json1')
     return function (dispatch) {
         fetch(`https://xn--l1aej.pw/api/admin/orders?auth-token=${localStorage.getItem("auth-token")}`)
             .then(response => {

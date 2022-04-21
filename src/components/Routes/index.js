@@ -41,7 +41,7 @@ export const Routing = () => {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         // eslint-disable-next-line react-hooks/exhaustive-deps
         routes = [
             { path: "/", name: "Home", Component: Home },
             { path: "/Profile", name: "Profile", Component: Profile },

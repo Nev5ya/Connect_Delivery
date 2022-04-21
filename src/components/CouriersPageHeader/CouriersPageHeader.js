@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {selectTransitOrderForCourier} from "../../store/orders/selector";
 import {CourierMenu} from "../CourierMenu/CourierMenu";
 
-const CouriersPageHeader = ({currentCourier}) => {
+const CouriersPageHeader = ({currentCourier={}}) => {
     const currentOrder = useSelector((state) => selectTransitOrderForCourier(state, currentCourier.id));
     const courierBusy = currentOrder?.length > 0;
 

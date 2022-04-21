@@ -7,14 +7,14 @@ export const selectCouriers = (state) => state.couriers.couriers.filter((courier
 export const selectRegisterLoading = (state) => state.couriers.request.status === REQUEST_STATUS.PENDING;
 
 export const selectCurrentCourier = (state, courierID) => {
-    // console.log('selectCurrentCourier', courierID, state)
+     //console.log('selectCurrentCourier', courierID, state)
     const couriers = state.couriers.couriers;
 
     if (courierID === 'undefined' || courierID === '') {
         return ''
     } else {
         return couriers.filter(item => {
-            // console.log('item2', item)
+             //console.log('item2', item)
             return item.id === courierID
         })
     }

@@ -13,16 +13,19 @@ import CouriersPageHeader from "../CouriersPageHeader/CouriersPageHeader";
 
 
 const CouriersPage = () => {
+    const dispatch = useDispatch();
+    useEffect((event) => {
+    dispatch(getOrders());
+    dispatch(getCouriers());
+}, []);
+
     const courierID = +localStorage.getItem('id_user');
     const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
 
-    //console.log('courier', courierBusy, courierID, currentCourier, currentOrder, deliveredOrders)
-    const dispatch = useDispatch();
-    useEffect((event) => {
-        dispatch(getOrders());
-        dispatch(getCouriers());
-    }, [dispatch]);
+    console.log('courier',  courierID, currentCourier,  deliveredOrders)
+
+
 
      return (
         <>
