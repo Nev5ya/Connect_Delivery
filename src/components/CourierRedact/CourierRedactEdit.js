@@ -9,7 +9,7 @@ import ErrorWindow from "../ErrorWindow/ErrorWindow";
 
 const CourierRedactEdit = ({data, closeModal}) => {
 
-    console.log('CourierRedact', data);
+    // console.log('CourierRedact', data);
     let [openError, setOpenError] = useState(false);
 
     const dispatch = useDispatch();
@@ -23,18 +23,16 @@ const CourierRedactEdit = ({data, closeModal}) => {
         setOpenError(false);
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        console.log('onClickHandle CourierRedactEdit', name);
+        // console.log('onClickHandle CourierRedactEdit', name);
         onChangeCourier(data.id, name, email);
 
         if (couriersRequest.error === null) {
-            console.log('couriersRequest.error', couriersRequest.error)
+            // console.log('couriersRequest.error', couriersRequest.error)
             closeEdit();
         }
         else {
             setOpenError(true);
         }
-
-        // setOpenEdit(!openEdit);
     };
     const closeEdit = () => {
         closeModal();
@@ -42,7 +40,7 @@ const CourierRedactEdit = ({data, closeModal}) => {
 
     const closeError = () => {
         setOpenError(false);
-        console.log('CloseModal closeError',  openError);
+        // console.log('CloseModal closeError',  openError);
     };
 
 
@@ -81,8 +79,6 @@ const CourierRedactEdit = ({data, closeModal}) => {
 
                     : null
             }
-
-
         </>
     );
 };

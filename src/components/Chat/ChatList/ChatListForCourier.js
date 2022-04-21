@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 import { Demo, StyledBadge } from './ChatListStyle';
-import React, {useEffect} from "react";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addChatFb} from "../../../store/chats/actions";
 import {selectChats} from "../../../store/chats/selector";
@@ -24,12 +24,12 @@ export default function ChatListForCourier({currentCourier}) {
 
     const chatList = useSelector(selectChats);
 
-    useEffect(() => {
-        console.log('useEffect ChatListForCourier', chatList, currentCourier)
-    });
+    // useEffect(() => {
+    //     console.log('useEffect ChatListForCourier', chatList, currentCourier)
+    // });
 
     const handleAddChat = (id, name) => {
-        console.log('handleAddChat', id, name)
+        // console.log('handleAddChat', id, name)
         dispatch(addChatFb(id, name));
     };
 

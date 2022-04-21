@@ -10,6 +10,7 @@ const ErrorWindow = ({data, closeModal}) => {
     const closeError = () => {
         closeModal();
     };
+
     return (
         <>
             <Box sx={{ display: 'flex', flexDirection: 'column'}}>
@@ -24,6 +25,6 @@ const ErrorWindow = ({data, closeModal}) => {
         </>
     )
 
-}
+};
 
 export default ErrorWindow;

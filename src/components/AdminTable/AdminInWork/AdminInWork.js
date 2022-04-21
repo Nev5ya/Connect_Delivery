@@ -1,31 +1,10 @@
-import {
-	Table,
-	TableBody,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Paper,
-	Box,
-	FormControl,
-	NativeSelect,
-	Stack,
-	Button,
-} from '@mui/material';
-import { StyledTableCell, StyledTableRow, useStyles } from './AdminInWorkStyle';
-import {useDispatch, useSelector} from "react-redux";
-import {
-	selectOrdersForPaginAdmin,
-	selectOrdersWithOutUserId
-} from "../../../store/orders/selector";
-import {changeOrder} from "../../../store/orders/actions";
-import {selectCouriersByStatus} from "../../../store/couriers/selector";
+import {TableContainer, Paper,} from '@mui/material';
+import {useSelector} from "react-redux";
+import {selectOrdersForPagin, selectOrdersWithOutUserId, } from "../../../store/orders/selector";
 import Typography from "@mui/material/Typography";
 import PaginationComponent from "../../Pagination/Pagination";
 import {useState} from "react";
 import ModalWindow from "../../ModalWindow/ModalWindow";
-import CourierRedact from "../../CourierRedact/CourierRedact";
-import OrderDescriptionModal from "../../OrderDescriptionModal/OrderDescriptionModal";
-import {changeCourier} from "../../../store/couriers/actions";
 import {withStyles} from "@mui/styles";
 import {DataGrid} from "@mui/x-data-grid";
 import OrderAppointmentCourierModal from "../../OrderAppointmentCourierModal/OrderAppointmentCourierModal";
@@ -34,30 +13,19 @@ const AdminInWork = () => {
 	let [page, setPage] = useState(0);
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
-		console.log('setPage handleChangePage', newPage);
+		// console.log('setPage handleChangePage', newPage);
 	};
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
+		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-		setPage(1);
-		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+		// console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
 
-	const ordersForPagin = useSelector((state) => selectOrdersForPaginAdmin(state, rowsPerPage, page));
-	const ordersWithOutUserId = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
-	//const orders = useSelector(selectOrders) // список всех заказов
-
-	// const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
-	// const couriersOnlineAndNull = [...couriersOnline, {id: null, name: 'Не назначено'}]
-
-	//console.log('adminWork', couriersOnline, ordersForPagin, couriersOnlineAndNull)
-	// /////Вызов Редактировать курьера//
-	// const dispatch = useDispatch();
-	// const onChangeCourier = (order_id, event) => {
-	// 	dispatch(changeOrder({id: order_id, order_status_id: 2, user_id: event.target.value}));
-	// 	//dispatch(changeCourier({id: event.target.value, user_status_id: 3}));
-	// };
+	const orders = useSelector(selectOrdersWithOutUserId);// список заказов с неназначенными курьерами
+	const ordersForPagin = useSelector(
+		(state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);
@@ -70,7 +38,6 @@ const AdminInWork = () => {
 		setOrderCurrent(order);
 		setOpenModal(true);
 	};
-
 
 	const StyledDataGrid = withStyles({
 		root: {
@@ -98,12 +65,10 @@ const AdminInWork = () => {
 			'& .header-column': {
 				fontWeight: 'bold',
 			},
-
 		},
 		header: {
 			fontWeight: 'bold',
 		},
-
 	})(DataGrid);
 
 	const columns = [
@@ -138,7 +103,6 @@ const AdminInWork = () => {
 			editable: true,
 			type: 'singleSelect',
 			valueOptions: [{id: 1, n: 'United Kingdom'}, {id: 2, n:'Spain'}]
-
 		},
 	];
 
@@ -167,7 +131,7 @@ const AdminInWork = () => {
 					 onRowClick={(event) => onClickHandle(event.row)}
 				/>
 				<PaginationComponent type='AdminHistory'
-									 rows = {ordersWithOutUserId}
+									 rows = {orders}
 									 pageQtl={rowsPerPage}
 									 changePage={handleChangePage}
 									 changeRowsPerPage={handleChangeRowsPerPage}

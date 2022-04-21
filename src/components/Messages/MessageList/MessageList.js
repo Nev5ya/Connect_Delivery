@@ -6,18 +6,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectMessages} from "../../../store/messages/selector";
 import {addMessageFb, initMessages} from "../../../store/messages/actions";
 import AddForm from "../../AddForm/AddForm";
+import {photoURL} from "../../../utils/constants";
+import {selectCurrentCourier} from "../../../store/couriers/selector";
 
 export const MessageList = ({chatId}) => {
     const scrollRef = useRef(null);
     const dispatch = useDispatch();
     const messageList = useSelector(selectMessages);
-
+    console.log('messageList', chatId)
     useEffect(() => {
         dispatch(initMessages());
     }, []);
 
     const handleAddMessage = useCallback(( text, author) => {
-            console.log('handleAddMessage', chatId, text, author)
+            // console.log('handleAddMessage', chatId, text, author)
             dispatch(addMessageFb(chatId, text, author));
         },
         [chatId]
@@ -25,14 +27,27 @@ export const MessageList = ({chatId}) => {
 
     useEffect(() => {
         if (scrollRef.current) {
-            console.log('scrollRef',scrollRef.current)
+             console.log('scrollRef',scrollRef.current)
             return scrollRef.current.scrollIntoView({ behaviour: "smooth" });
         }
     }, [messageList]);
 
+
+    // const currentCourier = useSelector((state) => selectCurrentCourier(state, +(chatId.replace('chat-',''))) );
+    // const setAvatar = () => {
+    //     if (currentCourier[0].role_id !== 1)
+    //         { console.log('setAvatar admin', chatId, +(chatId.replace('chat-','')), currentCourier, currentCourier[0].photo)
+    //             return 'https://klike.net/uploads/posts/2019-11/1573725793_9.jpg'}
+    //     else {
+    //         const url = photoURL + currentCourier[0].photo
+    //         console.log('setAvatar messageList', chatId, currentCourier, currentCourier[0].photo, url)
+    //         return url
+    //     }
+    // }
+
     return (
         <Box sx={{ml: 8}}>
-            <TableContainer
+            <Box
                 component={Paper}
                 sx={{
                     border: "4px solid rgba(0,0,0,0.2)",
@@ -52,21 +67,14 @@ export const MessageList = ({chatId}) => {
                     overflowX: "hidden",
                 }}
             >
-                <Table
-                    sx={{
-                        tableLayout: "auto",
-                        width: 550,
-                        //height: "max-content"
-                    }}
-                >
-            <List >
-                {Object.values(messageList[chatId] || []).map((message, i) => (
-                      <Message key={message.id} text={message.text} author={message.author} id={message.id}  />
-                ))}
-                <ListItem ref={scrollRef} />
-            </List>
-                </Table>
-            </TableContainer>
+                <List >
+                    {Object.values(messageList[chatId] || []).map((message, i) => (
+
+                          <Message key={message.id} id={message.id} text={message.text} author={message.author} avatar={''}  />
+                    ))}
+                    <ListItem ref={scrollRef} />
+                </List>
+            </Box>
             <AddForm onAdd={handleAddMessage} rows='3'  label='Message' className='new_message' textButton='Отправить' chatId={chatId} />
         </Box>
     );

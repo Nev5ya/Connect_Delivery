@@ -1,20 +1,11 @@
-import {Box, CircularProgress, Grid} from "@mui/material";
+import {Box,Grid} from "@mui/material";
 import * as React from "react";
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import Stack from "@mui/material/Stack";
-import {useDispatch, useSelector} from "react-redux";
-import {changeOrder} from "../../store/orders/actions";
 import Typography from "@mui/material/Typography";
-import {changeCourier} from "../../store/couriers/actions";
-import {REQUEST_STATUS} from "../../utils/constants";
 import ModalWindow from "../ModalWindow/ModalWindow";
-import ErrorWindow from "../ErrorWindow/ErrorWindow";
-import SuccessModal from "../SuccessModal/SuccessModal";
 import {useState} from "react";
-import {selectRequestOrders} from "../../store/orders/selector";
-import CourierRedact from "../CourierRedact/CourierRedact";
 import CourierDeliveredModal from "../CourierDeliveredModal/CourierDeliveredModal";
-
 
 export const CourierOrder = ({order}) => {
 
@@ -24,10 +15,9 @@ export const CourierOrder = ({order}) => {
     };
 
     const onClickHandle = () => {
-        console.log('onClickHandle CourierOrder');
+        // console.log('onClickHandle CourierOrder');
         setOpenModal(true);
     };
-
 
     return (
         <>

@@ -1,25 +1,3 @@
-import {
-    CHANGE_COURIERS_IN_DB_FAILURE,
-    CHANGE_COURIERS_IN_DB_PENDING,
-    CHANGE_COURIERS_IN_DB_SUCCESS, changeCourierInDBFailure, changeCourierInDBPending, changeCourierInDBSuccess
-} from "../couriers/actions";
-
-const axios = require('axios').default;
-
-axios.defaults.withCredentials = true;
-
-// export const SET_PAGE_ADMIN = "ORDERS::SET_PAGE_ADMIN"
-// export const setPageAdmin = (payload) => ({
-//     type: SET_PAGE_ADMIN,
-//     payload: payload,
-// });
-//
-// export const SET_PAGE_HISTORY = "ORDERS::SET_PAGE_HISTORY"
-// export const setPageHistory = (payload) => ({
-//     type: SET_PAGE_HISTORY,
-//     payload: payload,
-// });
-
 export const GET_ORDERS_FROM_DB = "ORDERS::GET_ORDERS_FROM_DB"
 export const getOrdersFromDB = (payload) => ({
     type: GET_ORDERS_FROM_DB,
@@ -27,6 +5,7 @@ export const getOrdersFromDB = (payload) => ({
 });
 
 export const getOrders = () => {
+    console.log('json1')
     return function (dispatch) {
         fetch(`https://xn--l1aej.pw/api/admin/orders?auth-token=${localStorage.getItem("auth-token")}`)
             .then(response => {
@@ -57,10 +36,9 @@ export const changeOrderInDBFailure = (error) => ({
     payload: error
 });
 
-
 export const changeOrder = (data) => async (dispatch) => {
     dispatch(changeOrderInDBPending());
-    console.log('changeOrder', data)
+    // console.log('changeOrder', data)
 
     try {
         const response = await fetch(`https://xn--l1aej.pw/api/admin/orders/${data.id}`,{
@@ -73,23 +51,23 @@ export const changeOrder = (data) => async (dispatch) => {
         });
 
         if (!response.ok) {
-            console.log('response.ok', response.ok);
+            // console.log('response.ok', response.ok);
             throw new Error(`error ${response.status}`);
         };
 
         const result = await response.json();
 
-        console.log('result', result);
+        // console.log('result', result);
 
         dispatch(changeOrderInDBSuccess(result.updatedOrder));
     } catch (e) {
-        console.log('error', e);
+        // console.log('error', e);
         dispatch(changeOrderInDBFailure(e.message));
     }
 };
 
 
-export const REGISTR_ORDERS_IN_DB = "COURIERS::REGISTR_ORDERS_IN_DB"
+export const REGISTR_ORDERS_IN_DB = "ORDERS::REGISTR_ORDERS_IN_DB"
 export const registrOrderInDB = (payload) => ({
     type: REGISTR_ORDERS_IN_DB,
     payload: payload

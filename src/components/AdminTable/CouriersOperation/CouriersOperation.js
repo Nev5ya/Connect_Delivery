@@ -1,14 +1,11 @@
 import {CouriersList} from "../../CouriersList/CouriersList";
 import MyMap from "../../Map/map";
 import Grid from "@mui/material/Grid";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {selectCouriers, selectCouriersByStatus} from "../../../store/couriers/selector";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import {Box} from "@mui/material";
 import * as React from "react";
-// import {MyButtonContained} from "../../Button/button";
-// import {registrCourier} from "../../../store/couriers/actions";
-// import {registrOrder} from "../../../store/orders/actions";
 
 export const CouriersOperation = () => {
     const couriers = useSelector(selectCouriers);
@@ -22,17 +19,6 @@ export const CouriersOperation = () => {
     const couriersOnline = useSelector((state) => selectCouriersByStatus(state, 2));
     const couriersWork = useSelector((state) => selectCouriersByStatus(state, 3));
     const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 1));
-
-    const dispatch = useDispatch();
-    // const onRegistrCourierClick = () => {
-    //     console.log('onRegistrCourierClick');
-    //     dispatch(registrCourier());
-    // };
-    // const onRegistrOrderClick = () => {
-    //     console.log('onRegistrOrderClick');
-    //     dispatch(registrOrder());
-    // };
-
 
       return (
           <>
@@ -57,18 +43,6 @@ export const CouriersOperation = () => {
                       </Grid>
                   </Grid>
               }
-              {/*<MyButtonContained*/}
-              {/*    disabled={false}*/}
-              {/*    sx={{cursor: 'pointer'}}*/}
-              {/*    text={'Зарегистрировать нового курьера'}*/}
-              {/*    onClick={onRegistrCourierClick}*/}
-              {/*/>*/}
-              {/*<MyButtonContained*/}
-              {/*    disabled={false}*/}
-              {/*    sx={{cursor: 'pointer'}}*/}
-              {/*    text={'Зарегистрировать новый заказ'}*/}
-              {/*    onClick={onRegistrOrderClick}*/}
-              {/*/>*/}
           </>
       );
 };

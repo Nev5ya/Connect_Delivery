@@ -25,7 +25,7 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
     };
 
     const onClickHandle = () => {
-        console.log('onClickHandle CourierDeliveredModal');
+        // console.log('onClickHandle CourierDeliveredModal');
         onChangeDelivered();
         setCurrentOrder({
             id: data.id,
@@ -37,15 +37,15 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
     };
 
     const renderModal = () => {
-        console.log('renderModal', openRequestModal, ordersRequest)
+        // console.log('renderModal', openRequestModal, ordersRequest)
         if (!openRequestModal) {
             return null;
-        }
+        };
 
         switch (ordersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
-            }
+            };
             case REQUEST_STATUS.FAILURE: {
                 return <ModalWindow
                     data={ordersRequest}
@@ -53,7 +53,7 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
                     openModal={openRequestModal}
                     closeModal={closeModal}
                 />
-            }
+            };
             case REQUEST_STATUS.SUCCESS: {
                 return <ModalWindow
                     openModal
@@ -61,8 +61,10 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
                     component={SuccessModal}
                     closeModal={closeModal}
                 />
-            }
-        }
+            };
+            default:
+                return <></>
+        };
     };
 
     return (
@@ -74,10 +76,10 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
                 <Typography sx={{ pt: 1 }}>
                     Доставить до: {data.delivery_date}
                 </Typography>
-                <Typography sx={{ pt: 2 }}>
+                <Typography sx={{ pt: 1 }}>
                     Адрес доставки: {data.address}
                 </Typography>
-                <Typography variant='h4' component='h2'>
+                <Typography sx={{ pt: 2 }} variant='h5' component='h2'>
                     Перевести статус заказа в "Доставлено"?
                 </Typography>
                 <Box  sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

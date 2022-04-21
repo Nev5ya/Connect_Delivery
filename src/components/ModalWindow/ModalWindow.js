@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Modal, Typography, Box, Button } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useStyles } from './ModalWindowStyle';
 
@@ -7,10 +7,10 @@ const ModalWindow = ({data, component, openModal, closeModal, setOption=''}) => 
     const rootRef = useRef(null);
 
     const [open, setOpen] = useState(openModal);
-    console.log('Modal', data, open, setOption);
+    // console.log('Modal', data, open, setOption);
 
     const handleClose = () => {
-        console.log('closed', data);
+        // console.log('closed', data);
         setOpen(false);
         closeModal();
     };
