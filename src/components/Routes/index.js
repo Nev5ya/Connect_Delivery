@@ -10,8 +10,6 @@ import CouriersPage from "../CouriersPage/CouriersPage";
 import {NavLink, Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import {NotFound} from "../NotFound";
 
-const _ = require("lodash");
-
 export const Routing = () => {
     const [authed, setAuthed] = useState(false);
     let routes = useRef([]);
@@ -38,7 +36,7 @@ export const Routing = () => {
             { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage, id: "1" },
         ]
         let currentUserRoleID = localStorage.getItem('role_id');
-        routes.current = _.concat(_.find(routes.current,{id: "4"}), _.find(routes.current,{id: currentUserRoleID}));
+        routes.current = routes.current.filter(el => el = el.id ===  "4" || el.id === currentUserRoleID );
       }, []);
 
     useEffect(() => {
