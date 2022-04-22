@@ -9,13 +9,16 @@ export const getCouriersFromDB = (payload) => ({
 
 export const getCouriers = () => {
   return function (dispatch) {
-    fetch(`https://xn--l1aej.pw/api/admin/user?auth-token=${localStorage.getItem("auth-token")}`)
+      console.log('getCouriers2')
+    fetch(`https://xn--l1aej.pw/api/admin/users?auth-token=${localStorage.getItem("auth-token")}`)
         .then(response => {
+            //console.log('getCouriers1', response.json())
             return response.json()
 
         })
         .then(json => {
-            const couriers = json.data.filter(item => item.role_id === 1)
+            // const couriers = json.data.filter(item => item.role_id === 1)
+            console.log('getCouriers', json.data)
             return dispatch(getCouriersFromDB(json.data))})
   }
 };
@@ -40,7 +43,7 @@ export const changeCourier = (data) => async (dispatch) => {
     dispatch(changeCourierInDBPending());
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/admin/user/${data.id}`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/users/${data.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -89,7 +92,7 @@ export const deleteCourier = (courier_id) => async (dispatch) => {
     };
 
     try {
-        const response = await fetch(`https://xn--l1aej.pw/api/admin/user1/${data.id}`,{
+        const response = await fetch(`https://xn--l1aej.pw/api/admin/users/${data.id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -104,7 +107,7 @@ export const deleteCourier = (courier_id) => async (dispatch) => {
             throw new Error(`error ${response.status}`);
         }
 
-        const result = await response.json();
+        // const result = await response.json();
 
         dispatch(deleteCourierInDBSuccess(data));
     } catch (e) {
@@ -161,11 +164,10 @@ export const registerCourier = (name, surname, email, password)  => async (dispa
 
         const result = await response.json();
 
-
         dispatch(registerCourierInDBSuccess(result.newUser));
         dispatch(addChatFb(result.newUser.id, result.newUser.name));
     } catch (e) {
         console.log('error', e);
         dispatch(registerCourierInDBFailure(e.message));
     }
-}
+};

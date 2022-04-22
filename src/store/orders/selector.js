@@ -7,7 +7,7 @@ export const selectOrders = (state) => state.orders.orders
 export const selectOrderLoading = (state) => state.orders.request.status === REQUEST_STATUS.PENDING;
 
 export const selectRequestOrders = (state) => {
-    console.log('selectRequestOrders', state)
+    // console.log('selectRequestOrders', state)
     return state.orders.request
 };
 
@@ -34,10 +34,7 @@ export const selectOrdersWithUserId = (state) => {
                 return item.user_id !== null
             });
     }
-
-}
-
-
+};
 export const selectTransitOrderForCourier = (state, courierID) => {
     const orders = state.orders.orders;
      const a = orders.filter(item => {
@@ -55,12 +52,11 @@ export const selectDeliveredOrdersForCourier = (state, courierID) => {
     })
 };
 
-export const selectOrdersForPaginAdmin = (state, pageQtl, currentPage) => {
-    console.log('selectOrdersForPagin1', state, pageQtl, currentPage)
-    if ((state.orders.orders === null) | (state.orders.orders === 'undefined')) {
+export const selectOrdersForPagin = (state, orders, pageQtl, currentPage) => {
+    // console.log('selectOrdersForHistory1', orders, pageQtl, currentPage)
+    if ((orders === null) | (orders === 'undefined')) {
         return []
     } else {
-        let orders = state.orders.orders;
         const startIndex = (currentPage) * pageQtl;
         const endIndex = startIndex + pageQtl;
         orders = orders
@@ -68,64 +64,19 @@ export const selectOrdersForPaginAdmin = (state, pageQtl, currentPage) => {
                     if ((a.status === b.status) && (a.order_status_id === 2)) {
                         return new Date(b.updated_at) - new Date(a.updated_at)
                     }
+                    else if ((a.status === b.status) && (a.order_status_id === 3)) {
+                        return new Date(b.updated_at) - new Date(a.updated_at)
+                    }
                     else if ((a.status !== b.status) && (a.order_status_id === 2)) {
                         return -1
                         }
-
+                    else return (a.id - b.id)
             })
-            .filter((item) => {
-                return item.user_id === null
-            });
+        // console.log('selectOrdersSort', orders)
         const ordersForPagin = orders.slice(startIndex, endIndex);
-        console.log('selectOrdersForPagin', pageQtl, currentPage, ordersForPagin)
+        // console.log('selectOrdersForHistory', pageQtl, currentPage, ordersForPagin)
         return ordersForPagin;
     }
 };
 
-export const selectOrdersForPaginHistory = (state, pageQtl, currentPage) => {
-    console.log('selectOrdersForHistory1', state, pageQtl, currentPage)
-    if ((state.orders.orders === null) | (state.orders.orders === 'undefined')) {
-        return []
-    } else {
-        let orders = state.orders.orders;
-        const startIndex = (currentPage) * pageQtl;
-        const endIndex = startIndex + pageQtl;
-        orders = orders
-            //     .sort(function(a, b){
-            //     return a.id-b.id
-            // })
-            .filter((item) => {
-                return item.user_id !== null
-            });
-        const ordersForPagin = orders.slice(startIndex, endIndex);
-        console.log('selectOrdersForHistory', pageQtl, currentPage, ordersForPagin)
-        return ordersForPagin;
-    }
-};
-//
-// export const selectOrdersforPaginAdmin = (state) => {
-//     let { orders, currentPageAdmin, pageQtlAdmin } = state.orders;
-//     const startIndexAdmin = (currentPageAdmin - 1) * pageQtlAdmin;
-//     const endIndexAdmin = startIndexAdmin + pageQtlAdmin;
-//     orders = orders.sort(function(a, b){
-//         return a.id-b.id
-//     }).filter((item) => {
-//         return item.user_id == null
-//     });
-//     const ordersAdmin = orders.slice(startIndexAdmin, endIndexAdmin);
-//     return ordersAdmin;
-// };
-// export const selectOrdersforPaginHistory = (state) => {
-//     let { orders, currentPageHistory, pageQtlHistory } = state.orders;
-//     const startIndexHistory = (currentPageHistory - 1) * pageQtlHistory;
-//     const endIndexHistory = startIndexHistory + pageQtlHistory;
-//     orders = orders.sort(function(a, b){
-//         return a.id-b.id
-//     }).filter((item) => {
-//         return item.user_id !== null
-//     })
-//     const ordersHistory = orders.slice(startIndexHistory, endIndexHistory);
-//     console.log('selectOrdersforPaginHistory', ordersHistory, pageQtlHistory, currentPageHistory)
-//     return ordersHistory;
-// };
 

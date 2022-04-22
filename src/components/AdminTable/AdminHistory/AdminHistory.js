@@ -1,7 +1,9 @@
 import {TableContainer, Paper,} from '@mui/material';
-
 import {useSelector} from "react-redux";
-import {selectOrdersForPaginHistory, selectOrdersWithUserId} from "../../../store/orders/selector";
+import {
+	selectOrdersForPagin,
+	selectOrdersWithUserId
+} from "../../../store/orders/selector";
 import PaginationComponent from "../../Pagination/Pagination";
 import {useState} from "react";
 import ModalWindow from "../../ModalWindow/ModalWindow";
@@ -14,32 +16,32 @@ const AdminHistory = () => {
 	let [page, setPage] = useState(0);
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
-		console.log('setPage handleChangePage', newPage);
+		// console.log('setPage handleChangePage', newPage);
 	};
 
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const handleChangeRowsPerPage = (event) => {
+		setPage(0);
 		setRowsPerPage(parseInt(event.target.value, 10));
-		setPage(1);
-		console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+		// console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
 	};
-
-	const ordersForPagin = useSelector((state) => selectOrdersForPaginHistory(state, rowsPerPage, page));
-
-	const ordersWithUserId = useSelector(selectOrdersWithUserId);
+	const orders = useSelector(selectOrdersWithUserId);
+	const ordersForPagin = useSelector(
+		(state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
 
 	/////Флаг открытия/закрытия модального окна//
 	let [openModal, setOpenModal] = useState(false);
 	const closeModal = () => {
 		setOpenModal(false);
-		console.log('CloseModal CouriersList',  openModal);
+		// console.log('CloseModal CouriersList',  openModal);
 	};
+
 	/////Записываем order, на котором произведен клик и открывается модальное окно//
 	let [orderCurrent, setOrderCurrent] = useState(null);
 	const onClickHandle = (order) => {
 		setOrderCurrent(order);
 		setOpenModal(true);
-		console.log('onClickHandle', order, openModal);
+		// console.log('onClickHandle', order, openModal);
 	};
 
 	const StyledDataGrid = withStyles({
@@ -68,12 +70,10 @@ const AdminHistory = () => {
 			'& .header-column': {
 				fontWeight: 'bold',
 			},
-
 		},
 		header: {
 			fontWeight: 'bold',
 		},
-
 	})(DataGrid);
 
 	const columns = [
@@ -113,13 +113,6 @@ const AdminHistory = () => {
 			headerAlign: 'center',
 			align: 'center',
 		},
-		// {
-		// 	field: 'message',
-		// 	headerName: 'СООБЩЕНИЕ',
-		// 	flex: 0.5 ,
-		// 	headerAlign: 'center',
-		// 	align: 'center',
-		// }
 	];
 
 	const rows = ordersForPagin.map((row) => {
@@ -130,7 +123,6 @@ const AdminHistory = () => {
 			status: row.status,
 			name: row.name,
 			courier_name: row.courier_name,
-			// message: '1'
 		}
 	});
 	console.log('rows', rows)
@@ -150,7 +142,7 @@ const AdminHistory = () => {
 					onRowClick={(event) => onClickHandle(event.row)}
 				/>
 				<PaginationComponent type='AdminHistory'
-									 rows = {ordersWithUserId}
+									 rows = {orders}
 									 pageQtl={rowsPerPage}
 									 changePage={handleChangePage}
 									 changeRowsPerPage={handleChangeRowsPerPage}

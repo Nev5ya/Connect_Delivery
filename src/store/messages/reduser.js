@@ -1,7 +1,6 @@
 import {ADD_MESSAGE, SET_MESSAGES} from "./actions";
 import {DELETE_CHAT} from "../chats/actions";
 
-
 const initialState = {
   messageList:
   [{ text: '', author: '', id: '', chatId: ''}]

@@ -1,4 +1,3 @@
-import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentCourier} from "../../store/couriers/selector";
 import {selectDeliveredOrdersForCourier, selectTransitOrderForCourier} from "../../store/orders/selector";
@@ -19,10 +18,9 @@ const CourierMain = () => {
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
    // console.log('courier', courierID , currentCourier, currentOrder, deliveredOrders)
 
-
     const dispatch = useDispatch();
     useEffect((event) => {
-        console.log('useEffect')
+        // console.log('useEffect')
         dispatch(getOrders());
         dispatch(getCouriers());
     }, [dispatch]);
@@ -30,7 +28,7 @@ const CourierMain = () => {
     /////отслеживаем клик по карте для увеличения на всю страницу//
     const [clickOnMapToggle, setClickOnMapToggle] = useState(false);
     const clickOnMap = () => {
-        console.log('clickOnMapToggle', clickOnMapToggle);
+        // console.log('clickOnMapToggle', clickOnMapToggle);
         setClickOnMapToggle(!clickOnMapToggle);
     };
 

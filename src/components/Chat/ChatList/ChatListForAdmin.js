@@ -9,18 +9,18 @@ import {
 } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 import { Demo, StyledBadge } from './ChatListStyle';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCouriers} from "../../../store/couriers/selector";
-import {addChatFb, deleteChatFb} from "../../../store/chats/actions";
+import {addChatFb} from "../../../store/chats/actions";
 import {selectChats} from "../../../store/chats/selector";
 import AddCommentSharpIcon from '@mui/icons-material/AddCommentSharp';
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 
 export default function ChatListForAdmin({onSelectChat}) {
-    const userID = +localStorage.getItem('id_user');
-    const userName = localStorage.getItem('id_name');
+    // const userID = +localStorage.getItem('id_user');
+    // const userName = localStorage.getItem('id_name');
 
     const dispatch = useDispatch();
 
@@ -52,7 +52,6 @@ export default function ChatListForAdmin({onSelectChat}) {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-
             <Box
                 sx={{
                     display: 'flex',
@@ -75,9 +74,6 @@ export default function ChatListForAdmin({onSelectChat}) {
                                     key={courier.id}
                                     secondaryAction={
                                     <>
-                                        {/*<IconButton edge='end' aria-label='delete'>*/}
-                                        {/*    <DeleteIcon />*/}
-                                        {/*</IconButton>*/}
                                         { chatList.filter((ch) =>
                                             `chat-${courier.id}` === ch.id && ch.name === courier.name).length === 0//
                                            ?<Tooltip title="Создать чат">

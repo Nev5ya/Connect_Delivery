@@ -2,11 +2,11 @@ import { Typography, Box } from '@mui/material';
 import {MyButtonContained} from "../Button/button";
 
 const OrderDescriptionModal = ({data, closeModal, setOption}) => {
-    console.log('CourierRedact', data);
+    // console.log('CourierRedact', data);
 
     const onClickHandle = () => {
         setOption('1');
-        console.log('onClickHandle CourierRedact');
+        // console.log('onClickHandle CourierRedact');
         closeModal();
     };
 

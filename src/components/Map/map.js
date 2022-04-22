@@ -61,7 +61,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
         if (couriers.length !== 0) showCouriers();
         if (orders.length !== 0) showOrders(ymaps);
         if (couriers.length === 1 && orders.length === 1) addRoute(ymaps);
-    }
+    };
 
     return (
         <>

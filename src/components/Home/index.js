@@ -3,7 +3,6 @@ import { login} from "../../services/firebase";
 import { ref, onValue } from "firebase/database";
 import { db } from "../../services/firebase";
 import {Paper, Box, TextField, Button} from "@mui/material";
-// import "./style.css";
 
 const onLogin = async (email, pass) => {
   try {
@@ -13,7 +12,6 @@ const onLogin = async (email, pass) => {
     console.log(e);
   }
 };
-
 
 export const Home = () => {
   const [login, setLogin] = useState("");

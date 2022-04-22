@@ -10,7 +10,7 @@ import {REQUEST_STATUS} from "../../utils/constants";
 
 const CourierRedactDelete = ({data, closeModal}) => {
     const couriersRequest = useSelector(selectRequestCouriers);
-    console.log('CourierRedactDelete', data);
+    // console.log('CourierRedactDelete', data);
     let [openError, setOpenError] = useState(false);
 
     const dispatch = useDispatch();
@@ -20,11 +20,11 @@ const CourierRedactDelete = ({data, closeModal}) => {
 
     const onClickHandle = () => {
         setOpenError(false);
-        console.log('onClickHandle CourierRedactDelete', data.id);
+        // console.log('onClickHandle CourierRedactDelete', data.id);
         onDeleteCourier();
 
         if (couriersRequest.error === null) {
-            console.log('couriersRequest.error', couriersRequest.error)
+            // console.log('couriersRequest.error', couriersRequest.error)
             closeEdit();
         }
         else {
@@ -38,14 +38,14 @@ const CourierRedactDelete = ({data, closeModal}) => {
 
     const closeError = () => {
         setOpenError(false);
-        console.log('CloseModal closeError',  openError);
+        // console.log('CloseModal closeError',  openError);
     };
 
     const renderModal = () => {
         if (!openError) {
             return null;
         }
-        console.log('renderModal', openError, couriersRequest)
+        // console.log('renderModal', openError, couriersRequest)
         switch (couriersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
@@ -63,7 +63,6 @@ const CourierRedactDelete = ({data, closeModal}) => {
             }
         }
     };
-
 
     return (
         <>

@@ -1,9 +1,7 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-
+import {useState} from 'react';
+import {useDispatch} from "react-redux";
 import {Stack} from "@mui/material";
-
 import {MyButtonContained} from "../../Button/button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -12,7 +10,6 @@ import {registrOrder} from "../../../store/orders/actions";
 
 
 export const AdminCreateOrder = () => {
-    const [option, setOption] = useState('0');
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
@@ -105,5 +102,4 @@ export const AdminCreateOrder = () => {
             }
         </>
     );
-
-}
+};
