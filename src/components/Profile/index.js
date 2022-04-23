@@ -43,6 +43,20 @@ export const Profile = ({onLogout}) => {
 
     const role = localStorage.getItem('role_id');
 
+    let city = localStorage.getItem('city');
+
+    let phone = localStorage.getItem('phone');
+
+    let nameUser = localStorage.getItem('name_user');
+
+    const pattern = <h4 style={{color: 'red'}}>нужно заполнить</h4>
+
+    city = (city === 'null') ?  pattern : city;
+
+    phone = (phone === 'null') ?  pattern : phone;
+
+    nameUser = (nameUser === 'null') ? 'нужно заполнить': nameUser; 
+
     switch (role) {
         case '1':
             name = "courier";
@@ -101,10 +115,10 @@ export const Profile = ({onLogout}) => {
     }
 
     const rows = [
-        createData('* e-mail:', `${email}`),
-        createData('*  phone:', '+7 920 520 52 52'),
-        createData('*  city:', 'Nizhniy Novgorod'),
-        createData('date of birth:', '1988.01.01'),
+        createData('* e-mail:', email),
+        createData('*  phone:', phone),
+        createData('*  city:', city),
+        createData('date of birth:', <h4>1988.01.01</h4>),
     ];
 
     return (
@@ -130,7 +144,7 @@ export const Profile = ({onLogout}) => {
                     <Grid item xs={12} sm={12} md={8} lg={9}>
                         <Paper elevation={2} sx={{maxWidth: 600, p: 3}}>
                             <Typography align="left" variant="h3" mb={4}>
-                                Сергей Иванов
+                                {nameUser}
                             </Typography>
                             <TableContainer>
                                 <Table>
