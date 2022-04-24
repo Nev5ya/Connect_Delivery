@@ -7,8 +7,8 @@ import {changeCourier} from "../../store/couriers/actions";
 import {selectRequestCouriers} from "../../store/couriers/selector";
 
 export const CourierStatusChange = (props) => {
-    const courier = props?.courier[0];
-    const courierID = +localStorage.getItem('id_user');
+    const courier = props?.courier;
+    // const courierID = +localStorage.getItem('id_user');
     const statusId = courier?.user_status_id - 1;
     const [checked, setChecked] = useState(!!statusId);
     const dispatch = useDispatch();
@@ -17,17 +17,14 @@ export const CourierStatusChange = (props) => {
     if (statusId === 1) label = 'Online';
     else if (statusId === 2) label = 'Busy';
     else label = 'Offline';
-    console.log('CourierStatusChange', statusId, checked, label);
 
     const requestCouriers = useSelector(selectRequestCouriers);
 
     const onChangeStatus = (courier_id, user_status_id) => {
-        console.log('onChangeStatus',courier_id,  user_status_id)
         dispatch(changeCourier({id: courier?.id, user_status_id: user_status_id}));
     };
 
     const handleChange = (event) => {
-        console.log('handleChange', event.target.checked + 1)
         onChangeStatus(courier?.id, event.target.checked + 1);
         if (requestCouriers.error === null) setChecked(event.target.checked);
     };

@@ -1,15 +1,11 @@
 import {Route, Routes} from "react-router-dom";
 import {useEffect} from 'react';
-
 import {useDispatch, useSelector} from "react-redux";
-
 import {getOrders} from "../../store/orders/actions";
 import {selectCouriers} from "../../store/couriers/selector";
 import {selectOrders} from "../../store/orders/selector";
 import {getCouriers} from "../../store/couriers/actions";
-
 import {AdminHeader} from "./AdminHeader/AdminHeader";
-
 import {AdminMain} from "./AdminMain/AdminMain";
 import {Chat} from "../Chat/Chat";
 import MyMap from "../Map/map";

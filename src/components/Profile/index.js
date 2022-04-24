@@ -1,118 +1,164 @@
 import {useEffect, useState} from "react";
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
+import {uploadBytes, ref, getDownloadURL} from "firebase/storage";
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}));
+import {
+    Button,
+    Grid,
+    Avatar,
+    TextField,
+    Dialog,
+    Box,
+    Typography,
+    Paper,
+    TableRow,
+    TableCell,
+    TableBody,
+    Table,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
+    TableContainer
+} from '@mui/material';
 
-export const Profile = ({ onLogout }) => {
-  const [photo, setPhoto] = useState("");
+import {storage} from "../../services/firebase"
 
-  const email = localStorage.getItem('email');
+export const Profile = ({onLogout}) => {
+    let name;
 
-  const role = localStorage.getItem('role_id');
+    const [state, setState] = useState({selectedFile: null});
 
-  let name; 
-  switch(role) {
-  case '1':  
-    name = "courier";
-    break;
+    const [open, setOpen] = useState(false);
 
-  case '2':  
-  name = "admin";
-    break;
+    const photo = ("../images/default.jpg");
 
-  case '3':  
-  name = "chief";
-    break;
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-  default:
-    name = "";
-    break;
-  }
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  useEffect(() => {
-    setPhoto ("../images/" + name + "-2.jpg");
-  }, [name]);
+    const email = localStorage.getItem('email');
 
-  const handleClick = () => onLogout()
- 
-  const handleChangePhoto = ()=> setPhoto("../images/default.jpg")
+    const role = localStorage.getItem('role_id');
 
-  return (
-  <div className="profile">
-      <header className="showlogin">Personal Account</header>
-      <aside>
-            <div className="left_box"> 
-            <StyledBadge
-              overlap="circular"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              variant="dot"
-            >
-              <Avatar className="photo_profile" src={photo} sx={{ width: 256, height: 256 }}/>
-            </StyledBadge>
-                &nbsp; &nbsp;  filled 34% &nbsp;
-            <progress value="34" max="100">
-              <div id="progress" className="graph"></div>
-              <div id="bar" ></div>
-             </progress>
-             <br/>
-             <br/>
-            <Button variant="contained" onClick={handleChangePhoto}>change photo</Button>
-            <br/>
-            <br/>
-            <Button variant="contained" disabled>change password</Button>
-            <br/>
-            <br/>
-            <Button variant="contained" onClick={handleClick}>Logout</Button>
-            <br/>
-            <br/>
-            </div>
-      </aside>
-      <main>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>* e-mail: </label> {email} &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  phone:</label> +7 920 520 52 52 &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>sex:</label>  man</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>*  city:</label> Nizhniy Novgorod &#10031;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>street:</label>    Minina str. 1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>house number:</label>    1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>app.:</label>    1</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>date of birth:</label>    1988.01.01 &#9773;</li>
-        <li type ="none" style={{ color: "#1865BC" }}><label style={{ color: "black" }}>hobby:</label>    travel &#9786;</li>
-        <br/>
-        <Button variant="contained" disabled>edit</Button>
+    switch (role) {
+        case '1':
+            name = "courier";
+            break;
 
-      </main>
-  </div>
+        case '2':
+            name = "admin";
+            break;
 
-  );
+        case '3':
+            name = "chief";
+            break;
+
+        default:
+            name = "";
+            break;
+    }
+
+    const photoFbName = (`${name}-avatar.jpg`);
+
+    useEffect(() => {
+        getDownloadURL(ref(storage, `images/${name}-avatar.jpg`))
+            .then((url) => {
+                const img = document.querySelector('img')
+                img.setAttribute('src', url)
+            })
+            .catch((error) => {
+                console.log(error)
+                // Handle any errors
+            });
+    }, [name])
+
+    const handleClick = () => onLogout()
+
+    const uploadHandler = () => {
+        const profileImagesRef = ref(storage, `images/${photoFbName}`);
+        uploadBytes(profileImagesRef, state.selectedFile);
+        setOpen(false);
+    }
+
+    const fotoChangedHandler = event => {
+        setState({selectedFile: event.target.files[0]})
+        const reader = new FileReader();
+        const file = event.target.files[0];
+        reader.readAsDataURL(file);
+
+        reader.addEventListener('load', (event) => {
+            const img = document.querySelector('img');
+            img.src = event.target.result;
+            img.alt = file.name;
+        });
+    }
+
+    const createData = (name, value) => {
+        return {name, value};
+    }
+
+    const rows = [
+        createData('* e-mail:', `${email}`),
+        createData('*  phone:', '+7 920 520 52 52'),
+        createData('*  city:', 'Nizhniy Novgorod'),
+        createData('date of birth:', '1988.01.01'),
+    ];
+
+    return (
+        <>
+            <Box sx={{flexGrow: 1, mt: 4}}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} sm={12} md={4} lg={3} align={'center'}>
+                        <Avatar className="photo_profile" src={photo} sx={{width: 256, height: 256}}/>
+                        <Button variant="contained" fullWidth sx={{mt: 3}} onClick={handleClickOpen}>
+                            изменить аватарку
+                        </Button>
+                        <Dialog open={open} onClose={handleClose}>
+                            <DialogTitle>Загрузить новую аватарку</DialogTitle>
+                            <DialogContent>
+                                <TextField type="file" id="file-uploader" onChange={fotoChangedHandler}/>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button onClick={uploadHandler}>Upload!</Button>
+                            </DialogActions>
+                        </Dialog>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={8} lg={9}>
+                        <Paper elevation={2} sx={{maxWidth: 600, p: 3}}>
+                            <Typography align="left" variant="h3" mb={4}>
+                                Сергей Иванов
+                            </Typography>
+                            <TableContainer>
+                                <Table>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <TableRow key={row.name}>
+                                                <TableCell component="th" scope="row">
+                                                    {row.name}
+                                                </TableCell>
+                                                <TableCell sx={{color: 'primary.main'}}
+                                                           align="right">{row.value} </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 4, mb: 2}}>
+                                <Button variant="contained" disabled>edit</Button>
+                                <Button variant="contained" disabled>change password</Button>
+                            </Box>
+                            <Box sx={{display: 'flex', justifyContent: 'right'}}>
+                                <Button variant="contained" onClick={handleClick} align={'center'}>Logout</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Box>
+        </>
+
+    );
 };
-

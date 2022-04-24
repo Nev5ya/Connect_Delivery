@@ -30,7 +30,6 @@ export const colorLabel = (typeLabel, status_id) => {
 };
 
 export const iconCourierStatus = (status_id) => {
-  console.log('iconCourierStatus', status_id)
   if (status_id === 2) {//'online'
     return <Brightness1Icon sx={{color: "green"}}/>
   }
@@ -41,4 +40,6 @@ export const iconCourierStatus = (status_id) => {
     return <Brightness1Icon sx={{color: "red"}}/>
   }
 }
-export const pageQtl = 2;
+export const pageQtl = 5;
+
+export const photoURL = 'https://xn--l1aej.pw/public';

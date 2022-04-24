@@ -1,17 +1,14 @@
 import {ADD_MESSAGE, SET_MESSAGES} from "./actions";
 import {DELETE_CHAT} from "../chats/actions";
 
-
 const initialState = {
   messageList:
   [{ text: '', author: '', id: '', chatId: ''}]
 };
 
 export const messagesReducer = (state = initialState, { type, payload }) => {
-    console.log('messagesReducer', type)
   switch (type) {
     case ADD_MESSAGE: {
-        console.log('messagesReducer', type, payload)
       return {
         ...state,
         messageList: [...state.messageList, 

@@ -1,7 +1,5 @@
 import {useNavigate} from "react-router-dom";
-
 import {Box, Divider, Stack, Typography} from "@mui/material";
-
 import {MyButtonContained} from "../../Button/button";
 import Menu from "../../../utils/Menu";
 

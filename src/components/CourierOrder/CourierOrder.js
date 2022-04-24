@@ -1,21 +1,22 @@
-import {Box, Grid} from "@mui/material";
+import {Box,Grid} from "@mui/material";
 import * as React from "react";
 import {MyButtonContained, MyButtonOutlined} from "../Button/button";
 import Stack from "@mui/material/Stack";
-import {useDispatch} from "react-redux";
-import {changeOrder} from "../../store/orders/actions";
 import Typography from "@mui/material/Typography";
-import {changeCourier} from "../../store/couriers/actions";
+import ModalWindow from "../ModalWindow/ModalWindow";
+import {useState} from "react";
+import CourierDeliveredModal from "../CourierDeliveredModal/CourierDeliveredModal";
 
 export const CourierOrder = ({order}) => {
-    console.log('CourierOrder', order)
 
-    /////изменение статуса заказа на Доставлено//
-    const dispatch = useDispatch();
-    const onChangeDelivered = () => {
-        //dispatch(changeCourier({id: order.user_id, user_status_id: 2}));
-        dispatch(changeOrder({id: order.id, order_status_id: 3 }));
+    let [openModal, setOpenModal] = useState(false);
+    const closeModal = () => {
+        setOpenModal(false);
+    };
 
+    const onClickHandle = () => {
+        // console.log('onClickHandle CourierOrder');
+        setOpenModal(true);
     };
 
     return (
@@ -50,13 +51,13 @@ export const CourierOrder = ({order}) => {
                                             disabled={true}
                                             sx={{cursor: 'pointer'}}
                                             text={'Доставлено'}
-                                            onClick={onChangeDelivered}
+                                            onClick={onClickHandle}
                                         />
                                         :<MyButtonContained
                                             disabled={false}
                                             sx={{cursor: 'pointer'}}
                                             text={'Доставлено'}
-                                            onClick={onChangeDelivered}
+                                            onClick={onClickHandle}
                                         />}
                                     <MyButtonOutlined sx={{cursor: 'pointer'}} text={'Перейти в чат'}/>
                                 </Stack>
@@ -69,6 +70,9 @@ export const CourierOrder = ({order}) => {
                         }
                     </Stack>
                 </Grid>
+            {openModal ? (
+                <ModalWindow data={order} component={CourierDeliveredModal} openModal={openModal} closeModal={closeModal}/>
+            ) : null}
         </>
     );
 };

@@ -14,7 +14,6 @@ import {REQUEST_STATUS} from "../../../utils/constants";
 export const CourierRegistration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   let [openModal, setOpenModal] = useState(false);
@@ -45,7 +44,7 @@ export const CourierRegistration = () => {
   const closeModal = () => {
     setOpenModal(false);
   };
-  const loading = useSelector(selectRegisterLoading);
+  // const loading = useSelector(selectRegisterLoading);
 
   const dispatch = useDispatch();
   const registrationClick = () => {
@@ -56,11 +55,11 @@ export const CourierRegistration = () => {
   const renderModal = () => {
     if (!openModal) {
       return null;
-    }
+    };
     switch (couriersRequest.status) {
       case REQUEST_STATUS.PENDING: {
         return <CircularProgress/>
-      }
+      };
       case REQUEST_STATUS.FAILURE: {
         return <ModalWindow
           openModal
@@ -68,16 +67,18 @@ export const CourierRegistration = () => {
           component={ErrorWindow}
           closeModal={closeModal}
         />
-      }
+      };
       case REQUEST_STATUS.SUCCESS: {
         return <ModalWindow
           openModal
-          data={`${name} ${surname}`}
+          data={`Новый курьер ${name} ${surname} зарегистрирован!`}
           component={SuccessModal}
           closeModal={closeModal}
         />
-      }
-    }
+      };
+      default:
+        return <></>
+    };
    };
 
   return (

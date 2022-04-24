@@ -7,6 +7,8 @@ import {
     getAuth,
 } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
+
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,8 +27,10 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// Create a root reference
 export const auth = getAuth();
 export const db = getDatabase();
+export const storage = getStorage();
 
 export const login = async(email, pass) => {
     const response = await fetch(`https://xn--l1aej.pw/api/login`, {

@@ -13,7 +13,7 @@ export const CouriersList = ({name, couriers, status_id}) => {
     let [openModal, setOpenModal] = useState(false);
     const closeModal = () => {
         setOpenModal(false);
-        console.log('CloseModal CouriersList',  openModal);
+        // console.log('CloseModal CouriersList',  openModal);
     };
 
     /////Записываем курьера, на котором произведен клик и открывается модальное окно//
@@ -21,7 +21,7 @@ export const CouriersList = ({name, couriers, status_id}) => {
     const onClickHandle = (courier, event) => {
         setCourierCurrent(courier);
         setOpenModal(true);
-        console.log('onClickHandle CouriersList', courier, openModal, event);
+        // console.log('onClickHandle CouriersList', courier, openModal, event);
     };
 
     return (

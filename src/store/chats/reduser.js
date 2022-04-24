@@ -12,7 +12,6 @@ const initialState = {
 export const chatsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_CHAT: {
-      console.log('ADD_CHAT reducer', state.chats)
       return {
         ...state,
         chats: [...state.chats, { id: payload.id, name: payload.name }],
@@ -26,7 +25,6 @@ export const chatsReducer = (state = initialState, { type, payload }) => {
       };
     }
     case SET_CHATS: {
-      console.log('SET_CHATS reducer', state.chats, [payload])
       return {
         ...state,
         chats: payload,
