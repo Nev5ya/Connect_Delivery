@@ -45,7 +45,6 @@ export const AdminHeader = () => {
                     {nameUser}
                 </Typography>
                 <Box sx={{flexGrow: 1}}/>
-                <Button variant='contained' sx={{mr: 1}}>У ВАС СООБЩЕНИЕ</Button>
             </Box>
         </>
     );

@@ -59,7 +59,6 @@ export const CourierOrder = ({order}) => {
                                             text={'Доставлено'}
                                             onClick={onClickHandle}
                                         />}
-                                    <MyButtonOutlined sx={{cursor: 'pointer'}} text={'Перейти в чат'}/>
                                 </Stack>
                             </Grid>
                             :<Box display="flex" justifyContent="center">

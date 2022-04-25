@@ -30,10 +30,10 @@ export const Routing = () => {
     const currentRoute = useCallback(() => {
         routes.current = [
             { path: "/", name: "Home", Component: Home, id: "5" },
-            { path: "/Profile", name: "Profile", Component: Profile, id: "4"},
-            { path: "/ChiefAnalytics/", name: "ChiefAnalytics", Component: ChiefAnalytics, id: "3" },
-            { path: "/Admin/", name: "Admin", Component: AdminTable, id: "2" },
-            { path: "/CouriersPage/", name: "CouriersPage", Component: CouriersPage, id: "1" },
+            { path: "/Profile", name: "Профиль", Component: Profile, id: "4"},
+            { path: "/ChiefAnalytics/", name: "Страница руководителя", Component: ChiefAnalytics, id: "3" },
+            { path: "/Admin/", name: "Страница администратора", Component: AdminTable, id: "2" },
+            { path: "/CouriersPage/", name: "Страница курьера", Component: CouriersPage, id: "1" },
         ]
         let currentUserRoleID = localStorage.getItem('role_id');
         routes.current = routes.current.filter(el => el = el.id ===  "4" || el.id === currentUserRoleID );

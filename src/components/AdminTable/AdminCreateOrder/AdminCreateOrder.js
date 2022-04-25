@@ -27,6 +27,8 @@ export const AdminCreateOrder = () => {
     const ordersRequest = useSelector(selectRequestOrders);
     const dispatch = useDispatch();
 
+    const [autoFocus, setAutoFocus] = useState(false);
+
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -50,8 +52,9 @@ export const AdminCreateOrder = () => {
     };
 
     const showOrderCreationForm = () => {
-        setFormVisible((formVisible) => formVisible = !formVisible)
-        setButtonDisabled(!buttonDisabled)
+        setFormVisible((formVisible) => formVisible = !formVisible);
+        setButtonDisabled(!buttonDisabled);
+        setAutoFocus(true);
     }
 
     let [openModal, setOpenModal] = useState(false);
@@ -72,7 +75,6 @@ export const AdminCreateOrder = () => {
         if (!openModal) {
             return null;
         }
-        console.log('renderModal', openModal, ordersRequest)
         switch (ordersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
@@ -119,6 +121,7 @@ export const AdminCreateOrder = () => {
                                id="name-input"
                                label="Наименование"
                                onChange={handleNameChange}
+                               autoFocus={autoFocus}
                     />
 
                     <TextField sx={{mb: 2}}
