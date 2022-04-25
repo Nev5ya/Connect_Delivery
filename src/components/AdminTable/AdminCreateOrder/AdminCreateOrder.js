@@ -1,13 +1,19 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {Stack} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+
+import {CircularProgress, Stack} from "@mui/material";
+
 import {MyButtonContained} from "../../Button/button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import {Box} from "@mui/system";
-import {registrOrder} from "../../../store/orders/actions";
-
+import {createOrder} from "../../../store/orders/actions";
+import {REQUEST_STATUS} from "../../../utils/constants";
+import ModalWindow from "../../ModalWindow/ModalWindow";
+import ErrorWindow from "../../ErrorWindow/ErrorWindow";
+import SuccessModal from "../../SuccessModal/SuccessModal";
+import {selectRequestOrders} from "../../../store/orders/selector";
 
 export const AdminCreateOrder = () => {
     const [name, setName] = useState('');
@@ -15,7 +21,7 @@ export const AdminCreateOrder = () => {
     const [deliveryDate, setDeliveryDate] = useState('');
     const [comment, setComment] = useState('');
     const [formVisible, setFormVisible] = useState(false);
-
+    const ordersRequest = useSelector(selectRequestOrders);
     const dispatch = useDispatch();
 
     const handleNameChange = (e) => {
@@ -35,13 +41,19 @@ export const AdminCreateOrder = () => {
     };
 
     const onRegisterOrderClick = () => {
-        dispatch(registrOrder(orderData));
+        dispatch(createOrder(orderData));
+        setOpenModal(true);
         showOrderCreationForm();
     };
 
     const showOrderCreationForm = () => {
         setFormVisible((formVisible) => formVisible = !formVisible)
     }
+
+    let [openModal, setOpenModal] = useState(false);
+    const closeModal = () => {
+        setOpenModal(false);
+    };
 
     const orderData = {
         name: name,
@@ -51,6 +63,35 @@ export const AdminCreateOrder = () => {
         user_id: null,
         comment: comment
     };
+
+    const renderModal = () => {
+        if (!openModal) {
+            return null;
+        }
+        console.log('renderModal', openModal, ordersRequest)
+        switch (ordersRequest.status) {
+            case REQUEST_STATUS.PENDING: {
+                return <CircularProgress/>
+            }
+            case REQUEST_STATUS.FAILURE: {
+                return <ModalWindow
+                    data={ordersRequest}
+                    component={ErrorWindow}
+                    openModal={openModal}
+                    closeModal={closeModal}
+                />
+            }
+            case REQUEST_STATUS.SUCCESS: {
+                return <ModalWindow
+                    openModal
+                    data={`Новый заказ ${name} создан`}
+                    component={SuccessModal}
+                    closeModal={closeModal}
+                />
+            }
+        }
+    };
+
 
     return (
         <>
@@ -100,6 +141,7 @@ export const AdminCreateOrder = () => {
                     <MyButtonContained text={"Создать заказ"} onClick={onRegisterOrderClick}/>
                 </Box>
             }
+            {renderModal()}
         </>
     );
 };
