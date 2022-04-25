@@ -1,28 +1,21 @@
 import {
-  Box,
-  Typography
+  Typography,
+  Button
 } from "@mui/material";
 import React from "react";
-import {MyButtonContained} from "../Button/button";
 
 const SuccessModal = ({ data, closeModal }) => {
 
-  const closeSuccessModal = () => {
-    closeModal();
-  };
+  const closeSuccessModal = () => closeModal();
 
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'column'}}>
         <Typography sx={{mt: 3, mb: 3}} variant="h5" component="div">
           {data}
         </Typography>
-
-        <MyButtonContained text={'OK'} onClick={closeSuccessModal} />
-      </Box>
+        <Button fullWidth variant={'contained'} onClick={closeSuccessModal}>Ok</Button>
     </>
   )
-
 }
 
 export default SuccessModal;

@@ -2,9 +2,8 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {CircularProgress, Stack} from "@mui/material";
+import {CircularProgress, Stack, Button} from "@mui/material";
 
-import {MyButtonContained} from "../../Button/button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import {Box} from "@mui/system";
@@ -16,11 +15,15 @@ import SuccessModal from "../../SuccessModal/SuccessModal";
 import {selectRequestOrders} from "../../../store/orders/selector";
 
 export const AdminCreateOrder = () => {
+
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [comment, setComment] = useState('');
+
     const [formVisible, setFormVisible] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false)
+
     const ordersRequest = useSelector(selectRequestOrders);
     const dispatch = useDispatch();
 
@@ -48,6 +51,7 @@ export const AdminCreateOrder = () => {
 
     const showOrderCreationForm = () => {
         setFormVisible((formVisible) => formVisible = !formVisible)
+        setButtonDisabled(!buttonDisabled)
     }
 
     let [openModal, setOpenModal] = useState(false);
@@ -96,12 +100,13 @@ export const AdminCreateOrder = () => {
     return (
         <>
             <Stack sx={{mt: 4, mb: 2}} spacing={2} direction='row'>
-                <MyButtonContained
-                    disabled={false}
-                    sx={{cursor: 'pointer'}}
-                    text={'Новый заказ'}
+                <Button
+                    variant={'contained'}
+                    disabled={buttonDisabled}
                     onClick={showOrderCreationForm}
-                />
+                >
+                    Новый заказ
+                </Button>
             </Stack>
 
             {formVisible &&
@@ -137,8 +142,11 @@ export const AdminCreateOrder = () => {
                                rows={4}
                                onChange={handleCommentChange}
                     />
-
-                    <MyButtonContained text={"Создать заказ"} onClick={onRegisterOrderClick}/>
+                    <Box sx={{mb: 4, display: 'flex'}}>
+                        <Button variant={'contained'} onClick={showOrderCreationForm}>Отменить</Button>
+                        <Box sx={{p:1}}/>
+                        <Button variant={'contained'} onClick={onRegisterOrderClick}>Создать заказ</Button>
+                    </Box>
                 </Box>
             }
             {renderModal()}

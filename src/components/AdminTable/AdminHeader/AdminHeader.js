@@ -1,9 +1,12 @@
 import {useNavigate} from "react-router-dom";
-import {Box, Divider, Stack, Typography} from "@mui/material";
-import {MyButtonContained} from "../../Button/button";
+
+import {Box, Typography, Button} from "@mui/material";
+
 import Menu from "../../../utils/Menu";
 
 export const AdminHeader = () => {
+
+    const nameUser = localStorage.getItem('name_user');
 
     const adminMenu = [
         {
@@ -36,15 +39,13 @@ export const AdminHeader = () => {
 
     return (
         <>
-            <Box sx={{width: '100%', typography: 'body1'}}>
-                <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between'}}>
-                    <Menu menuItem={adminMenu}/>
-                    <Typography sx={{mt: 4}} variant='h4' component='h2'>Стас Администратор</Typography>
-                    <Stack sx={{mt: 4}} spacing={2} direction='row'>
-                        <MyButtonContained  text={'У ВАС СООБЩЕНИЕ'}/>
-                    </Stack>
-                </Box>
-                <Divider variant='string' sx={{ mt: 3, mb: 3 }} />
+            <Box sx={{py: 2, mx: -1, display: 'flex', alignItems: 'center'}}>
+                <Menu menuItem={adminMenu}/>
+                <Typography align="left" variant="h3" marginLeft={2}>
+                    {nameUser}
+                </Typography>
+                <Box sx={{flexGrow: 1}}/>
+                <Button variant='contained' sx={{mr: 1}}>У ВАС СООБЩЕНИЕ</Button>
             </Box>
         </>
     );

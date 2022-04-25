@@ -1,5 +1,5 @@
-import {Typography, Box, FormControl, NativeSelect, InputLabel, CircularProgress} from '@mui/material';
-import {MyButtonContained} from "../Button/button";
+import {Typography, Box, FormControl, NativeSelect, InputLabel, CircularProgress, Button} from '@mui/material';
+
 import {useDispatch, useSelector} from "react-redux";
 import {changeOrder} from "../../store/orders/actions";
 import {selectCouriersByStatus} from "../../store/couriers/selector";
@@ -25,7 +25,7 @@ const OrderAppointmentCourierModal = ({data, closeModal}) => {
     const dispatch = useDispatch();
     const onChangeCourier = (event) => {
         // console.log('onChangeCourier ', event.target.value);
-        setCurrentCourierID ( event.target.value);
+        setCurrentCourierID(event.target.value);
     };
 
     const onClickHandle = () => {
@@ -43,7 +43,8 @@ const OrderAppointmentCourierModal = ({data, closeModal}) => {
         switch (ordersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
-            };
+            }
+                ;
             case REQUEST_STATUS.FAILURE: {
                 return <ModalWindow
                     data={ordersRequest}
@@ -51,7 +52,8 @@ const OrderAppointmentCourierModal = ({data, closeModal}) => {
                     openModal={openModal}
                     closeModal={closeModal}
                 />
-            };
+            }
+                ;
             case REQUEST_STATUS.SUCCESS: {
                 return <ModalWindow
                     openModal
@@ -59,45 +61,47 @@ const OrderAppointmentCourierModal = ({data, closeModal}) => {
                     component={SuccessModal}
                     closeModal={closeModal}
                 />
-            };
+            }
+                ;
             default:
                 return <></>
-        };
+        }
+        ;
     };
-
 
 
     return (
         <>
             <Box>
-                <Typography variant='h6' component='h2'>
-                    Название доставки: {data.name} ID: {data.id}
+                <Typography variant='h4'>
+                    {data.name} ID: {data.id}
                 </Typography>
-                <Typography sx={{ pt: 1 }}>
+                <Typography sx={{mt: 4}}>
                     Доставить до: {data.delivery_date}
                 </Typography>
-                <Typography sx={{ pt: 2 }}>
+                <Typography>
                     Адрес доставки: {data.address}
                 </Typography>
-                <Box sx={{ pt: 2 }}>
-                    <FormControl fullWidth >
+                <Box sx={{mt: 6}}>
+                    <FormControl fullWidth>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">
                             ФИО курьера, назначаемого на заказ
                         </InputLabel>
                         <NativeSelect
                             defaultValue={-1}
                             onChange={(event) => onChangeCourier(event)}>
-                            { couriersOnlineAndNull.map(item => (
+                            {couriersOnlineAndNull.map(item => (
                                 <option
                                     key={item.id}
                                     value={item.id}
                                 >{item.name}</option>
                             ))}
-                            </NativeSelect>
+                        </NativeSelect>
                     </FormControl>
                 </Box>
-            <Box sx={{ pt: 3 }}>
-                    <MyButtonContained  text={'Назначить курьера'} onClick={onClickHandle}/>
+                <Box sx={{mt: 3, display:'flex'}}>
+                    <Box sx={{flexGrow: 1}}/>
+                    <Button variant={'contained'} onClick={onClickHandle}>Назначить курьера</Button>
                 </Box>
             </Box>
             {renderModal()}

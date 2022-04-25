@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {Drawer, IconButton, Box, List, ListItem, ListItemText} from '@mui/material';
+import {Drawer, IconButton, Box, List, ListItemButton, ListItemText} from '@mui/material';
 import {ArrowBack as ArrowBackIcon, Menu as MenuIcon,} from '@mui/icons-material';
 
 
@@ -26,13 +26,12 @@ export default function Menu({menuItem}) {
                 <Box sx={{width: 250, my: 5}}>
                     <List>
                         {menuItem.map((anchor, index) => (
-                            <ListItem
-                                button={true}
+                            <ListItemButton
                                 sx={{mx: 2}}
                                 onClick={toggleDrawer(anchor.func)} key={index}
                             >
                                 <ListItemText primary={anchor.name}/>
-                            </ListItem>
+                            </ListItemButton>
                         ))}
                     </List>
                 </Box>

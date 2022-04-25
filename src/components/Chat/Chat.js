@@ -1,9 +1,11 @@
-import {useDispatch, useSelector} from "react-redux";
-import Typography from "@mui/material/Typography";
-import {Box} from "@mui/material";
-import {initChat, initChats} from "../../store/chats/actions";
+import {Box, Grid, Typography} from "@mui/material";
+
 import {useEffect, useMemo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {initChat, initChats} from "../../store/chats/actions";
 import {selectChatName, selectIfChatExists} from "../../store/chats/selector";
+
 import {MessageList} from "../Messages/MessageList/MessageList";
 import ChatListForCourier from "./ChatList/ChatListForCourier";
 import ChatListForAdmin from "./ChatList/ChatListForAdmin";
@@ -35,28 +37,28 @@ export const Chat = ({mode, currentCourier}) => {
     const chatName = (mode === "Admin") ? chatNameCourier : "Администратор";
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Box >
-                {(mode === "Admin")
-                    ? <ChatListForAdmin onSelectChat={handleSelectChat}/>
-                    : (mode === "Courier")
-                        ? <ChatListForCourier currentCourier={currentCourier}/>
-                        : <></>}
-            </Box>
-            <Box >
-                <Typography sx={{ mb: 2, ml:15 }} variant="h5" >
-                    {!!currentChatId && `ЧАТ - ${chatName}`}
-                </Typography>
-                {!!currentChatId && (checkChatId
-                    ? (
-                        <>
-                            <div>
-                                <MessageList chatId={currentChatId}/>
-                            </div>
-                        </>
-                    )
-                    : <Typography variant="h2" > Выберите существующий чат </Typography>)}
-            </Box>
+        <Box sx={{mt: 2}}>
+            <Grid container spacing={4}>
+                <Grid item xs={12} md={4}>
+                    <Box>
+                        {(mode === "Admin")
+                            ? <ChatListForAdmin onSelectChat={handleSelectChat}/>
+                            : (mode === "Courier")
+                                ? <ChatListForCourier currentCourier={currentCourier}/>
+                                : <></>}
+                    </Box>
+                </Grid>
+                <Grid item xs={12} md={8}>
+                    <Box sx={{mb: 2}}>
+                        <Typography sx={{mb: 2}} variant="h4">
+                            {!!currentChatId && `${chatName}`}
+                        </Typography>
+                        {!!currentChatId && (checkChatId
+                            ? <MessageList chatId={currentChatId}/> : <Typography variant="h4"> Выберите существующий чат </Typography>
+                        )}
+                    </Box>
+                </Grid>
+            </Grid>
         </Box>
     );
 };

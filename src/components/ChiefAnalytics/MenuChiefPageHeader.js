@@ -1,13 +1,12 @@
 import {useNavigate} from "react-router-dom";
 
 import Menu from "../../utils/Menu";
+
 import {Box, Typography} from "@mui/material";
 
 export const MenuChiefPageHeader = () => {
-    // Заглушки
-    const dataFromDB = {
-        name: 'Олег Руководитель',
-    }
+
+    const nameUser = localStorage.getItem('name_user');
 
     const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ export const MenuChiefPageHeader = () => {
             <Box sx={{py: 2, mx: -1, display: 'flex', alignItems: 'center'}}>
                 <Menu menuItem={menuItem}/>
                 <Typography align="left" variant="h3" marginLeft={2}>
-                    {dataFromDB.name}
+                    {nameUser}
                 </Typography>
             </Box>
         </>

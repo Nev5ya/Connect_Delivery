@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Box,  TextField} from '@mui/material';
-import {MyButtonContained, MyButtonOutlined} from "../Button/button";
+import {useState} from 'react';
+import {Box, TextField, Button, Typography} from '@mui/material';
+
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {useDispatch, useSelector} from "react-redux";
 import {changeCourier} from "../../store/couriers/actions";
@@ -29,8 +29,7 @@ const CourierRedactEdit = ({data, closeModal}) => {
         if (couriersRequest.error === null) {
             // console.log('couriersRequest.error', couriersRequest.error)
             closeEdit();
-        }
-        else {
+        } else {
             setOpenError(true);
         }
     };
@@ -46,38 +45,35 @@ const CourierRedactEdit = ({data, closeModal}) => {
 
     return (
         <>
-             <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                    <TextField
-                         disabled
-                         id="id"
-                         label="ID курьера"
-                         defaultValue={data.id}
-                         variant="standard"
-                    />
-                    <TextField sx={{ mt: 1 }}
-                        required
-                        id="name"
-                        label="ФИО курьера"
-                        defaultValue={data.name}
-                        variant="standard"
-                    />
+            <Typography variant={'h5'} sx={{mb: 2}}>
+                ID: {data.id}
+            </Typography>
+            <TextField sx={{mt: 1}}
+                       fullWidth
+                       required
+                       id="name"
+                       label="ФИО курьера"
+                       defaultValue={data.name}
+                       variant="standard"
+            />
 
-                    <TextField sx={{ mt: 1 }}
-                        required
-                        id="email"
-                        label="email курьера"
-                        defaultValue={data.email}
-                        variant="standard"
-                    />
-                    <Box sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <MyButtonContained text={'Сохранить'} onClick={onClickHandle}/>
-                        <MyButtonOutlined text={'Отмена'} onClick={closeEdit}/>
-                    </Box>
-                 </Box>
-                {openError
-                    ? <ModalWindow data={couriersRequest} component={ErrorWindow} openModal={openError} closeModal={closeError}/>
+            <TextField sx={{mt: 1}}
+                       fullWidth
+                       required
+                       id="email"
+                       label="email курьера"
+                       defaultValue={data.email}
+                       variant="standard"
+            />
+            <Box sx={{pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Button variant={'outlined'} onClick={closeEdit}>Отмена</Button>
+                <Button variant={'contained'} onClick={onClickHandle}>Сохранить</Button>
+            </Box>
+            {openError
+                ? <ModalWindow data={couriersRequest} component={ErrorWindow} openModal={openError}
+                               closeModal={closeError}/>
 
-                    : null
+                : null
             }
         </>
     );
