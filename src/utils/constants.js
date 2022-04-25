@@ -31,13 +31,13 @@ export const colorLabel = (typeLabel, status_id) => {
 
 export const iconCourierStatus = (status_id) => {
   if (status_id === 2) {//'online'
-    return <Brightness1Icon sx={{color: "green"}}/>
+    return <Brightness1Icon size='small' sx={{color: "green"}}/>
   }
   if (status_id === 1) {//'offline'
-    return <Brightness1Icon sx={{color: "grey"}}/>
+    return <Brightness1Icon size='small' sx={{color: "grey"}}/>
   }
   if (status_id === 3) {//'work'
-    return <Brightness1Icon sx={{color: "red"}}/>
+    return <Brightness1Icon size='small' sx={{color: "red"}}/>
   }
 }
 export const pageQtl = 5;

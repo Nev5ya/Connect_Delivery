@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {Typography, Box, CircularProgress} from '@mui/material';
-import {MyButtonContained, MyButtonOutlined} from "../Button/button";
+
+import {Typography, Box, CircularProgress, Button} from '@mui/material';
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {useDispatch, useSelector} from "react-redux";
 import { deleteCourier} from "../../store/couriers/actions";
@@ -67,17 +67,15 @@ const CourierRedactDelete = ({data, closeModal}) => {
     return (
         <>
              <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                 <Typography variant='h6' component='h2'>
-                     Вы уверены, что хотите удалить курьера:
+                 <Typography>
+                     Вы уверены, что хотите удалить учетную запись ID {data.id}?
                  </Typography>
-                 <Typography variant='h8' component='h2'>
-                     ФИО курьера: {data.name}
+                 <Typography variant='h4' sx={{my: 2}}>
+                     {data.name}
                  </Typography>
-                 <Typography sx={{ pt: 1 }}>ID: {data.id}</Typography>
-                 <Typography sx={{ pt: 1 }}>email: {data.email}</Typography>
-                    <Box sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <MyButtonContained text={'Удалить'} color = 'error' onClick={onClickHandle}/>
-                        <MyButtonOutlined text={'Отмена'} onClick={closeEdit}/>
+                    <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+                        <Button variant={'outlined'} onClick={closeEdit}>Отмена</Button>
+                        <Button variant={'contained'} onClick={onClickHandle}>Удалить</Button>
                     </Box>
                  </Box>
             {renderModal()}

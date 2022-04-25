@@ -33,16 +33,15 @@ const ModalWindow = ({data, component, openModal, closeModal, setOption=''}) => 
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 570,
+                        width: 350,
                         bgcolor: 'background.paper',
-                        border: '2px solid #000',
                         boxShadow: 24,
                         padding: 1,
                     }}
                     // ref={rootRef}
                 >
                     <Box className={classes.close}>
-                        <CloseIcon onClick={handleClose} />
+                        <CloseIcon onClick={handleClose} sx={{cursor: 'pointer'}}/>
                     </Box>
                     <Box className={classes.wrapper_flex}>
                        <Component data={data} closeModal={handleClose} setOption={setOption}/>

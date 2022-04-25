@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Typography, Box} from '@mui/material';
-import {MyButtonContained} from "../Button/button";
+import { Typography, Box, Button} from '@mui/material';
+
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CourierRedactEdit from "./CourierRedactEdit";
 import CourierRedactDelete from "./CourierRedactDelete";
@@ -36,20 +36,15 @@ const CourierRedact = ({data, closeModal}) => {
     return (
         <>
             <Box>
-                <Typography variant='h6' component='h2'>
-                   ФИО курьера: {data.name}
+                <Typography variant='h4' sx={{pt:1, pb:2}}>
+                   {data.name}
                 </Typography>
-                <Typography sx={{ pt: 1 }}>ID: {data.id}</Typography>
-                <Typography sx={{ pt: 1 }}>email: {data.email}</Typography>
-                <Box sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <MyButtonContained text={'Редактировать'}
-                                       onClick={onClickHandleRedact}
-                    />
-                    <MyButtonContained text={'Удалить'}
-                                       color = 'error'
-                                       onClick={onClickHandleDelete}//{onDeleteCourier}
-                                       disabled={(data.user_status_id === 3) ? true : false}
-                    />
+                <Typography>ID: {data.id}</Typography>
+                <Typography>email: {data.email}</Typography>
+                <Box sx={{ pt: 4, display: 'flex', justifyContent: 'space-between'}}>
+                    <Button variant={'outlined'} onClick={onClickHandleDelete} disabled={data.user_status_id === 3}>Удалить</Button>
+                    <Button variant={'contained'} onClick={onClickHandleRedact}>Редактировать</Button>
+
                 </Box>
                 {openEdit ? (
                     <ModalWindow data={data} component={CourierRedactEdit} openModal={openEdit} closeModal={closeModalEdit}/>

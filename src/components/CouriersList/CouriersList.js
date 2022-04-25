@@ -1,9 +1,8 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
-import {iconCourierStatus} from "../../utils/constants";
 import {useState} from "react";
+
+import {List, ListItemButton, ListItemIcon, Typography} from '@mui/material';
+
+import {iconCourierStatus} from "../../utils/constants";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CourierRedact from "../CourierRedact/CourierRedact";
 
@@ -25,26 +24,26 @@ export const CouriersList = ({name, couriers, status_id}) => {
     };
 
     return (
-        <div >
-            <Typography sx={{mt: 3}} variant="h6" component="div">
+        <>
+            <Typography sx={{mb: 1}} variant="h5">
                 {name}
             </Typography>
-            <List style={{display: "flex", flexDirection: "column"}}>
+            <List>
                 {couriers.map((courier) =>
-                    <ListItem
-                          sx={{'&:hover': {color:'green', cursor: 'pointer'}}}
-                          key={courier.id}
-                          onClick={(event) => onClickHandle(courier, event)}
+                    <ListItemButton
+                        key={courier.id}
+                        onClick={(event) => onClickHandle(courier, event)}
                     >
-                        <ListItemIcon>
+                        <ListItemIcon sx={{mx: -2}}>
                             {iconCourierStatus(status_id)}
                         </ListItemIcon>
                         {courier.name} ID:{courier.id}
-                    </ListItem>)}
+                    </ListItemButton>)}
             </List>
             {openModal ? (
-                <ModalWindow data={courierCurrent} component={CourierRedact} openModal={openModal} closeModal={closeModal}/>
+                <ModalWindow data={courierCurrent} component={CourierRedact} openModal={openModal}
+                             closeModal={closeModal}/>
             ) : null}
-        </div>
+        </>
     );
 };

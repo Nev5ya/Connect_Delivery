@@ -1,11 +1,14 @@
-import {CouriersList} from "../../CouriersList/CouriersList";
-import MyMap from "../../Map/map";
-import Grid from "@mui/material/Grid";
-import {useSelector} from "react-redux";
-import {selectCouriers, selectCouriersByStatus} from "../../../store/couriers/selector";
-import {useState} from "react";
-import {Box} from "@mui/material";
 import * as React from "react";
+
+import {useState} from "react";
+import {useSelector} from "react-redux";
+
+import MyMap from "../../Map/map";
+
+import {Box, Paper, Grid, Typography} from "@mui/material";
+
+import {CouriersList} from "../../CouriersList/CouriersList";
+import {selectCouriers, selectCouriersByStatus} from "../../../store/couriers/selector";
 
 export const CouriersOperation = () => {
     const couriers = useSelector(selectCouriers);
@@ -20,29 +23,34 @@ export const CouriersOperation = () => {
     const couriersWork = useSelector((state) => selectCouriersByStatus(state, 3));
     const couriersOffline = useSelector((state) => selectCouriersByStatus(state, 1));
 
-      return (
-          <>
-              {clickOnMapToggle
-                  ? <Box xs={{width: '100%'}}>
-                        <MyMap name={''} orders={[]} couriers={couriers}  clickOnMap={clickOnMap}/>
+    return (
+        <>
+            <Typography variant='h4' my={2}>Управление курьерами</Typography>
+            <Box sx={{mt: 3}}>
+                {clickOnMapToggle
+                    ? <Box xs={{width: '100%'}}>
+                        <MyMap name={''} orders={[]} couriers={couriers} clickOnMap={clickOnMap}/>
                     </Box>
-                  : <Grid direction="row" container spacing={2}>
-                      <Grid item xs={6}>
-                          <CouriersList name={'Курьеры онлайн:'} couriers={couriersOnline} status_id={2}/>
-                          <CouriersList name={'Курьеры в процессе доставки:'} couriers={couriersWork} status_id={3}/>
-                          <CouriersList name={'Курьеры оффлайн:'} couriers={couriersOffline} status_id={1}/>
-                      </Grid>
-                      <Grid item xs={6}>
-                          <MyMap name={''}
-                                 orders={[]}
-                                 couriers={couriers}
-                                 clickOnMap={clickOnMap}
-                                 sizeWidth={'450px'}
-                                 sizeHeight={'450px'}
-                                 zoom={8}/>
-                      </Grid>
-                  </Grid>
-              }
-          </>
-      );
+                    : <Grid container spacing={4}>
+                        <Grid item xs={12} md={4}>
+                            <Paper elevation={3} sx={{p: 3}}>
+                                <CouriersList name={'Онлайн:'} couriers={couriersOnline} status_id={2}/>
+                                <CouriersList name={'В доставке:'} couriers={couriersWork} status_id={3}/>
+                                <CouriersList name={'Оффлайн:'} couriers={couriersOffline} status_id={1}/>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} md={8} sx={{mt: -2}}>
+                            <MyMap name={''}
+                                   orders={[]}
+                                   couriers={couriers}
+                                   clickOnMap={clickOnMap}
+                                   sizeWidth={'100%'}
+                                   sizeHeight={'600px'}
+                                   zoom={8}/>
+                        </Grid>
+                    </Grid>
+                }
+            </Box>
+        </>
+    );
 };

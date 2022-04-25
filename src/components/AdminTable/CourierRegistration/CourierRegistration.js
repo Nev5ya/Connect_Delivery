@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import TextField from '@mui/material/TextField';
-import Typography from "@mui/material/Typography";
-import {Box, CircularProgress} from "@mui/material";
-import {MyButtonContained} from "../../Button/button";
+
+import {Box, CircularProgress, Typography, TextField, Button} from "@mui/material";
+
+
 import {registerCourier} from "../../../store/couriers/actions";
 import {useDispatch, useSelector} from "react-redux";
 import ModalWindow from "../../ModalWindow/ModalWindow";
@@ -85,7 +85,8 @@ export const CourierRegistration = () => {
     <>
       <Box component="form"
            sx={{display: 'flex', flexDirection: 'column', width: '100%', maxWidth: 500}}>
-        <Typography variant='h6' component='h2'>Регистрация нового курьера</Typography>
+
+        <Typography variant='h4' my={2}>Управление курьерами</Typography>
 
         <TextField sx={{mt: 2}}
                    required
@@ -128,7 +129,7 @@ export const CourierRegistration = () => {
                    onChange={handleCoordChange}
         />
         <Box sx={{mt: 2}}>
-          <MyButtonContained text={"Зарегистрировать"} onClick={registrationClick}/>
+          <Button variant={'contained'} onClick={registrationClick}>Зарегистрировать</Button>
         </Box>
       </Box>
       {renderModal()}

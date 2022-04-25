@@ -1,34 +1,33 @@
 import React from 'react';
-import {Avatar, Divider, Grid, List, ListItem, ListItemIcon, TextField, ListItemText } from "@mui/material";
+import {Avatar, Typography, Box} from "@mui/material";
 
-const Message = ({id, text, author='', avatar}) => {
-     console.log('Message', id, text, author, avatar)
+const Message = ({id, text, author = '', avatar}) => {
+    console.log('Message', id, text, author, avatar)
 
-        return (
-            <>
-            <List>
-                <ListItem button key={id}>
-                    <ListItemIcon>
+    return (
+        <>
+            <Box sx={{mx: 2, mt: 3, mb: 1}}>
+                <Box sx={{display: 'flex', alignItems: 'center'}}>
                     <Avatar
                         alt={author.toString()}
-                        src={avatar} />
-                    </ListItemIcon>
-                    <ListItemText primary={author}></ListItemText>
-                </ListItem>
-            </List>
-            <Divider />
-            <Grid item xs={12} style={{padding: '10px'}}>
-                <TextField 
-                    // id="outlined-basic-email"  
-                    label={id}
-                    variant="outlined" 
-                    fullWidth 
-                    multiline
-                    value={text}/>
-            </Grid>
-            <Divider />
-            </>
-        )
+                        src={avatar}/>
+                    <Typography sx={{ml: 2}}>{author}</Typography>
+                </Box>
+                <Box sx={{
+                    ml: 1.5,
+                    width: 0,
+                    height: 0,
+                    borderLeft: '8px solid transparent',
+                    borderRight: '8px solid transparent',
+                    borderTop: '8px solid transparent',
+                    borderBottom: '8px solid #ebebeb',
+                }}/>
+                <Box sx={{background: '#ebebeb', borderRadius: 2, p: 2}}>
+                    {text}
+                </Box>
+            </Box>
+        </>
+    )
 };
 
 export default Message;

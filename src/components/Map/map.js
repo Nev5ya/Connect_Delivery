@@ -1,8 +1,10 @@
-import { YMaps, Placemark, Map } from 'react-yandex-maps';
 import {useState, useRef} from "react";
-import {colorLabel} from "../../utils/constants";
 
-function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px', sizeHeight = '800px'}) {
+import { YMaps, Placemark, Map } from 'react-yandex-maps';
+import {colorLabel} from "../../utils/constants";
+import {Typography, Paper} from "@mui/material";
+
+function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '100%', sizeHeight = '600px'}) {
     //console.log('map', couriers, orders)
     const map = useRef(null);
 
@@ -35,7 +37,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                         setCoordinates((prev) => {
                             label.typeLabel = 'order';
                             label.status_id = label.order_status_id;
-                            label.coordinates = result.geoObjects.get(0).geometry.getCoordinates()
+                            // label.coordinates = result.geoObjects.get(0).geometry.getCoordinates()
                             return [...prev, label];
                         })
                     })
@@ -65,7 +67,8 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
 
     return (
         <>
-            <h3>{name}</h3>
+            <Typography variant='h4' sx={{my:2}}>{name}</Typography>
+            <Paper elevation={3}>
             <YMaps
                 query={{
                     apikey: "91ca985a-ff80-4ef6-b511-c2b5e1758f10",
@@ -97,6 +100,7 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '800px'
                     }
                 </Map>
             </YMaps>
+            </Paper>
         </>
     );
 };
