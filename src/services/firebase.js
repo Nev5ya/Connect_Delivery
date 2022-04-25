@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import {
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
     signOut as firebaseSignOut,
     getAuth,
 } from "firebase/auth";
@@ -52,11 +51,9 @@ export const login = async(email, pass) => {
             localStorage.setItem('name_user',json.currentUser.name);
             localStorage.setItem('role_id',json.currentUser.role_id);
             localStorage.setItem('email',json.currentUser.email);
-            console.log(json)
+            localStorage.setItem('city',json.currentUser.city);
+            localStorage.setItem('phone',json.currentUser.phone);
             console.log(json.currentUser)
-            console.log('role_id = ',json.currentUser.role_id)
-            console.log('email = ',json.currentUser.email)
-            console.log('id_user = ',json.currentUser.id)
         })
         .catch(err => console.log('err', err))
 
@@ -86,6 +83,8 @@ export const signOut = async() => {
             localStorage.removeItem('id_user');
             localStorage.removeItem('role_id');
             localStorage.removeItem('name_user');
+            localStorage.removeItem('city');
+            localStorage.removeItem('phone');
         })
         .catch(err => console.log('err', err))
 
