@@ -1,15 +1,6 @@
 import { Typography, Box } from '@mui/material';
-import {MyButtonContained} from "../Button/button";
 
-const OrderDescriptionModal = ({data, closeModal, setOption}) => {
-    // console.log('CourierRedact', data);
-
-    const onClickHandle = () => {
-        setOption('1');
-        // console.log('onClickHandle CourierRedact');
-        closeModal();
-    };
-
+const OrderDescriptionModal = ({data}) => {
     return (
         <>
             <Box>
@@ -27,9 +18,6 @@ const OrderDescriptionModal = ({data, closeModal, setOption}) => {
                 <Typography  sx={{ pt: 2 }}>
                     Статус заказа: {data.status}
                 </Typography>
-                <Box sx={{ pt: 3 }}>
-                    <MyButtonContained  text={'Перейти в чат'} onClick={onClickHandle}/>
-                </Box>
             </Box>
         </>
     );
