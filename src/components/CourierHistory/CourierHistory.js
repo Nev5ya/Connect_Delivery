@@ -1,149 +1,107 @@
-import {TableContainer,Paper, Box,} from '@mui/material';
-import Typography from "@mui/material/Typography";
 import * as React from "react";
+
+import {Paper, Box, Typography} from '@mui/material';
+import {DataGrid} from "@mui/x-data-grid";
+
 import {useState} from "react";
 import {useSelector} from "react-redux";
+
 import {selectOrdersForPagin} from "../../store/orders/selector";
-import {withStyles} from "@mui/styles";
-import {DataGrid} from "@mui/x-data-grid";
+
 import PaginationComponent from "../Pagination/Pagination";
+const CourierHistory = ({orders, onClick}) => {
 
-const CourierHistory = ({orders,  onClick}) => {
+    let [page, setPage] = useState(0);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+        // console.log('setPage handleChangePage', newPage);
+    };
 
-	let [page, setPage] = useState(0);
-	const handleChangePage = (event, newPage) => {
-		setPage(newPage);
-		// console.log('setPage handleChangePage', newPage);
-	};
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const handleChangeRowsPerPage = (event) => {
+        setPage(0);
+        setRowsPerPage(parseInt(event.target.value, 10));
+        // console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
+    };
 
-	const [rowsPerPage, setRowsPerPage] = useState(5);
-	const handleChangeRowsPerPage = (event) => {
-		setPage(0);
-		setRowsPerPage(parseInt(event.target.value, 10));
-		// console.log('handleChangeRowsPerPage', page, rowsPerPage, event.target.value);
-	};
+    const ordersForPagin = useSelector(
+        (state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
 
-	const ordersForPagin = useSelector(
-		(state) => selectOrdersForPagin(state, orders, rowsPerPage, page));
-
-	const StyledDataGrid = withStyles({
-		root: {
-			"& .MuiDataGrid-renderingZone": {
-				maxHeight: "none !important"
-			},
-			"& .MuiDataGrid-cell": {
-				lineHeight: "unset !important",
-				maxHeight: "none !important",
-				whiteSpace: "normal"
-			},
-			"& .MuiDataGrid-row": {
-				maxHeight: "none !important"
-			},
-			"& .MuiDataGrid-columnHeaders": {
-				backgroundColor: "#E4E4E4",
-				color: "black",
-				fontSize: 15,
-				weight: 'bold',
-				textAlign: 'center',
-			},
-			'& div[data-rowIndex][role="row"]:nth-of-type(2n)': {
-				backgroundColor: '#fcfcfc',
-			},
-			'& .header-column': {
-				fontWeight: 'bold',
-			},
+    const columns = [
+        {
+			field: 'id',
+			headerName: 'ID',
+			width: 30,
+			headerClassName: 'headerstyle'
 		},
-		header: {
-			fontWeight: 'bold',
-		},
-	})(DataGrid);
+        {
+            field: 'address',
+            headerName: 'АДРЕС ДОСТАВКИ',
+            flex: 2,
+			headerClassName: 'headerstyle'
+        },
+        {
+            field: 'comment',
+            headerName: 'КОММЕНТАРИЙ',
+            flex: 1,
+			headerClassName: 'headerstyle'
+        },
+        {
+            field: 'status',
+            headerName: 'СТАТУС',
+            flex: 0.5,
+			headerClassName: 'headerstyle'
+        },
+        {
+            field: 'name',
+            headerName: 'НАИМЕНОВАНИЕ',
+            flex: 1,
+			headerClassName: 'headerstyle'
+        },
+    ];
 
-	const columns = [
-		{ field: 'id', headerName: 'ID', width: 30 },
-		{
-			field: 'address',
-			headerName: 'АДРЕС ДОСТАВКИ',
-			flex: 2 ,
-			headerAlign: 'center',
-			align: 'center',
-		},
-		{
-			field: 'comment',
-			headerName: 'КОММЕНТАРИЙ',
-			flex: 1 ,
-			headerAlign: 'center',
-			align: 'center',
-		},
-		{
-			field: 'status',
-			headerName: 'СТАТУС',
-			flex: 0.5 ,
-			headerAlign: 'center',
-			align: 'center',
-		},
-		{
-			field: 'name',
-			headerName: 'НАИМЕНОВАНИЕ',
-			flex: 1 ,
-			headerAlign: 'center',
-			align: 'center',
-		},
-	];
+    const rows = ordersForPagin.map((row) => {
+        return {
+            id: row.id,
+            address: row.address,
+            comment: row.comment,
+            status: row.status,
+            name: row.name,
+        }
+    });
+    // console.log('rows', rows)
 
-	const rows = ordersForPagin.map((row) => {
-		return {
-			id: row.id,
-			address: row.address,
-			comment: row.comment,
-			status: row.status,
-			name: row.name,
-		}
-	});
-	// console.log('rows', rows)
+    return (
+        <>
+            <Typography variant='h4' mb={2}>История доставок</Typography>
+            {(orders.length !== 0)
+                ?
+				<Paper elevation={3} sx={{'& .headerstyle': {backgroundColor: '#e5e5e5'}}}>
+                    <DataGrid
+                        autoHeight
+                        rows={rows}
+                        columns={columns}
+                        disableSelectionOnClick
+                        hideFooterPagination={true}
+                        hideFooter={true}
+                        hideFooterRowCount={true}
+                    />
+                    <PaginationComponent type='AdminHistory'
+                                         rows={orders}
+                                         pageQtl={rowsPerPage}
+                                         changePage={handleChangePage}
+                                         changeRowsPerPage={handleChangeRowsPerPage}
+                    />
 
-	return (
-		<>
-			{onClick
-				? <Typography
-					sx={{'&:hover': {color:'green', cursor: 'pointer'}, mt: 4 }}
-					variant="h5"
-					component="div"
-					onClick={onClick}
-				 >История доставки</Typography >
-				: <Typography
-					sx={{ mt: 4 }}
-					variant="h5"
-					component="div"
-				>История доставки</Typography >
-			}
-			{(orders.length !== 0)
-				? <TableContainer component={Paper} style={{ flexGrow: 1 }}>
-					<StyledDataGrid
-						autoHeight
-						rows={rows}
-						columns={columns}
-						disableSelectionOnClick
-						hideFooterPagination={true}
-						hideFooter={true}
-						hideFooterRowCount={true}
-						// onRowClick={(event) => onClickHandle(event.row)}
-					/>
-					<PaginationComponent type='AdminHistory'
-										 rows = {orders}
-										 pageQtl={rowsPerPage}
-										 changePage={handleChangePage}
-										 changeRowsPerPage={handleChangeRowsPerPage}
-					/>
-
-				</TableContainer>
-				: <Box>
-					<Typography sx={{mt: 2, mb: 8}} variant="h6" component="div" >
-						Доставленные заказы отсутствуют
-					</Typography>
-				</Box>
-			}
-		</>
-	);
+				</Paper>
+                : <Box>
+                    <Typography sx={{mt: 2, mb: 8}} variant="h6" component="div">
+                        Доставленные заказы отсутствуют
+                    </Typography>
+                </Box>
+            }
+        </>
+    );
 };
 
 export default CourierHistory;

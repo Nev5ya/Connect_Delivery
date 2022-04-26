@@ -98,7 +98,7 @@ const AdminHistory = () => {
 
     return (
         <>
-            <Typography variant='h4' my={4}>История</Typography>
+            <Typography variant='h4' mt={4} mb={2}>История</Typography>
             <Paper elevation={3} sx={{'& .headerstyle': {backgroundColor: '#e5e5e5'}}}>
                 <DataGrid
                     autoHeight

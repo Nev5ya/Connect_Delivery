@@ -13,27 +13,28 @@ import CouriersPageHeader from "../CouriersPageHeader/CouriersPageHeader";
 
 
 const CouriersPage = () => {
+
     const dispatch = useDispatch();
+
     useEffect((event) => {
-    dispatch(getOrders());
-    dispatch(getCouriers());
-}, []);
+        dispatch(getOrders());
+        dispatch(getCouriers());
+    }, []);
 
     const courierID = +localStorage.getItem('id_user');
-    const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID) );
+    const currentCourier = useSelector((state) => selectCurrentCourier(state, courierID));
     const deliveredOrders = useSelector((state) => selectDeliveredOrdersForCourier(state, courierID));
 
-    console.log('courier',  courierID, currentCourier,  deliveredOrders)
+    console.log('courier', courierID, currentCourier, deliveredOrders)
 
 
-
-     return (
+    return (
         <>
             <CouriersPageHeader currentCourier={currentCourier[0]}/>
             <Routes>
-                <Route index element={<CourierMain />} />
-                <Route path="Chat" element={<Chat  mode="Courier" currentCourier={currentCourier[0]} />} />
-                <Route path="CourierHistory" element={<CourierHistory orders={deliveredOrders}/>} />
+                <Route index element={<CourierMain/>}/>
+                <Route path="Chat" element={<Chat mode="Courier" currentCourier={currentCourier[0]}/>}/>
+                <Route path="CourierHistory" element={<CourierHistory orders={deliveredOrders}/>}/>
             </Routes>
         </>
     );

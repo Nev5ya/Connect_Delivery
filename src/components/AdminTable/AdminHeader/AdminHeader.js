@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 
-import {Box, Typography, Button} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 import Menu from "../../../utils/Menu";
 
@@ -44,7 +44,6 @@ export const AdminHeader = () => {
                 <Typography align="left" variant="h3" marginLeft={2}>
                     {nameUser}
                 </Typography>
-                <Box sx={{flexGrow: 1}}/>
             </Box>
         </>
     );
