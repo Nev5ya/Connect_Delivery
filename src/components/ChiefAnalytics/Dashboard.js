@@ -13,7 +13,7 @@ export const Dashboard = ({orders, couriers}) => {
                     <Grid container alignItems="center" gap={1}>
                         <Grid item xs={12}>
                             <Typography align="left" variant="h4" marginY={2}>
-                                Dashboard
+                                Дашборд
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -23,7 +23,7 @@ export const Dashboard = ({orders, couriers}) => {
                                     <Typography variant="h5">На
                                         линии <strong>{couriersOnline.length}</strong> курьер(а)</Typography>
                                     <Typography variant="h5" pt={1}>
-                                        Доставленно <strong>{ordersDelivered.length}</strong> заказ(ов)
+                                        Доставлено <strong>{ordersDelivered.length}</strong> заказ(ов)
                                     </Typography>
                                 </Box>
                             </Paper>

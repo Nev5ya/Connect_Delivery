@@ -39,7 +39,7 @@ export const Statistic = ({orders, couriers}) => {
     return (
         <>
             <Typography align="left" variant="h4" my={2}>
-                Statistic
+                Статистика
             </Typography>
             <Paper elevation={3} sx={{width: 580}}>
                 <Typography variant={'h5'} pt={2} align={'center'}>Заказы по статусу</Typography>
