@@ -1,7 +1,11 @@
-import {Paper, Typography, Grid} from "@mui/material";
-import {Box} from "@mui/system";
+import {Paper, Typography, Grid, Box} from "@mui/material";
 
-export const Dashboard = () => {
+export const Dashboard = ({orders, couriers}) => {
+
+    const ordersInWork = orders.filter(el => el.order_status_id === 1)
+    const couriersOnline = couriers.filter(el => el.user_status_id === 2)
+    const ordersDelivered = orders.filter(el => el.order_status_id === 3)
+
     return (
         <>
             <Grid item xs={12}>
@@ -9,19 +13,17 @@ export const Dashboard = () => {
                     <Grid container alignItems="center" gap={1}>
                         <Grid item xs={12}>
                             <Typography align="left" variant="h4" marginY={2}>
-                                Dashboard
+                                Дашборд
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Paper elevation={2}>
+                        <Grid item xs={12} md={6}>
+                            <Paper elevation={3}>
                                 <Box sx={{p: 3}}>
-                                    <Typography variant="h6">В обработке 20 заказов</Typography>
-                                    <Typography variant="h6">На линии 42 курьера</Typography>
-                                    <Typography variant="h6">
-                                        За сегодня доставленно 54 заказа
-                                    </Typography>
-                                    <Typography variant="h6">
-                                        Среднее время доставки 42 минуты
+                                    <Typography variant="h5" pb={1}>В обработке <strong>{ordersInWork.length}</strong> заказов</Typography>
+                                    <Typography variant="h5">На
+                                        линии <strong>{couriersOnline.length}</strong> курьер(а)</Typography>
+                                    <Typography variant="h5" pt={1}>
+                                        Доставлено <strong>{ordersDelivered.length}</strong> заказ(ов)
                                     </Typography>
                                 </Box>
                             </Paper>

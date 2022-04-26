@@ -1,50 +1,93 @@
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {
+    PieChart,
+    Pie,
+    Cell,
+    Legend,
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid
+} from 'recharts';
 
-import {Box, Paper, Grid, Typography} from "@mui/material";
-export const Statistic = () => {
+import {Box, Paper, Typography} from "@mui/material";
+
+export const Statistic = ({orders, couriers}) => {
+
+    const ordersInWork = orders.filter(el => el.order_status_id === 1)
+    const ordersInProcess = orders.filter(el => el.order_status_id === 2)
+    const ordersDelivered = orders.filter(el => el.order_status_id === 3)
 
     const data = [
-        { name: 'ID 1', uv: 400, pv: 2400, amt: 2400 },
-        { name: 'ID 2', uv: 375, pv: 2400, amt: 2400 },
-        { name: 'ID 3', uv: 148, pv: 2400, amt: 2400 },
-        { name: 'ID 4', uv: 310, pv: 2400, amt: 2400 },
-        { name: 'ID 5', uv: 330, pv: 2400, amt: 2400 },
-        { name: 'ID 6', uv: 225, pv: 2400, amt: 2400 },
-        { name: 'ID 7', uv: 310, pv: 2400, amt: 2400 },
-        { name: 'ID 8', uv: 100, pv: 2400, amt: 2400 },
-    ]
+        {name: 'Обрабатываются', value: ordersInWork.length},
+        {name: 'Доставляются', value: ordersInProcess.length},
+        {name: 'Доставлены', value: ordersDelivered.length},
+    ];
+    const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+    const couriersOnline = couriers.filter(el => el.user_status_id === 2)
+    const couriersOfline = couriers.filter(el => el.user_status_id === 1)
+
+    const data2 = [
+        {
+            name: "",
+            online: couriersOnline.length,
+            offline: couriersOfline.length
+        }
+    ];
 
     return (
         <>
-            <Grid item xs={12}>
-                <Paper elevation={0}>
-                    <Grid container alignItems="center" gap={1}>
-                        <Grid item xs={12}>
-                            <Typography align="left" variant="h4" marginY={2}>
-                                Statistic
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Paper elevation={2}>
-                                <Box sx={{py: 2}}>
-                                    <LineChart
-                                        width={540}
-                                        height={300}
-                                        data={data}
-                                        margin={{top: 5, right: 20, bottom: 5, left: 0}}
-                                    >
-                                        <Line type="monotone" dataKey="uv" stroke="#8884d8"/>
-                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                                        <XAxis dataKey="name"/>
-                                        <YAxis/>
-                                        <Tooltip/>
-                                    </LineChart>
-                                </Box>
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </Grid>
+            <Typography align="left" variant="h4" my={2}>
+                Статистика
+            </Typography>
+            <Paper elevation={3} sx={{width: 580}}>
+                <Typography variant={'h5'} pt={2} align={'center'}>Заказы по статусу</Typography>
+                <Box sx={{py: 2}}>
+                    <PieChart width={580} height={250}>
+                        <Pie
+                            data={data}
+                            cx="50%"
+                            cy="90%"
+                            startAngle={180}
+                            endAngle={0}
+                            innerRadius={150}
+                            outerRadius={200}
+                            fill="#8884d8"
+                            paddingAngle={2}
+                            dataKey="value"
+                        >
+                            {data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+                            ))}
+                        </Pie>
+                        <Legend iconSize={20} layout="horizontal" verticalAlign="bottom"/>
+                    </PieChart>
+                </Box>
+            </Paper>
+            <Paper elevation={3} sx={{width: 580, mt: 4}}>
+                <Typography variant={'h5'} pt={2} align={'center'}>Курьеры по статусу</Typography>
+                <Box sx={{py: 2}}>
+                    <BarChart
+                        width={520}
+                        height={300}
+                        data={data2}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Legend />
+                        <Bar dataKey="online" fill="#8884d8" />
+                        <Bar dataKey="offline" fill="#82ca9d" />
+                    </BarChart>
+                </Box>
+            </Paper>
         </>
     )
 }

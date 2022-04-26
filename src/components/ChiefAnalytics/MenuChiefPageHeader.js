@@ -14,8 +14,8 @@ export const MenuChiefPageHeader = () => {
     const goToStatistic = () => navigate('/ChiefAnalytics/statistic')
 
     const menuItem = [
-        {name: 'Dashboard', func: goToDashboard},
-        {name: 'Statistic', func: goToStatistic},
+        {name: 'Дашборд', func: goToDashboard},
+        {name: 'Статистика', func: goToStatistic},
     ];
 
     return (
