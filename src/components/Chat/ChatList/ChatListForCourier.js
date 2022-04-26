@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
     Box,
     List,
@@ -5,17 +7,14 @@ import {
     ListItemAvatar,
     ListItemText,
     Avatar,
-    IconButton,
+    Paper,
+    Badge,
+    Typography
 } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
-import { Demo, StyledBadge } from './ChatListStyle';
-import React from "react";
+
 import {useDispatch, useSelector} from "react-redux";
 import {addChatFb} from "../../../store/chats/actions";
 import {selectChats} from "../../../store/chats/selector";
-import AddCommentSharpIcon from '@mui/icons-material/AddCommentSharp';
-import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
 
 export default function ChatListForCourier({currentCourier}) {
     const courierID = +localStorage.getItem('id_user');
@@ -34,53 +33,23 @@ export default function ChatListForCourier({currentCourier}) {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Box sx={{width: '100%'}}>
+            <Typography variant="h4">
+                Список чатов
+            </Typography>
+            <Paper elevation={3} sx={{mt: 2}}>
+                <List>
+                    <ListItem key={courierID}>
+                        <ListItemAvatar>
+                            <Badge color="secondary" overlap="circular" badgeContent={1}>
+                                <Avatar/>
+                            </Badge>
+                        </ListItemAvatar>
+                        <ListItemText primary='Чат с администратором'/>
+                    </ListItem>
 
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    maxWidth: 350,
-                }}
-            >
-                <Typography variant="h5" >
-                    Список чатов
-                </Typography>
-                <Demo sx={{ mt: 1, mb: 2 }}>
-                    <List sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <ListItem
-                            key={courierID}
-                            secondaryAction={
-                            <>
-                                { chatList.filter((ch) =>
-                                    `chat-${courierID}` === ch.id).length === 0 //&& ch.name === courierName
-                                   ?<Tooltip title="Создать чат">
-                                        <IconButton
-                                            edge='end'
-                                            aria-label='AddChat'
-                                            onClick={()=>handleAddChat(courierID, courierName)}>
-                                            <AddCommentSharpIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                    : <></>
-                                }
-                            </>
-                            }
-                        >
-                            <ListItemAvatar>
-                                <Avatar>
-                                    <StyledBadge badgeContent={1}>
-                                        <MailIcon color='action' />
-                                    </StyledBadge>
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary='Чат с администратором' />
-                        </ListItem>
-
-                    </List>
-                </Demo>
-            </Box>
-
+                </List>
+            </Paper>
         </Box>
     );
 };

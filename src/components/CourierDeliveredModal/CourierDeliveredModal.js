@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import {Typography, Box, CircularProgress} from '@mui/material';
-import {MyButtonContained, MyButtonOutlined} from "../Button/button";
-import ModalWindow from "../ModalWindow/ModalWindow";
-
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectRequestOrders} from "../../store/orders/selector";
 
+import {Typography, Box, CircularProgress, Button} from '@mui/material';
+
+import {selectRequestOrders} from "../../store/orders/selector";
 import {changeOrder} from "../../store/orders/actions";
+
 import {REQUEST_STATUS} from "../../utils/constants";
+
+import ModalWindow from "../ModalWindow/ModalWindow";
 import ErrorWindow from "../ErrorWindow/ErrorWindow";
 import SuccessModal from "../SuccessModal/SuccessModal";
 
-const CourierDeliveredModal = ({data={}, closeModal}) => {
+const CourierDeliveredModal = ({data = {}, closeModal}) => {
 
     const ordersRequest = useSelector(selectRequestOrders);
     console.log('CourierOrder CourierDeliveredModal', data, ordersRequest)
@@ -21,7 +22,7 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
     /////изменение статуса заказа на Доставлено//
     const dispatch = useDispatch();
     const onChangeDelivered = () => {
-        dispatch(changeOrder({id: data.id, order_status_id: 3 }));
+        dispatch(changeOrder({id: data.id, order_status_id: 3}));
     };
 
     const onClickHandle = () => {
@@ -31,21 +32,23 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
             id: data.id,
             name: data.name,
             delivery_date: data.delivery_date,
-            address: data.address})
+            address: data.address
+        })
 
-            setOpenRequestModal(true);
+        setOpenRequestModal(true);
     };
 
     const renderModal = () => {
         // console.log('renderModal', openRequestModal, ordersRequest)
         if (!openRequestModal) {
             return null;
-        };
+        }
 
         switch (ordersRequest.status) {
             case REQUEST_STATUS.PENDING: {
                 return <CircularProgress/>
-            };
+            }
+
             case REQUEST_STATUS.FAILURE: {
                 return <ModalWindow
                     data={ordersRequest}
@@ -53,7 +56,8 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
                     openModal={openRequestModal}
                     closeModal={closeModal}
                 />
-            };
+            }
+
             case REQUEST_STATUS.SUCCESS: {
                 return <ModalWindow
                     openModal
@@ -61,30 +65,25 @@ const CourierDeliveredModal = ({data={}, closeModal}) => {
                     component={SuccessModal}
                     closeModal={closeModal}
                 />
-            };
+            }
+
             default:
                 return <></>
-        };
+        }
     };
 
     return (
         <>
             <Box>
-                <Typography variant='h6' component='h2'>
-                    Название доставки: {data.name} ID: {data.id}
+                <Typography variant='h4'>
+                    {data.name} ID: {data.id}
                 </Typography>
-                <Typography sx={{ pt: 1 }}>
-                    Доставить до: {data.delivery_date}
-                </Typography>
-                <Typography sx={{ pt: 1 }}>
+                <Typography sx={{py: 2}}>
                     Адрес доставки: {data.address}
                 </Typography>
-                <Typography sx={{ pt: 2 }} variant='h5' component='h2'>
-                    Перевести статус заказа в "Доставлено"?
-                </Typography>
-                <Box  sx={{ pt: 5, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <MyButtonContained  text={'Да, доставлено'} onClick={onClickHandle}/>
-                    <MyButtonOutlined text={'Отмена'} onClick={closeModal}/>
+                <Box sx={{pt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Button variant={'outlined'} onClick={closeModal}>Отмена</Button>
+                    <Button variant={'contained'} onClick={onClickHandle}>Доставлено</Button>
                 </Box>
             </Box>
             {renderModal()}
