@@ -13,7 +13,7 @@ export const MessageList = ({chatId}) => {
     const scrollRef = useRef(null);
     const dispatch = useDispatch();
     const messageList = useSelector(selectMessages);
-    console.log('messageList', chatId)
+    console.log('messageList', chatId, messageList)
     useEffect(() => {
         dispatch(initMessages());
     }, []);
@@ -30,7 +30,7 @@ export const MessageList = ({chatId}) => {
             console.log('scrollRef', scrollRef.current)
             return scrollRef.current.scrollIntoView({behaviour: "smooth"});
         }
-    }, [messageList]);
+    }, [messageList[chatId]]);
 
 
     // const currentCourier = useSelector((state) => selectCurrentCourier(state, +(chatId.replace('chat-',''))) );
