@@ -5,7 +5,7 @@ import {colorLabel} from "../../utils/constants";
 import {Typography, Paper} from "@mui/material";
 
 function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '100%', sizeHeight = '600px'}) {
-    //console.log('map', couriers, orders)
+    console.log('map', couriers, orders)
     const map = useRef(null);
 
     const mapData = (coord = [55.752485, 37.627795]) => {
@@ -32,14 +32,19 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '100%',
 
     const showOrders = (ymaps) => {
         orders.forEach(label => {
+            console.log('map showOrders',label, ymaps.geocode(label.address))
                 ymaps.geocode(label.address)
                     .then(result => {
+
                         setCoordinates((prev) => {
                             label.typeLabel = 'order';
                             label.status_id = label.order_status_id;
-                            // label.coordinates = result.geoObjects.get(0).geometry.getCoordinates()
+                            // console.log('map result',label, result.geoObjects.get(0), result )
+                            label.coordinates = (result.geoObjects.get(0) !== undefined) ? result.geoObjects.get(0).geometry.getCoordinates() : ''
+                            // console.log('map setCoordinates label', label.name, label.coordinates)
                             return [...prev, label];
                         })
+                        console.log('map setCoordinates',coordinates)
                     })
         })
     };
@@ -62,7 +67,8 @@ function MyMap({name, couriers, orders, clickOnMap, zoom = 9, sizeWidth= '100%',
     const showLabels = (ymaps) => {
         if (couriers.length !== 0) showCouriers();
         if (orders.length !== 0) showOrders(ymaps);
-        if (couriers.length === 1 && orders.length === 1) addRoute(ymaps);
+        // if (couriers.length === 1 && orders.length === 1) addRoute(ymaps);
+        if (couriers.length === 1 && orders.length !== 0) addRoute(ymaps);
     };
 
     return (

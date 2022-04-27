@@ -81,7 +81,7 @@ export default function ChatListForAdmin({onSelectChat}) {
                                 onClick={(event) => onClickHandle(courier, event)}
                             >
                                 <ListItemAvatar>
-                                    <Badge color="secondary" overlap="circular" badgeContent={1}>
+                                    <Badge color="secondary" overlap="circular" badgeContent={0}>
                                         <Avatar/>
                                     </Badge>
                                 </ListItemAvatar>

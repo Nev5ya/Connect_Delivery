@@ -2,7 +2,7 @@ import React from 'react';
 import {Avatar, Typography, Box} from "@mui/material";
 
 const Message = ({id, text, author = '', avatar}) => {
-    console.log('Message', id, text, author, avatar)
+    //console.log('Message', id, text, author, avatar)
 
     return (
         <>
