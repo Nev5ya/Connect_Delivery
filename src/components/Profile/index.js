@@ -233,8 +233,8 @@ export const Profile = ({onLogout}) => {
                                       }}
                                     >
                                         <TextField fullWidth label="телефон" type="text" id="margin-dense" margin="dense" autoFocus onChange={handlePhoneChange}/>
-                                        <TextField fullWidth label="город" type="text" id="margin-dense" margin="dense" autoFocus onChange={handleCityChange}/>
-                                        <TextField fullWidth label="дата рождения" type="text" id="margin-dense" margin="dense" autoFocus onChange={handleBirthdayChange}/>
+                                        <TextField fullWidth label="город" type="text" id="margin-dense" margin="dense" onChange={handleCityChange}/>
+                                        <TextField fullWidth label="дата рождения" type="text" id="margin-dense" margin="dense" onChange={handleBirthdayChange}/>
                                     </Box>
                                     </DialogContent>
                                     <DialogActions sx={{p:3}}>
