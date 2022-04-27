@@ -53,6 +53,7 @@ export const login = async(email, pass) => {
             localStorage.setItem('email',json.currentUser.email);
             localStorage.setItem('city',json.currentUser.city);
             localStorage.setItem('phone',json.currentUser.phone);
+            localStorage.setItem('date_of_birth',json.currentUser.date_of_birth);
             console.log(json.currentUser)
         })
         .catch(err => console.log('err', err))
@@ -85,6 +86,7 @@ export const signOut = async() => {
             localStorage.removeItem('name_user');
             localStorage.removeItem('city');
             localStorage.removeItem('phone');
+            localStorage.removeItem('date_of_birth');
         })
         .catch(err => console.log('err', err))
 

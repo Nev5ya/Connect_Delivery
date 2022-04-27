@@ -29,7 +29,17 @@ export const Profile = ({onLogout}) => {
 
     const [open, setOpen] = useState(false);
 
+    const [openEdit, setOpenEdit] = useState(false);
+
+    let [city, setCity] = useState(localStorage.getItem('city'));
+
+    let [phone, setPhone] = useState(localStorage.getItem('phone'));
+
+    let [date_of_birth, setDate_of_birth] = useState(localStorage.getItem('date_of_birth'));
+
     const photo = ("../images/default.jpg");
+
+    let email = localStorage.getItem('email');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -39,13 +49,15 @@ export const Profile = ({onLogout}) => {
         setOpen(false);
     };
 
-    const email = localStorage.getItem('email');
+    const handleClickOpenEdit = () => {
+        setOpenEdit(true);
+    };
+
+    const handleCloseEdit = () => {
+        setOpenEdit(false);
+    };
 
     const role = localStorage.getItem('role_id');
-
-    let city = localStorage.getItem('city');
-
-    let phone = localStorage.getItem('phone');
 
     let nameUser = localStorage.getItem('name_user');
 
@@ -91,6 +103,37 @@ export const Profile = ({onLogout}) => {
 
     const handleClick = () => onLogout()
 
+    const inputData = {
+        "auth-token": `${localStorage.getItem("auth-token")}`,
+        "data": {
+            phone: phone,
+            city: city,
+            date_of_birth: date_of_birth
+          }
+    }
+
+    async function getEditingData ()  {
+        const response = await  fetch('https://xn--l1aej.pw/api/profile/update', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body:JSON.stringify(inputData)
+        })
+       .then(response => response.json())
+       .then(data =>  console.log(data))
+       .catch(err => console.log(err)) 
+  }
+ 
+    const handleEdit = () => {
+        getEditingData()
+        localStorage.setItem('city',city);
+        localStorage.setItem('phone',phone);
+        localStorage.setItem('date_of_birth',date_of_birth);
+        setOpenEdit(false)
+    }
+
     const uploadHandler = () => {
         const profileImagesRef = ref(storage, `images/${photoFbName}`);
         uploadBytes(profileImagesRef, state.selectedFile);
@@ -116,10 +159,22 @@ export const Profile = ({onLogout}) => {
 
     const rows = [
         createData('* e-mail:', email),
-        createData('*  phone:', phone),
-        createData('*  city:', city),
-        createData('date of birth:', <h4>1988.01.01</h4>),
+        createData('телефон:', phone),
+        createData('город:', city),
+        createData('дата рождения', date_of_birth),
     ];
+
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+      };
+
+    const handleCityChange = (e) => {
+        setCity(e.target.value);
+      };
+    
+    const handleBirthdayChange = (e) => {
+        setDate_of_birth(e.target.value);
+      };
 
     return (
         <>
@@ -136,8 +191,9 @@ export const Profile = ({onLogout}) => {
                                 <TextField type="file" id="file-uploader" onChange={fotoChangedHandler}/>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={handleClose}>Cancel</Button>
-                                <Button onClick={uploadHandler}>Upload!</Button>
+                                <Button variant="outlined" onClick={handleClose}>отменить</Button>
+                                <Box sx={{flexGrow:1}}/>
+                                <Button variant="contained" onClick={uploadHandler}>загрузить</Button>
                             </DialogActions>
                         </Dialog>
                     </Grid>
@@ -162,17 +218,37 @@ export const Profile = ({onLogout}) => {
                                 </Table>
                             </TableContainer>
                             <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 4, mb: 2}}>
-                                <Button variant="contained" disabled>edit</Button>
-                                <Button variant="contained" disabled>change password</Button>
-                            </Box>
-                            <Box sx={{display: 'flex', justifyContent: 'right'}}>
-                                <Button variant="contained" onClick={handleClick} align={'center'}>Logout</Button>
+                                <Button variant="contained" onClick={handleClickOpenEdit}>редактировать</Button>
+                                <Button variant="contained" onClick={handleClick} align={'center'}>Выход</Button>
+
+                                <Dialog open={openEdit} onClose={handleCloseEdit}>
+                                    <DialogTitle>Изменить данные</DialogTitle>
+                                    <DialogContent id="formElem"dividers>
+                                    <Box
+                                      sx={{
+
+                                        width: '100%' ,
+
+
+                                      }}
+                                    >
+                                        <TextField fullWidth label="телефон" type="text" id="margin-dense" margin="dense" autoFocus onChange={handlePhoneChange}/>
+                                        <TextField fullWidth label="город" type="text" id="margin-dense" margin="dense" autoFocus onChange={handleCityChange}/>
+                                        <TextField fullWidth label="дата рождения" type="text" id="margin-dense" margin="dense" autoFocus onChange={handleBirthdayChange}/>
+                                    </Box>
+                                    </DialogContent>
+                                    <DialogActions sx={{p:3}}>
+                                        <Button variant="outlined" onClick={handleCloseEdit}>отменить</Button>
+                                        <Box sx={{flexGrow:1}}/>
+                                        <Button variant="contained" onClick={handleEdit}>Изменить данные</Button>
+                                    </DialogActions>
+                                </Dialog>
                             </Box>
                         </Paper>
                     </Grid>
                 </Grid>
             </Box>
         </>
-
     );
 };
+
