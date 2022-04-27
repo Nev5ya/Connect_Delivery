@@ -232,9 +232,9 @@ export const Profile = ({onLogout}) => {
 
                                       }}
                                     >
-                                        <TextField fullWidth label="телефон" type="text" id="margin-dense" margin="dense" autoFocus onChange={handlePhoneChange}/>
-                                        <TextField fullWidth label="город" type="text" id="margin-dense" margin="dense" onChange={handleCityChange}/>
-                                        <TextField fullWidth label="дата рождения" type="text" id="margin-dense" margin="dense" onChange={handleBirthdayChange}/>
+                                        <TextField fullWidth label={phone} type="text" id="outlined-basic" margin="dense" autoFocus onChange={handlePhoneChange}/>
+                                        <TextField fullWidth label={city} type="text" id="outlined-basic" margin="dense" onChange={handleCityChange}/>
+                                        <TextField fullWidth label={date_of_birth} type="text" id="outlined-basic" margin="dense" onChange={handleBirthdayChange}/>
                                     </Box>
                                     </DialogContent>
                                     <DialogActions sx={{p:3}}>
