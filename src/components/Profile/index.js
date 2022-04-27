@@ -165,14 +165,17 @@ export const Profile = ({onLogout}) => {
     ];
 
     const handlePhoneChange = (e) => {
+        e.preventDefault();
         setPhone(e.target.value);
       };
 
     const handleCityChange = (e) => {
+        e.preventDefault();
         setCity(e.target.value);
       };
     
     const handleBirthdayChange = (e) => {
+        e.preventDefault();
         setDate_of_birth(e.target.value);
       };
 
