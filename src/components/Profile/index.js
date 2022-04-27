@@ -61,7 +61,7 @@ export const Profile = ({onLogout}) => {
 
     let nameUser = localStorage.getItem('name_user');
 
-    const pattern = <h4 style={{color: 'red'}}>нужно заполнить</h4>
+    const pattern = <h4 >не заполнено</h4>
 
     city = (city === 'null') ?  pattern : city;
 
