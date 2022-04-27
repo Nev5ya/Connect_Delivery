@@ -161,7 +161,7 @@ export const Profile = ({onLogout}) => {
         createData('* e-mail:', email),
         createData('телефон:', phone),
         createData('город:', city),
-        createData('дата рождения', date_of_birth),
+        createData('дата рождения:', date_of_birth),
     ];
 
     const handlePhoneChange = (e) => {
