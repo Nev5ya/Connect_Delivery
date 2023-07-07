@@ -1,1 +1,3 @@
-# Connect_Delivery
+# Сервис автоматизации курьерских служб.
+### Здесь находится фронтенд часть проекта.
+### [Бэкенд часть проекта](https://github.com/Nev5ya/Connect_Delivery_Backend).
